@@ -22,6 +22,17 @@
         </style>
     </head>
     <body>
+        <div class="container">
+            <h1>Update Fuel Prices</h1>
+            <form action="/updateFulePrice" method="POST">
+                <label for="fuel-type">Fuel Type:</label>
+                <input type="text" id="fuel-type" name="fuelType" placeholder="Enter Fuel Type" required />
 
+                <label for="price">Price (per litre):</label>
+                <input type="number" id="price" name="price" step="0.01" min="0" placeholder="Enter price in AUD" required />
+
+                <input type="submit" value="Update Price" />
+                </form>
+        </div>
     </body>
 </html>
