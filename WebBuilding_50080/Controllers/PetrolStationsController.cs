@@ -7,7 +7,7 @@ namespace WebBuilding_50080.Controllers
     public class PetrolStationsController : Controller
     {
 
-
+        [HttpGet]
         public IActionResult UpdateFuelPrice()
         {
             var fuelPrices = new List<FuelPriceModel>
@@ -21,6 +21,7 @@ namespace WebBuilding_50080.Controllers
 
         }
 
+        [HttpPost]
         public IActionResult UpdateFuelPrice(List<FuelPriceModel> updatedFuelPrices)
         {
             foreach (var fuelPrice in updatedFuelPrices)
@@ -36,7 +37,7 @@ namespace WebBuilding_50080.Controllers
     }
     public class FuelPriceModel
     {
-        public string FuelType { get; set; }
+        public string FuelType { get; set; } = string.Empty;
         public double CurrentPrice { get; set; }
         public double UpdatedPrice { get; set; }
     }

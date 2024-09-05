@@ -26,30 +26,31 @@
     <body>
         <div class="container">
             <h1>Update Fuel Prices</h1>
-            
-            <table>
-                <thead>
-                    <tr>
-                        <th>Fuel Type</th>
-                        <th>Current Price (AUD per litre)</th>
-                        <th>Updated Price</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var fuel in Model)
-                    {
+            <form asp-action="UpdateFuelPrice" method="post">
+                <table>
+                    <thead>
                         <tr>
-                            <td>@fuel.FuelType</td>
-                            <td>@fuel.CurrentPrice</td>
-                            <td>
-                                <input type="number" name="UpdatedPrice" min="0" step="0.01" placeholder="Enter New Price" />
-                            </td>
+                            <th>Fuel Type</th>
+                            <th>Current Price (AUD per litre)</th>
+                            <th>Updated Price</th>
                         </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var fuel in Model)
+                        {
+                            <tr>
+                                <td>@fuel.FuelType</td>
+                                <td>@fuel.CurrentPrice</td>
+                                <td>
+                                    <input type="number" name="UpdatedPrice" min="0" step="0.01" placeholder="Enter New Price" />
+                                </td>
+                            </tr>
                     
-                    }
-                </tbody>
-            </table>
-            <input type="submit" value="Update Prices" />
+                        }
+                    </tbody>
+                </table>
+                <input type="submit" value="Update Prices" />
+            </form>
         </div>
         
     </body>
