@@ -8,5 +8,10 @@ namespace WebBuilding_50080.Controllers
         {
             return View();
         }
+
+        public IActionResult UpdateFuelPrice()
+        {
+            return View();
+        }
     }
 }
