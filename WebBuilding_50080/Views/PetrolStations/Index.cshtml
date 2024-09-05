@@ -13,7 +13,23 @@
     <body>
         <div class="container">
             <h1>Welcome to the UTR Price Management page</h1>
-
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fuel Type</th>
+                        <th>Current Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var fuel in Model)
+                {
+                    <tr>
+                        <td>@fuel.FuelType</td>
+                        <td>@fuel.CurrentPrice</td>
+                    </tr>
+                }
+            </tbody>
+            </table>
             <a href="/PetrolStations/UpdateFuelPrice">Update Fuel Price</a>
         </div>
     </body>
