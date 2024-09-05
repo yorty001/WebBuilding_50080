@@ -1,0 +1,51 @@
+﻿@page
+@using WebMatrix.Data
+
+@{
+    var db = Database.Open("UTRDB");
+    var result = db.Query("SELECT * FROM Customers");
+}
+
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to UTR</h1>
+
+    <p><a href="@Url.Action("Index", "Menu")">Menu</a></p>
+    <p><a href="@Url.Action("Index", "PetrolStations")">Petrol Stations</a></p>
+
+</div>
+
+
+<div class="container">
+        <h1>Customer List</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Card Name</th>
+                    <th>Card Number</th>
+                    <th>Card Expiry Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var customer in result)
+                {
+                    <tr>
+                        <td>@customer.FirstName</td>
+                        <td>@customer.LastName</td>
+                        <td>@customer.Email</td>
+                        <td>@customer.CardName</td>
+                        <td>@customer.CardNum</td>
+                        <td>@customer.CardDate?.ToShortDateString()</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+</div>

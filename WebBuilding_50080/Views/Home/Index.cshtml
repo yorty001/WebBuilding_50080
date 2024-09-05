@@ -1,4 +1,34 @@
-﻿@{
+﻿@using WebMatrix.Data
+@using System.Data.SqlClient;
+@{
+    string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\costa\\OneDrive\\Documents\\01 - University\\WebBuilding_50080\\WebBuilding_50080\\App_Data\\UTRDB.mdf;Integrated Security=True;Connect Timeout=30";
+
+    //var db = Database.Open("Data Source=.\\SQLEXPRESS;Initial Catalog=utrDatabase;Integrated Security=True;Pooling=False;Encrypt=True;Trust Server Certificate=True);");
+    // var result = db.Query("SELECT * FROM Customer");
+
+    SqlConnection conn = new SqlConnection(connectionString);
+    conn.Open();
+
+    SqlCommand cmd = new SqlCommand("SELECT * FROM Customer");
+    cmd.CommandType = System.Data.CommandType.Text;
+    cmd.Connection = conn;
+
+    var data = new List<(string firstName, string lastName, string email)>();
+    string temp = "";
+    SqlDataReader reader = cmd.ExecuteReader();
+
+    while (reader.Read())
+    {
+        var firstName = reader["firstName"].ToString();
+        var lastName = reader["lastName"].ToString();
+        var email = reader["email"].ToString();
+        data.Add((firstName, lastName, email));
+
+    }
+    conn.Close();
+}
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -9,4 +39,29 @@
     <p><a href="@Url.Action("Index", "PetrolStations")">Petrol Stations</a></p>
     <p><a href="@Url.Action("Index", "Payment")">Payment</a></p>
     <p><a href="@Url.Action("UpdateFuelPrice", "PetrolStations")">Update Fuel Price</a></p>
+</div>
+
+
+<div class="container">
+        <h1>Customer List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in data)
+            {
+                <tr>
+                    <td>@row.firstName</td>
+                    <td>@row.lastName</td>
+                    <td>@row.email</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
 </div>
