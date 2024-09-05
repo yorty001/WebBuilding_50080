@@ -1,14 +1,41 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebBuilding_50080.Services;
 
-namespace WebBuilding_50080.Controllers
+namespace server.Controllers
 {
-    public class Payment : Controller
+
+    namespace WebBuilding_50080.Controllers
     {
-        public IActionResult Index()
+        public class Payment : Controller
         {
-            return View();
+            private readonly PaymentService _paymentService;
+
+            public Payment(PaymentService paymentService)
+            {
+                _paymentService = paymentService;
+            }
+
+            [HttpPost]
+            public IActionResult ProcessPayment(int customerID, decimal amount)
+            {
+                bool paymentSuccess = _paymentService.ProcessPayment(customerID, amount);
+
+                if (paymentSuccess)
+                {
+                    return Ok(new { message = "Payment Processed successfully." });
+                }
+                else
+                {
+                    return BadRequest(new { message = "Payment processing failed." });
+                }
+            }
+            public IActionResult Index()
+            {
+                return View();
+            }
+
+
         }
 
-      
     }
 }
