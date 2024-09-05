@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model List<WebBuilding_50080.Controllers.FuelPriceModel>
+
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -24,15 +26,30 @@
     <body>
         <div class="container">
             <h1>Update Fuel Prices</h1>
-            <form action="/updateFulePrice" method="POST">
-                <label for="fuel-type">Fuel Type:</label>
-                <input type="text" id="fuel-type" name="fuelType" placeholder="Enter Fuel Type" required />
-
-                <label for="price">Price (per litre):</label>
-                <input type="number" id="price" name="price" step="0.01" min="0" placeholder="Enter price in AUD" required />
-
-                <input type="submit" value="Update Price" />
-                </form>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fuel Type</th>
+                        <th>Current Price (AUD per litre)</th>
+                        <th>Updated Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var fuel in Model)
+                    {
+                        <tr>
+                            <td>@fuel.FuelType</td>
+                            <td>@fuel.CurrentPrice</td>
+                            <td>
+                                <input type="number" name="UpdatedPrice" min="0" step="0.01" placeholder="Enter New Price" />
+                            </td>
+                        </tr>
+                    
+                    }
+                </tbody>
+            </table>
+            <input type="submit" value="Update Prices" />
         </div>
         
     </body>
