@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 
 namespace WebBuilding_50080.Controllers
 {
     public class PetrolStationsController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+
 
         public IActionResult UpdateFuelPrice()
         {
@@ -19,13 +18,26 @@ namespace WebBuilding_50080.Controllers
             };
 
             return View(fuelPrices);
+
         }
 
+        public IActionResult UpdateFuelPrice(List<FuelPriceModel> updatedFuelPrices)
+        {
+            foreach (var fuelPrice in updatedFuelPrices)
+            {
+                Console.WriteLine($"Updated price for {fuelPrice.FuelType}: {fuelPrice.UpdatedPrice}");
+            }
+            return RedirectToAction("Index");
+        }
+        public IActionResult Index()
+        { 
+            return View();
+        }
     }
     public class FuelPriceModel
     {
         public string FuelType { get; set; }
         public double CurrentPrice { get; set; }
-        public string UpdatedPrice { get; set; }
+        public double UpdatedPrice { get; set; }
     }
 }
