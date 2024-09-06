@@ -13,9 +13,13 @@ namespace WebBuilding_50080.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index(bool isLoggedIn = false)
+        public IActionResult Index(int loginStatus = 0)
         {
-            ViewBag.isLoggedIn = isLoggedIn;
+            if (loginStatus != 0)
+            {
+                ViewBag.loginStatus = loginStatus;
+            }
+            
             return View();
         }
 

@@ -1,10 +1,12 @@
 ﻿@using WebMatrix.Data
 @using System.Data.SqlClient;
+@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.AspNetCore.Http;
 
 
 @{
     ViewData["Title"] = "Home Page";
-   
+    int number = Request.Q
 }
 
 <div class="text-center">
@@ -14,17 +16,17 @@
     <p><a href="@Url.Action("Index", "PetrolStations")">Petrol Stations</a></p>
     <p><a href="@Url.Action("Index", "Payment",new {ViewBag.isLoggedIn})">Payment</a></p>
     <p><a href="@Url.Action("UpdateFuelPrice", "PetrolStations", new {ViewBag.isLoggedIn})">Update Fuel Price</a></p>
-    <p><a href="@Url.Action("Index", "Login", new {ViewBag.isLoggedIn})">Login</a></p>
+    <p><a href="@Url.Action("Index", "Login", new {ViewBag.loginStatus})">Login</a></p>
 </div>
-<p>@ViewBag.LoginStatus</p>
-<div class="container">
-
-    @if (ViewBag.isLoggedIn == true)
-    {
-        <p>Welcome back! You are logged in.</p>
-       <h3> YOU ARE LOGGED IN </h3>
-        <!-- Display content for logged-in users here -->
-    } 
-</div>
+<p>@Request.Query["loginStatus"]</p>
+<p>@ViewBag.loginStatus</p>
+@if (ViewBag.loginStatus == 1)
+{
+    <p>YOU ARE CUSTOMER</p>
+} 
+else if (ViewBag.loginStatus == 2)
+{
+    <p>YOU ARE MANAGER</p>
+}
 
 

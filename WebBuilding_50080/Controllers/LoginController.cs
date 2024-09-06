@@ -20,17 +20,25 @@ namespace WebBuilding_50080.Controllers
             SqlConnection db = new SqlConnection(connectionString);
      
                 db.Open();
-                SqlCommand cmdQ = new SqlCommand("SELECT email, pass FROM Manager WHERE email = @Email AND pass = @Password UNION SELECT email, pass FROM Customer WHERE email = @Email AND pass = @Password", db);
+                SqlCommand cmdQ = new SqlCommand("SELECT email, pass, 'Manager' AS userType FROM Manager WHERE email = @Email AND pass = @Password UNION SELECT email, pass, 'Customer' AS userType FROM Customer WHERE email = @Email AND pass = @Password", db);
 
                 cmdQ.Parameters.AddWithValue("@Email", email);
                 cmdQ.Parameters.AddWithValue("@Password", pass);
 
                 SqlDataReader reader = cmdQ.ExecuteReader();
-                if (reader.HasRows)
+                if (reader.Read())
                 {
                 // Redirect to a success page or handle successful login
-             
-                    return RedirectToAction("Index","Home", new {isLoggedIn = true});
+                    string userType = reader["userType"].ToString();
+                    if (userType == "Manager")
+                {
+                    ViewBag.loginStatus = 2;
+                }
+                    else if (userType == "Customer")
+                {
+                    ViewBag.loginStatus = 1;
+                }
+                    return RedirectToAction("Index","Home", new {ViewBag.loginStatus});
                 }
                 else
                 {
