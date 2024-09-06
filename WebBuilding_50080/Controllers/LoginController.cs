@@ -8,6 +8,7 @@ namespace WebBuilding_50080.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            
             return View();
         }
 
@@ -27,8 +28,9 @@ namespace WebBuilding_50080.Controllers
                 SqlDataReader reader = cmdQ.ExecuteReader();
                 if (reader.HasRows)
                 {
-                    // Redirect to a success page or handle successful login
-                    return RedirectToAction("Index","Home");
+                // Redirect to a success page or handle successful login
+             
+                    return RedirectToAction("Index","Home", new {isLoggedIn = true});
                 }
                 else
                 {

@@ -15,6 +15,15 @@
     <p><a href="@Url.Action("UpdateFuelPrice", "PetrolStations")">Update Fuel Price</a></p>
     <p><a href="@Url.Action("Index", "Login")">Login</a></p>
 </div>
+<p>@ViewBag.LoginStatus</p>
+<div class="container">
 
+    @if (ViewBag.isLoggedIn == true)
+    {
+        <p>Welcome back! You are logged in.</p>
+       <h3> YOU ARE LOGGED IN </h3>
+        <!-- Display content for logged-in users here -->
+    } 
+</div>
 
 

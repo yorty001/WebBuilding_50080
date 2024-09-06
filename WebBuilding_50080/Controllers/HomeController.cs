@@ -13,8 +13,9 @@ namespace WebBuilding_50080.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(bool isLoggedIn = false)
         {
+            ViewBag.isLoggedIn = isLoggedIn;
             return View();
         }
 
