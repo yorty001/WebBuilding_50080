@@ -37,6 +37,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.4" />
     <PackageReference Include="MySql.Data" Version="9.0.0" />
+    <PackageReference Include="Stripe.net" Version="45.11.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
     <PackageReference Include="WebMatrix.Data" Version="2.0.30506" />
   </ItemGroup>
