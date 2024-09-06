@@ -1,12 +1,11 @@
 ﻿@using WebMatrix.Data
 @using System.Data.SqlClient;
-@using Microsoft.AspNetCore.Mvc;
-@using Microsoft.AspNetCore.Http;
+
 
 
 @{
     ViewData["Title"] = "Home Page";
-    int number = Request.Q
+    
 }
 
 <div class="text-center">
@@ -18,7 +17,6 @@
     <p><a href="@Url.Action("UpdateFuelPrice", "PetrolStations", new {ViewBag.isLoggedIn})">Update Fuel Price</a></p>
     <p><a href="@Url.Action("Index", "Login", new {ViewBag.loginStatus})">Login</a></p>
 </div>
-<p>@Request.Query["loginStatus"]</p>
 <p>@ViewBag.loginStatus</p>
 @if (ViewBag.loginStatus == 1)
 {
