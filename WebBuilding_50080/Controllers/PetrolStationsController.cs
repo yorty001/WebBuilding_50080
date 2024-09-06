@@ -4,13 +4,15 @@ namespace WebBuilding_50080.Controllers
 {
     public class PetrolStationsController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index(bool isLoggedIn = false)
         {
+            ViewBag.isLoggedIn = isLoggedIn;
             return View();
         }
 
-        public IActionResult UpdateFuelPrice()
+        public IActionResult UpdateFuelPrice(bool isLoggedIn = false)
         {
+            ViewBag.isLoggedIn = isLoggedIn;
             return View();
         }
     }
