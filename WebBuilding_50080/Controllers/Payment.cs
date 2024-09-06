@@ -17,9 +17,9 @@ namespace server.Controllers
 
             [HttpPost]
             [Route("create-checkout-session")]
-            public IActionResult CreateCheckoutSession(String amount)
+            public IActionResult CreateCheckoutSession([FromBody] List<Cartitem> cartItems)
             {
-                string sessionUrl = _paymentService.CheckoutSession(amount);
+                string sessionUrl = _paymentService.CheckoutSession(cartItems);
 
                 Response.Headers.Add("location", sessionUrl);
                 return new StatusCodeResult(303);

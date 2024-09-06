@@ -15,29 +15,41 @@ namespace WebBuilding_50080.Services
             return true;
         }
 
-        public String CheckoutSession(String Amount)
+        public String CheckoutSession(List<Cartitem> CartItems)
         {
-            var domain = "http://localhost:4242";
-            var options = new SessionCreateOptions
+            if (CartItems == null || CartItems.Count == 0)
             {
-                LineItems = new List<SessionLineItemOptions>
-                {
-                    new SessionLineItemOptions
+                throw new ArgumentException("Cart cannot be empty.");
+            }
+            var domain = "http://localhost:4242";
+
+
+            var LineItems = new List<SessionLineItemOptions>();
+            foreach (var item in CartItems) {
+                LineItems.Add(new SessionLineItemOptions
                     {
-                       Price = Amount, 
-                       // Quantity = 1,    
-                    },
-                },
+                       Price = item.amount,
+                       Quantity = item.Quantity,    
+                    });
+                }
+                var opt = new SessionCreateOptions
+                {
+                    LineItems = LineItems,
                 Mode = "payment",    
                 SuccessUrl = domain + "/accepted.html",   
                 CancelUrl = domain + "/declined.html",    
-            };
+                };
 
             var service = new SessionService();
-            Session session = service.Create(options);
+            Session session = service.Create(opt);
 
          
             return session.Url;
         }
+    }
+    public class Cartitem
+    {
+        public string amount { get; set; }
+        public int quantity { get; set; }
     }
 }
