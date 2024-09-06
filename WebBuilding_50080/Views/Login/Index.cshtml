@@ -1,0 +1,75 @@
+﻿
+@using System.Data.SqlClient;
+@{
+    ViewData["Title"] = "Login";
+}
+
+@{
+    string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\costa\\OneDrive\\Documents\\01 - University\\WebBuilding_50080\\WebBuilding_50080\\App_Data\\UTRDB.mdf;Integrated Security=True;Connect Timeout=30";
+
+
+    SqlConnection db = new SqlConnection(connectionString);
+    db.Open();
+
+    SqlCommand cmd = new SqlCommand("SELECT * FROM Customer");
+    cmd.CommandType = System.Data.CommandType.Text;
+    cmd.Connection = db;
+
+    var data = new List<(string firstName, string lastName, string email, string pass)>();
+
+    SqlDataReader reader = cmd.ExecuteReader();
+
+    while (reader.Read())
+    {
+        var firstName = reader["firstName"].ToString();
+        var lastName = reader["lastName"].ToString();
+        var email = reader["email"].ToString();
+        var pass = reader["pass"].ToString();
+        data.Add((firstName, lastName, email, pass));
+
+    }
+    db.Close();
+}
+
+
+
+
+<div class="text-center">
+    <h1 class="display-4">Login to UTR</h1>
+
+    <p><a href="@Url.Action("Index", "Menu")">Menu</a></p>
+
+</div>
+
+
+<div class="container">
+        <h1>Login</h1>
+        <textarea>email</textarea>
+        <textarea>password</textarea>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Card Name</th>
+                    <th>Card Number</th>
+                    <th>Card Expiry Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var customer in data)
+                {
+                    <tr>
+                        <td>@customer.FirstName</td>
+                        <td>@customer.LastName</td>
+                        <td>@customer.Email</td>
+                        <td>@customer.CardName</td>
+                        <td>@customer.CardNum</td>
+                        <td>@customer.CardDate?.ToShortDateString()</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+</div>
