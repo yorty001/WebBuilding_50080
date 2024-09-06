@@ -2,4 +2,13 @@
     ViewData["Title"] = "Payment";
 }
 
+<h2>Payment Page</h2>
+
+<form asp-action="CreateCheckoutSession" method="post">
+    <div>
+        <label for="priceId">Price ID:</label>
+        <input type="text" id="priceId" name="priceId" required />
+    </div>
+    <button type="submit">Submit Payment</button>
+</form>
 
