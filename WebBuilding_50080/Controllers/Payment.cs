@@ -16,18 +16,13 @@ namespace server.Controllers
             }
 
             [HttpPost]
-            public IActionResult ProcessPayment(int customerID, decimal amount)
+            [Route("create-checkout-session")]
+            public IActionResult CreateCheckoutSession(String amount)
             {
-                bool paymentSuccess = _paymentService.ProcessPayment(customerID, amount);
+                string sessionUrl = _paymentService.CheckoutSession(amount);
 
-                if (paymentSuccess)
-                {
-                    return Ok(new { message = "Payment Processed successfully." });
-                }
-                else
-                {
-                    return BadRequest(new { message = "Payment processing failed." });
-                }
+                Response.Headers.Add("location", sessionUrl);
+                return new StatusCodeResult(303);
             }
             public IActionResult Index()
             {
