@@ -1,10 +1,50 @@
-﻿@{
-    ViewData["Title"] = "UpdateFuelPrice";
-}
+﻿@model List<WebBuilding_50080.Controllers.FuelPriceModel>
 
-<h2>Update Fuel Price</h2>
-@if (ViewBag.isLoggedIn)
-{
-    <p>Change prices here</p>
-    <input />
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Fuel Prices</title>
+    
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="card" style="width: 100%;">
+            <div class="card-body">
+                <h1>Update Fuel Prices</h1>
+
+                <form asp-action="UpdateFuelPrice" method="post">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Fuel Type</th>
+                                <th>Current Price (AUD per litre)</th>
+                                <th>Updated Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < Model.Count; i++)
+                            {
+                                <tr>
+                                    <td>@Model[i].FuelType</td>
+                                    <td>@Model[i].CurrentPrice</td>
+                                    <td>
+                                        <!-- Correct binding for each fuel type -->
+                                        <input type="number" name="[@i].UpdatedPrice" step="0.01" min="0" placeholder="Enter New Price" required />
+                                        <!-- Hidden fields to ensure FuelType and CurrentPrice are also sent -->
+                                        <input type="hidden" name="[@i].FuelType" value="@Model[i].FuelType" />
+                                        <input type="hidden" name="[@i].CurrentPrice" value="@Model[i].CurrentPrice" />
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <input type="submit" value="Update Prices" class="btn btn-outline-success" />
+                </form>
+            
+            </div>
+            
+        </div>
+    </div>
+</body>
+</html>
