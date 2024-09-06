@@ -39,6 +39,13 @@ namespace WebBuilding_50080.Controllers
         {
             return View(fuelPrices); // This will Pass the updated prices to the view
         }
+
+        public IActionResult GPS()
+        {
+            return View();
+        }
+
+
     }
 
     // This is a Simple model for the Fuel Prices
