@@ -14,7 +14,11 @@
     <p><a href="@Url.Action("Index", "Menu")">Menu</a></p>
     <p><a href="@Url.Action("Index", "PetrolStations")">Petrol Stations</a></p>
     <p><a href="@Url.Action("Index", "Payment",new {ViewBag.isLoggedIn})">Payment</a></p>
-    <p><a href="@Url.Action("UpdateFuelPrice", "PetrolStations", new {ViewBag.isLoggedIn})">Update Fuel Price</a></p>
+    @if (ViewBag.loginStatus == 2)
+    {
+        <p><a href="@Url.Action("UpdateFuelPrice", "PetrolStations", new {ViewBag.isLoggedIn})">Update Fuel Price</a></p>
+
+    }
     <p><a href="@Url.Action("Index", "Login", new {ViewBag.loginStatus})">Login</a></p>
 </div>
 <p>@ViewBag.loginStatus</p>
