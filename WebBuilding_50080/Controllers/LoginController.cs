@@ -16,11 +16,10 @@ namespace WebBuilding_50080.Controllers
         {
             string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\costa\\OneDrive\\Documents\\01 - University\\WebBuilding_50080\\WebBuilding_50080\\App_Data\\UTRDB.mdf;Integrated Security=True;Connect Timeout=30";
 
-            using (SqlConnection db = new SqlConnection(connectionString))
-            {
+            SqlConnection db = new SqlConnection(connectionString);
+     
                 db.Open();
-                SqlCommand cmdQ = new SqlCommand(@"
-                    SELECT email, pass FROM Manager WHERE email = @Email AND pass = @Password", db);
+                SqlCommand cmdQ = new SqlCommand("SELECT email, pass FROM Manager WHERE email = @Email AND pass = @Password UNION SELECT email, pass FROM Customer WHERE email = @Email AND pass = @Password", db);
 
                 cmdQ.Parameters.AddWithValue("@Email", email);
                 cmdQ.Parameters.AddWithValue("@Password", pass);
@@ -41,13 +40,8 @@ namespace WebBuilding_50080.Controllers
             }
         }
 
-        public IActionResult Success()
-        {
-            // A page to show after a successful login
-            return View();
-        }
+
     }
-}
             
         
     

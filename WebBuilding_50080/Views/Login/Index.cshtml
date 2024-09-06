@@ -6,32 +6,7 @@
 
 
 
-@{
-    string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\costa\\OneDrive\\Documents\\01 - University\\WebBuilding_50080\\WebBuilding_50080\\App_Data\\UTRDB.mdf;Integrated Security=True;Connect Timeout=30";
 
-
-    SqlConnection db = new SqlConnection(connectionString);
-    db.Open();
-
-    SqlCommand cmd = new SqlCommand("SELECT * FROM Customer");
-    cmd.CommandType = System.Data.CommandType.Text;
-    cmd.Connection = db;
-
-    var data = new List<(string firstName, string lastName, string email, string pass)>();
-
-    SqlDataReader reader = cmd.ExecuteReader();
-
-    while (reader.Read())
-    {
-        var firstName = reader["firstName"].ToString();
-        var lastName = reader["lastName"].ToString();
-        var email = reader["email"].ToString();
-        var pass = reader["pass"].ToString();
-        data.Add((firstName, lastName, email, pass));
-
-    }
-    db.Close();
-}
 
 
 
@@ -79,28 +54,6 @@
 
         }
     </form>
-    <table>
-        <thead>
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>Card Name</th>
-                <th>Card Number</th>
-                <th>Card Expiry Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var customer in data)
-            {
-                <tr>
-                    <td>@customer.firstName</td>
-                    <td>@customer.lastName</td>
-                    <td>@customer.email</td>
-                </tr>
-            }
-        </tbody>
-    </table>
    </div>
 
   
