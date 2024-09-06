@@ -15,7 +15,7 @@ namespace WebBuilding_50080.Services
             return true;
         }
 
-        public string CheckoutSession(string priceID)
+        public String CheckoutSession(String Amount)
         {
             var domain = "http://localhost:4242";
             var options = new SessionCreateOptions
@@ -24,7 +24,7 @@ namespace WebBuilding_50080.Services
                 {
                     new SessionLineItemOptions
                     {
-                       // Price = priceID, 
+                       Price = Amount, 
                        // Quantity = 1,    
                     },
                 },
