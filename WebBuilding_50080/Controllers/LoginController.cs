@@ -8,9 +8,18 @@ namespace WebBuilding_50080.Controllers
     public class LoginController : Controller
     {
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(int loginStatus = 0)
         {
-
+            if (loginStatus != 0)
+            {
+                ViewBag.loginStatus = loginStatus;
+            }
+            var userJson = HttpContext.Session.GetString("User");
+            if (userJson != null)
+            {
+                var user = JsonConvert.DeserializeObject<Customer>(userJson);
+                return View(user); // Pass the user model to the view
+            }
             return View();
         }
 
@@ -74,7 +83,9 @@ namespace WebBuilding_50080.Controllers
 
 
                 HttpContext.Session.SetString("User", JsonConvert.SerializeObject(user));
-                    return RedirectToAction("Index", "Home", new { ViewBag.loginStatus });
+                var userJson = HttpContext.Session.GetString("User");
+       
+                return RedirectToAction("Index", "Home", new { ViewBag.loginStatus });
                 
             }
             else
