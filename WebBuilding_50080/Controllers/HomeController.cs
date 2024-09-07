@@ -24,7 +24,7 @@ namespace WebBuilding_50080.Controllers
             var userJson = HttpContext.Session.GetString("User");
             if (userJson != null)
             {
-                var user = JsonConvert.DeserializeObject<Customer>(userJson);
+                var user = JsonConvert.DeserializeObject<User>(userJson);
                 return View(user); // Pass the user model to the view
             }
 
