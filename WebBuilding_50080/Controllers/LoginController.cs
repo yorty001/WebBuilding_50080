@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Data.SqlClient;
+using WebBuilding_50080.Models;
 
 namespace WebBuilding_50080.Controllers
 {
@@ -30,13 +31,37 @@ namespace WebBuilding_50080.Controllers
             {
                 // Redirect to a success page or handle successful login
                 string userType = reader["userType"].ToString();
+                User user;
                 if (userType == "Manager")
                 {
                     ViewBag.loginStatus = 2;
+                    user = new Manager
+                    {
+                        id = reader["userID"].ToString(),
+                        firstName = reader["firstName"].ToString(),
+                        lastName = reader["firstName"].ToString(),
+                        email = reader["firstName"].ToString(),
+                        pass = reader["firstName"].ToString(),
+
+
+                    };
                 }
                 else if (userType == "Customer")
                 {
                     ViewBag.loginStatus = 1;
+                    user = new Customer
+                    {
+                        id = reader["userID"].ToString(),
+                        firstName = reader["firstName"].ToString(),
+                        lastName = reader["lastName"].ToString(),
+                        email = reader["email"].ToString(),
+                        pass = reader["pass"].ToString(),
+                        cardDate = reader["cardDate"].Date(),
+                        cardName = reader["cardName"].ToString(),
+                        cardNum = (int)reader["cardNum"]
+
+
+                    };
                 }
                 return RedirectToAction("Index", "Home", new { ViewBag.loginStatus });
             }
