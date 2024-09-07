@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using WebBuilding_50080.Models;
+using Newtonsoft.Json;
 
 namespace WebBuilding_50080.Controllers
 {
@@ -19,7 +20,15 @@ namespace WebBuilding_50080.Controllers
             {
                 ViewBag.loginStatus = loginStatus;
             }
-            
+
+            var userJson = HttpContext.Session.GetString("User");
+            if (userJson != null)
+            {
+                var user = JsonConvert.DeserializeObject<Customer>(userJson);
+                return View(user); // Pass the user model to the view
+            }
+
+            // If no user data in session, just return the view without user data
             return View();
         }
 

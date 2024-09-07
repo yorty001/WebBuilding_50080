@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Data.SqlClient;
 using WebBuilding_50080.Models;
-
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 namespace WebBuilding_50080.Controllers
 {
     public class LoginController : Controller
@@ -21,7 +22,11 @@ namespace WebBuilding_50080.Controllers
             SqlConnection db = new SqlConnection(connectionString);
 
             db.Open();
-            SqlCommand cmdQ = new SqlCommand("SELECT email, pass, 'Manager' AS userType FROM Manager WHERE email = @Email AND pass = @Password UNION SELECT email, pass, 'Customer' AS userType FROM Customer WHERE email = @Email AND pass = @Password", db);
+            SqlCommand cmdQ = new SqlCommand("SELECT userID, firstName, lastName, email, pass,NULL AS cardName,CAST(NULL AS INT) " +
+                "AS cardNum, CAST(NULL AS DATE) AS cardDate,'Manager' AS userType FROM Manager " +
+                "WHERE email = @Email AND pass = @Password " +
+                "UNION ALL SELECT cusID, firstName, lastName, email, pass, cardName, cardNum, cardDate, 'Customer' AS userType FROM Customer " +
+                "WHERE email = @Email AND pass = @Password", db);
 
             cmdQ.Parameters.AddWithValue("@Email", email);
             cmdQ.Parameters.AddWithValue("@Password", pass);
@@ -31,17 +36,17 @@ namespace WebBuilding_50080.Controllers
             {
                 // Redirect to a success page or handle successful login
                 string userType = reader["userType"].ToString();
-                User user;
+                User user = null;
                 if (userType == "Manager")
                 {
                     ViewBag.loginStatus = 2;
                     user = new Manager
                     {
-                        id = reader["userID"].ToString(),
+                        userID = Convert.ToInt32(reader["userID"]),
                         firstName = reader["firstName"].ToString(),
-                        lastName = reader["firstName"].ToString(),
-                        email = reader["firstName"].ToString(),
-                        pass = reader["firstName"].ToString(),
+                        lastName = reader["lastName"].ToString(),
+                        email = reader["email"].ToString(),
+                        pass = reader["pass"].ToString(),
 
 
                     };
@@ -51,19 +56,26 @@ namespace WebBuilding_50080.Controllers
                     ViewBag.loginStatus = 1;
                     user = new Customer
                     {
-                        id = reader["userID"].ToString(),
+                        cusID = Convert.ToInt32(reader["userID"]),
                         firstName = reader["firstName"].ToString(),
                         lastName = reader["lastName"].ToString(),
                         email = reader["email"].ToString(),
                         pass = reader["pass"].ToString(),
-                        cardDate = reader["cardDate"].Date(),
-                        cardName = reader["cardName"].ToString(),
-                        cardNum = (int)reader["cardNum"]
 
 
-                    };
+                        cardDate = reader["cardDate"] == DBNull.Value ? default : DateOnly.FromDateTime(Convert.ToDateTime(reader["cardDate"])),
+                        cardName = reader["cardName"] == DBNull.Value ? null : reader["cardName"].ToString(),
+                        cardNum = reader["cardNum"] == DBNull.Value ? default : Convert.ToInt32(reader["cardNum"])
+                     };
+
+
+                
                 }
-                return RedirectToAction("Index", "Home", new { ViewBag.loginStatus });
+
+
+                HttpContext.Session.SetString("User", JsonConvert.SerializeObject(user));
+                    return RedirectToAction("Index", "Home", new { ViewBag.loginStatus });
+                
             }
             else
             {
