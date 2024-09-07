@@ -29,7 +29,7 @@ namespace WebBuilding_50080.Services
                 LineItems.Add(new SessionLineItemOptions
                     {
                        Price = item.amount,
-                       Quantity = item.Quantity,    
+                       Quantity = item.quantity,    
                     });
                 }
                 var opt = new SessionCreateOptions
