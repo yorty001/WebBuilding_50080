@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 
 namespace WebBuilding_50080.Controllers
@@ -27,7 +28,11 @@ namespace WebBuilding_50080.Controllers
             
             for (int i = 0; i < updatedFuelPrices.Count; i++)
             {
-                fuelPrices[i].CurrentPrice = updatedFuelPrices[i].UpdatedPrice;
+                if (updatedFuelPrices[i].UpdatedPrice.HasValue)
+                {
+                    fuelPrices[i].CurrentPrice = updatedFuelPrices[i].UpdatedPrice.Value;
+
+                }
             }
 
             
@@ -44,8 +49,8 @@ namespace WebBuilding_50080.Controllers
     
     public class FuelPriceModel
     {
-        public string FuelType { get; set; }
+        public string FuelType { get; set; } = string.Empty;
         public double CurrentPrice { get; set; }
-        public double UpdatedPrice { get; set; }
+        public double? UpdatedPrice { get; set; }
     }
 }
