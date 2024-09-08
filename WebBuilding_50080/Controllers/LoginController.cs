@@ -65,7 +65,7 @@ namespace WebBuilding_50080.Controllers
                     ViewBag.loginStatus = 1;
                     user = new Customer
                     {
-                        cusID = Convert.ToInt32(reader["userID"]),
+                        userID = Convert.ToInt32(reader["userID"]),
                         firstName = reader["firstName"].ToString(),
                         lastName = reader["lastName"].ToString(),
                         email = reader["email"].ToString(),
