@@ -22,7 +22,7 @@ namespace WebBuilding_50080.Controllers
             }
             return View();
         }
-        public IActionResult Edit(string firstName, string lastName, string email, string pass)
+        public IActionResult Edit(string firstName, string lastName, string email, string pass, string cardName, int cardNum, DateOnly cardDate)
         {
             string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\costa\\OneDrive\\Documents\\01 - University\\WebBuilding_50080\\WebBuilding_50080\\App_Data\\UTRDB.mdf;Integrated Security=True;Connect Timeout=30";
 
@@ -36,29 +36,31 @@ namespace WebBuilding_50080.Controllers
 
             SqlCommand cmdQ = new SqlCommand("UPDATE @table SET firstName = '@firstName', lastName = '@lastName'," +
                 "email = '@email', pass = '@pass', cardName = '@cardName', cardNum = @cardNum, cardDate = '@cardDate' WHERE @idName = @id", db);
-            string tableName;
-            string idName;
+
             if (ViewBag.loginStatus == 1)
             {
-                tableName = "Manager";
-                idName = "userID";
+                cmdQ = new SqlCommand("UPDATE Manager SET firstName = '@firstName', lastName = '@lastName'," +
+                "email = '@email', pass = '@pass'WHERE userID = @id", db);
             }
             else
             {
-                tableName = "Customer";
-                idName = "cusID";
+                cmdQ = new SqlCommand("UPDATE Customer SET firstName = '@firstName', lastName = '@lastName'," +
+                "email = '@email', pass = '@pass', cardName = '@cardName', cardNum = @cardNum, cardDate = '@cardDate' WHERE cusID = @id", db);
+                cmdQ.Parameters.AddWithValue("@cardName", cardName);
+                cmdQ.Parameters.AddWithValue("@cardNum", cardNum);
+                cmdQ.Parameters.AddWithValue("@cardDate", cardDate);
             }
-            cmdQ.Parameters.AddWithValue("@table", tableName);
-            cmdQ.Parameters.AddWithValue("@idName", idName);
             cmdQ.Parameters.AddWithValue("@id", user.userID);
             cmdQ.Parameters.AddWithValue("@firstName", firstName);
             cmdQ.Parameters.AddWithValue("@lastName", lastName);
             cmdQ.Parameters.AddWithValue("@email", email);
             cmdQ.Parameters.AddWithValue("@pass", pass);
 
+            
+            int rowsAffected = cmdQ.ExecuteNonQuery();
 
             db.Close();
-            return RedirectToAction("Index", "Login", new { ViewBag.loginStatus });
+            return RedirectToAction("Index", "Home", new { ViewBag.loginStatus });
 
 
         }
