@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35201.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebBuilding_50080", "WebBuilding_50080\WebBuilding_50080.csproj", "{3B3B2E4E-252C-4CD3-BB67-F895F477F6E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebBuilding_50080", "WebBuilding_50080\WebBuilding_50080.csproj", "{3B3B2E4E-252C-4CD3-BB67-F895F477F6E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
