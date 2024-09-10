@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 
 namespace WebBuilding_50080.Controllers
 {
     public class PetrolStationsController : Controller
     {
-        // This is a Static list to hold fuel prices (simulating a database)
+        
         private static List<FuelPriceModel> fuelPrices = new List<FuelPriceModel>
         {
             new FuelPriceModel { FuelType = "Diesel", CurrentPrice = 1.50 },
@@ -13,31 +14,35 @@ namespace WebBuilding_50080.Controllers
             new FuelPriceModel { FuelType = "Premium", CurrentPrice = 1.70 }
         };
 
-        // GET: Show current fuel prices for update
+        
         [HttpGet]
         public IActionResult UpdateFuelPrice()
         {
             return View(fuelPrices);
         }
 
-        // POST: This will Update the fuel prices
+        
         [HttpPost]
         public IActionResult UpdateFuelPrice(List<FuelPriceModel> updatedFuelPrices)
         {
-            // This will Update the current prices with the new prices
+            
             for (int i = 0; i < updatedFuelPrices.Count; i++)
             {
-                fuelPrices[i].CurrentPrice = updatedFuelPrices[i].UpdatedPrice;
+                if (updatedFuelPrices[i].UpdatedPrice.HasValue)
+                {
+                    fuelPrices[i].CurrentPrice = updatedFuelPrices[i].UpdatedPrice.Value;
+
+                }
             }
 
-            // This will Redirect to the Index page showing the updated prices
+            
             return RedirectToAction("Index");
         }
 
-        // GET: This will Display the updated fuel prices on the Index page
+        
         public IActionResult Index()
         {
-            return View(fuelPrices); // This will Pass the updated prices to the view
+            return View(fuelPrices); 
         }
 
         public IActionResult GPS()
@@ -48,11 +53,11 @@ namespace WebBuilding_50080.Controllers
 
     }
 
-    // This is a Simple model for the Fuel Prices
+    
     public class FuelPriceModel
     {
-        public string FuelType { get; set; }
+        public string FuelType { get; set; } = string.Empty;
         public double CurrentPrice { get; set; }
-        public double UpdatedPrice { get; set; }
+        public double? UpdatedPrice { get; set; }
     }
 }
