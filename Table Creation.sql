@@ -89,3 +89,6 @@ REFERENCES [dbo].[Store] ([storeID])
 GO
 ALTER TABLE [dbo].[Manager] CHECK CONSTRAINT [Manager_fk]
 GO
+
+INSERT INTO People (firstName, lastName, email, password)
+VALUES ('John', 'Doe', 'johndoe@example.com', 'Pass1234');
