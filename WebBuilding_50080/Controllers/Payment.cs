@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebBuilding_50080.Services;
 
 namespace server.Controllers
 {
@@ -13,6 +12,7 @@ namespace server.Controllers
                 return View();
             }
 
+            [HttpPost]
             public IActionResult OrderSummary()
             {
                 return View();
