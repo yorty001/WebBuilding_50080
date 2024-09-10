@@ -90,5 +90,20 @@ GO
 ALTER TABLE [dbo].[Manager] CHECK CONSTRAINT [Manager_fk]
 GO
 
-INSERT INTO People (firstName, lastName, email, password)
-VALUES ('John', 'Doe', 'johndoe@example.com', 'Pass1234');
+INSERT INTO Customer (firstName, lastName, email, password)
+VALUES ('John', 'Doe', 'johndoe@example.com', 'Pass1234'),
+	('Jane', 'Smith', 'janesmith@example.com', 'Smithy987'),
+	('Michael', 'Johnson', 'mjohnson@example.com', 'MikeJ2023!');
+
+Insert data into the ConvenienceStoreItems table
+INSERT INTO [dbo].[ConvenienceStoreItems] ([ItemId], [ItemName], [ItemDescription], [ItemImage], [ItemCost])
+VALUES 
+('Prime Hydration Blue Raspberry', 'PRIME HYDRATION BLUE RASPBERRY. PRIME was developed to fill the void where great taste meets function. With bold, thirst-quenching flavours to help you refresh, replenish, and refuel, PRIME is the perfect boost for any endeavour.', 'https://assets.woolworths.com.au/images/1005/275804.jpg?impolicy=wowsmkqiema&w=600&h=600', 4.00),
+( 'Pura Full Cream Milk 2l', 'PURA Full Cream milk is Australian Owned, made & loved', 'https://assets.woolworths.com.au/images/1005/62636.jpg?impolicy=wowsmkqiema&w=600&h=600', 5.50),
+('Red Rock Deli Potato Chips Sea Salt Natural 165g', 'Wholesome Potato Chips Carefully Crafted with Subtle Flavours. Red Rock Deli Sea Salt Potato Chips keeps things simple yet sensational with the careful coating of classic sea salt.', 'https://assets.woolworths.com.au/images/1005/781396.jpg?impolicy=wowsmkqiema&w=600&h=600', 6.00),
+('Lindt Lindor Assorted Chocolate Box 333g', 'Wherever and whenever you take a LINDOR moment, it just seems to make life feel so much more sublime.', 'https://assets.woolworths.com.au/images/1005/114683.jpg?impolicy=wowsmkqiema&w=600&h=600', 26.00),
+('Cadbury Dairy Milk Vanilla Sticks 4 Pack', 'Vanilla with a unique choc swirl, coated in a generous layer of Cadbury Dairy Milk milk chocolate. Its deliciously smooth and creamy.', 'https://assets.woolworths.com.au/images/1005/122672.jpg?impolicy=wowsmkqiema&w=600&h=600', 10.50),
+('Pump Spring Water Bottle 750ml', 'Pump Water will help you stay hydrated throughout the day. This purified water comes with an easy to use sipper cap making it perfect for drinking on the go.', 'https://assets.woolworths.com.au/images/1005/153622.jpg?impolicy=wowsmkqiema&w=600&h=600', 3.00),
+('Colgate Travel Toothpaste Total Original 40g', 'Colgate Total Original Antibacterial Fluoride Toothpaste reduces bacteria on teeth, tongue, cheeks and gums.', 'https://assets.woolworths.com.au/images/1005/819772.jpg?impolicy=wowsmkqiema&w=600&h=600', 2.50),
+( 'Sour Patch Kids Lollies 190g', 'Whats Sour then Sweet but always delicious? You already know: SOUR PATCH KIDS lollies!', 'https://assets.woolworths.com.au/images/1005/234699.jpg?impolicy=wowsmkqiema&w=600&h=600', 5.00);
+
