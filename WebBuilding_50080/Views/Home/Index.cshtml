@@ -12,12 +12,24 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
         <style>
             .hero-section {
-                background-image: url('your-image-url.jpg');
+                background-image: url('/images/stationIMG.JPEG');
                 background-size: cover;
                 background-position: center;
                 padding: 100px 0;
                 color: white;
                 text-align: center;
+            }
+            .hero-section h1 {
+                font-size: 4rem;
+            }
+            .btn-container {
+                margin-top: 20px;
+            }
+            .btn-custom {
+                margin: 10px;
+                font-size: 18px;
+                padding: 15px 30px;
+                width: 250px;
             }
         </style>
     </head>
@@ -27,9 +39,12 @@
             <p class="lead">Convenience at your fingertips</p>
             <div class="btn-container">
                 <a href="@Url.Action("Index", "Menu")" class="btn btn-primary btn-lg btn-custom"> <i class="fas fa-utensils"></i> Menu</a>
-                <a href="@Url.Action("Index", "PetrolStations")" class="btn btn-success btn-lg btn-custom"> <i class="fas fa-gas-pump"></i> Petrol Stations</a>
-                <a href="@Url.Action("Index", "Payment")" class="btn btn-warning btn-lg btn-custom"> <i class="fas fa-credit-card"></i> Payemnt</a>
+                <a href="@Url.Action("Index", "PetrolStations")" class="btn btn-success btn-lg btn-custom"> <i class="fas fa-gas-pump"></i> Update Fuel Price</a>
+                <a href="@Url.Action("Index", "Payment")" class="btn btn-warning btn-lg btn-custom"> <i class="fas fa-credit-card"></i> Payment</a>
             </div>         
         </div >
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
        </body >
 </html>
