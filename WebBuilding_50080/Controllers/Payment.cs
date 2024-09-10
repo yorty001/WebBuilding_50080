@@ -29,6 +29,11 @@ namespace server.Controllers
                 return View();
             }
 
+            public IActionResult OrderSummary()
+            {
+                return View();
+            }
+
 
         }
 
