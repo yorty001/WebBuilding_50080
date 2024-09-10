@@ -13,15 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="App_Data\UTRDB.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="App_Data\UTRDB_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.35" />
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.3.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
@@ -42,6 +33,10 @@
     <PackageReference Include="Stripe.net" Version="45.11.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
     <PackageReference Include="WebMatrix.Data" Version="2.0.30506" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="App_Data\" />
   </ItemGroup>
 
 </Project>
