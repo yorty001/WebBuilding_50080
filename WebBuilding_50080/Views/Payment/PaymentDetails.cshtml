@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Payment Details";
+}
+
+<h2>Saved Payment Details</h2>
+
+<div class="container">
+    <div class="mb-3">
+        <h4>Billing Information</h4>
+        <p><strong>Name on Card:</strong> @ViewBag.CardName</p>
+        <p><strong>Credit Card Number:</strong> @ViewBag.CardNumber</p>
+        <p><strong>Expiration Month:</strong> @ViewBag.ExpMonth</p>
+        <p><strong>Expiration Year:</strong> @ViewBag.ExpYear</p>
+        <p><strong>CVV:</strong> @ViewBag.CVV</p>
+    </div>
+    <a href="/Payment/UpdatePaymentDetails" class="btn btn-primary">Edit Payment Method</a>
+</div>
