@@ -49,6 +49,13 @@ namespace WebBuilding_50080.Controllers
         {
             return View(fuelPrices);
         }
+
+        public IActionResult GPS()
+        {
+            return View();
+        }
+
+
     }
 
     
