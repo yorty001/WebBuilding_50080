@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Data.SqlClient;
 using WebBuilding_50080.Models;
-using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 namespace WebBuilding_50080.Controllers
 {
