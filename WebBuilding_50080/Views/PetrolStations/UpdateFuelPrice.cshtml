@@ -54,7 +54,7 @@
             <div class="card-body">
                 <h1>Update Fuel Prices</h1>
 
-                <form asp-action="UpdateFuelPrice" method="post">
+                <form asp-action="Update" method="post">
                     <table table-bordered table-hover>
                         <thead>
                             <tr>
@@ -66,17 +66,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var 
+                            @foreach (var fuel in Model){
                                 <tr>
-                                    <td>@Model[i].FuelType</td>
+                                    <td>@fuel.fuelType</td>
                                     <td> </td>
-                                    <td>@Model[i].CurrentPrice</td>
+                                    <td>@fuel.pricePL</td>
                                     <td> </td>
                                     <td>
+                            
                                         
-                                        <input type="number" name="[@i].UpdatedPrice" step="0.01" min="0" placeholder="Enter New Price" />
-                                        <input type="hidden" name="[@i].FuelType" value="@Model[i].FuelType" />
-                                        <input type="hidden" name="[@i].CurrentPrice" value="@Model[i].CurrentPrice" />
+                                        <input type="number" name="UpdatedPrice" step="0.01" min="0" placeholder="Enter New Price" />
+                                        <input type="hidden" name="FuelType" value="@fuel.fuelType" />
+                                        <input type="hidden" name="CurrentPrice" value="@fuel.pricePL" /> 
                                     </td>
                                 </tr>
                             }
