@@ -14,13 +14,6 @@ namespace WebBuilding_50080.Controllers
         {
             _db = db;
         }
-        private static List<FuelPriceModel> fuelPrices = new List<FuelPriceModel>
-        {
-            new FuelPriceModel { FuelType = "Diesel", CurrentPrice = 1.50 },
-            new FuelPriceModel { FuelType = "Unleaded", CurrentPrice = 1.35 },
-            new FuelPriceModel { FuelType = "Premium", CurrentPrice = 1.70 }
-        };
-
         
         [HttpGet]
         public IActionResult UpdateFuelPrice()
@@ -51,26 +44,12 @@ namespace WebBuilding_50080.Controllers
 
         
         [HttpPost]
-        public IActionResult UpdateFuelPrice(List<FuelPriceModel> updatedFuelPrices)
-        {
-            
-            for (int i = 0; i < updatedFuelPrices.Count; i++)
-            {
-                if (updatedFuelPrices[i].UpdatedPrice.HasValue)
-                {
-                    fuelPrices[i].CurrentPrice = updatedFuelPrices[i].UpdatedPrice.Value;
 
-                }
-            }
-
-            
-            return RedirectToAction("Index");
-        }
 
         
         public IActionResult Index()
         {
-            return View(fuelPrices); 
+            return View(); 
         }
 
         public IActionResult GPS()
