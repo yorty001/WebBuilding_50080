@@ -28,3 +28,17 @@
         }
     </div>
 </div>
+
+@foreach (var product in Model)
+{
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">@product.Name</h5>
+            <p class="card-text">Description: @product.Description</p>
+            <p class="card-text">Cost: @product.Price</p>
+            <img src="@product.Image" alt="@product.Name" class="card-img" />
+            <button class="btn btn-primary" onclick="addToCart(@product.Id)">Add to Cart</button>
+        
+        </div>
+    </div>
+}
