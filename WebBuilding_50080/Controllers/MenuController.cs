@@ -5,7 +5,7 @@ using WebBuilding_50080.Models;
 
     public class MenuController : Controller
     {
-        string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\costa\\OneDrive\\Documents\\01 - University\\WebBuilding_50080\\WebBuilding_50080\\App_Data\\UTRDB.mdf;Integrated Security=True;Connect Timeout=30";
+        string connectionString = "Data Source=FRANK\\SQLEXPRESS;Initial Catalog=UTRDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
         public IActionResult Index()
         {
