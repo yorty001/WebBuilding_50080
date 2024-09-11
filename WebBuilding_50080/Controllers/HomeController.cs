@@ -2,16 +2,22 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using WebBuilding_50080.Models;
 using Newtonsoft.Json;
+using System.Data.SqlClient;
 
 namespace WebBuilding_50080.Controllers
 {
     public class HomeController : Controller
     {
+        public readonly SqlConnection _db;
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+        }
+        public HomeController(SqlConnection db)
+        {
+            _db = db;
         }
 
         public IActionResult Index(int loginStatus = 0)
