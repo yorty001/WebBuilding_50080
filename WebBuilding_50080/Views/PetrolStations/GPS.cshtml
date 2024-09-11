@@ -4,19 +4,26 @@
 @{
     var stations = new List<string>
         {
-            "OTR West Terrace",
-            "OTR Mawson Lakes"
+            "UTR West Terrace",
+            "UTR Mawson Lakes",
+            "UTR Para Hills West",
+            "UTR Dry Creek",
+            "UTR Parafield"
         };
 }
 
 <div>
-    <h1>Nearest Petrol Stations</h1>
+    <h1 style="text-align: center;">Nearest Petrol Stations</h1>
+    <p></p>
+    <p></p>
     <ul>
         @foreach (var station in stations)
         {
             <li>
                 <p>@station</p>
-                <button onclick="showMap('@station')">Show on Map</button>
+                <button onclick="showMap('@station')" style="background-color: green; color: yellow; border: none; padding: 10px 15px; cursor: pointer;">
+                    Show on Map
+                </button>
             </li>
         }
     </ul>
@@ -35,12 +42,16 @@
 <script>
     function showMap(station) {
         var mapFrame = document.getElementById("mapFrame");
-        if (station === "OTR West Terrace") {
+        if (station === "UTR West Terrace") {
             mapFrame.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6542.492353130214!2d138.5853972750598!3d-34.92536247455496!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ab0cf3b40db664b%3A0x73c89e54dd1efe4f!2sOTR%20West%20Terrace!5e0!3m2!1sen!2sau!4v1725406530545!5m2!1sen!2sau";
-        } else if (station === "OTR Mawson Lakes") {
+        } else if (station === "UTR Mawson Lakes") {
             mapFrame.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13104.105373666078!2d138.59660129820577!3d-34.80527908796071!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ab0b6f26da2a675%3A0x1a33bf31351030cc!2sOTR%20Mawson%20Lakes!5e0!3m2!1sen!2sau!4v1725607553450!5m2!1sen!2sau";
+        } else if (station === "UTR Para Hills West") {
+            mapFrame.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6552.426144191443!2d138.63102467770995!3d-34.8005809!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ab0b41de6084ac5%3A0x7c5ede38d20751de!2sOTR%20Para%20Hills%20West!5e0!3m2!1sen!2sau!4v1726016381728!5m2!1sen!2sau";
+        } else if (station === "UTR Dry Creek") {
+            mapFrame.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6550.9278080588965!2d138.58272877770992!3d-34.819427!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ab0b7b6fe292d2b%3A0x4988b93f6df76c69!2sOTR%20Dry%20Creek!5e0!3m2!1sen!2sau!4v1726016964998!5m2!1sen!2sau";
+        } else if (station === "UTR Parafield") {
+            mapFrame.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6553.192954069916!2d138.63605407770996!3d-34.79093249999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ab0b40007106033%3A0xa41d195a28ad6eb9!2sOTR%20Parafield!5e0!3m2!1sen!2sau!4v1726017385776!5m2!1sen!2sau";
         }
     }
 </script>
-    ﻿
-
