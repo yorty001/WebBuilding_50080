@@ -1,7 +1,4 @@
-﻿@*
-        For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-    *@
-@{
+﻿@{
     var stations = new List<string>
         {
             "UTR West Terrace",
@@ -12,36 +9,43 @@
         };
 }
 
-<div>
-    <h1 style="text-align: center;">Nearest Petrol Stations</h1>
-    <p></p>
-    <p></p>
-    <ul>
-        @foreach (var station in stations)
-        {
-            <li>
-                <p>@station</p>
-                <button onclick="showMap('@station')" style="background-color: green; color: yellow; border: none; padding: 10px 15px; cursor: pointer;">
-                    Show on Map
-                </button>
-            </li>
-        }
-    </ul>
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+    <div style="width: 45%; padding-right: 20px;">
+        <h1 style="text-align: center; font-family: Arial, sans-serif;">Nearest Petrol Stations</h1>
+        <ul style="list-style-type: none; padding: 0;">
+            @foreach (var station in stations)
+            {
+                <li style="margin-bottom: 20px;">
+                    <p style="font-size: 1.2em; font-weight: bold;">@station</p>
+                    <button onclick="showMap('@station')" style="background-color: green; color: yellow; border: none; padding: 10px 15px; cursor: pointer;">
+                        Show on Map
+                    </button>
+                </li>
+            }
+        </ul>
+    </div>
 
-    <iframe id="mapFrame"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6542.492353130214!2d138.5853972750598!3d-34.92536247455496!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ab0cf3b40db664b%3A0x73c89e54dd1efe4f!2sOTR%20West%20Terrace!5e0!3m2!1sen!2sau!4v1725406530545!5m2!1sen!2sau"
-            width="600"
-            height="450"
-            style="border:0;"
-            allowfullscreen=""
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
+    <div style="width: 50%; display: none;" id="mapContainer">
+        <!-- Map container initially hidden -->
+        <iframe id="mapFrame"
+                width="100%"
+                height="450"
+                style="border:0; margin-top: 30px;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+    </div>
 </div>
 
 <script>
     function showMap(station) {
+        var mapContainer = document.getElementById("mapContainer");
         var mapFrame = document.getElementById("mapFrame");
+
+        
+        mapContainer.style.display = "block";
+
         if (station === "UTR West Terrace") {
             mapFrame.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6542.492353130214!2d138.5853972750598!3d-34.92536247455496!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ab0cf3b40db664b%3A0x73c89e54dd1efe4f!2sOTR%20West%20Terrace!5e0!3m2!1sen!2sau!4v1725406530545!5m2!1sen!2sau";
         } else if (station === "UTR Mawson Lakes") {
