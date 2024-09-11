@@ -7,6 +7,7 @@ namespace WebBuilding_50080.Controllers
     public class PetrolStationsController : Controller
     {
         
+        
         private static List<FuelPriceModel> fuelPrices = new List<FuelPriceModel>
         {
             new FuelPriceModel { FuelType = "Diesel", CurrentPrice = 1.50 },
