@@ -11,13 +11,11 @@ namespace WebBuilding_50080.Controllers
         public readonly SqlConnection _db;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-        public HomeController(SqlConnection db)
+
+        public HomeController(SqlConnection db, ILogger<HomeController> logger)
         {
             _db = db;
+            _logger = logger;
         }
 
         public IActionResult Index(int loginStatus = 0)
