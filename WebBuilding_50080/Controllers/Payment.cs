@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebBuilding_50080.Services;
 
 namespace server.Controllers
 {
@@ -8,23 +7,13 @@ namespace server.Controllers
     {
         public class Payment : Controller
         {
-            private readonly PaymentService _paymentService;
-
-            public Payment(PaymentService paymentService)
+            public IActionResult Index()
             {
-                _paymentService = paymentService;
+                return View();
             }
 
             [HttpPost]
-            [Route("create-checkout-session")]
-            public IActionResult CreateCheckoutSession([FromBody] List<Cartitem> cartItems)
-            {
-                string sessionUrl = _paymentService.CheckoutSession(cartItems);
-
-                Response.Headers.Add("location", sessionUrl);
-                return new StatusCodeResult(303);
-            }
-            public IActionResult Index()
+            public IActionResult OrderSummary()
             {
                 return View();
             }
