@@ -30,14 +30,16 @@ namespace WebBuilding_50080.Controllers
 
             db.Open();
 
+            DateTime cardDateTime = cardDate.ToDateTime(new TimeOnly(0, 0));
+
+
             var userJson = HttpContext.Session.GetString("User");
 
             var user = JsonConvert.DeserializeObject<User>(userJson);
 
-            SqlCommand cmdQ = new SqlCommand("UPDATE @table SET firstName = '@firstName', lastName = '@lastName'," +
-                "email = '@email', pass = '@pass', cardName = '@cardName', cardNum = @cardNum, cardDate = '@cardDate' WHERE @idName = @id", db);
+            SqlCommand cmdQ;
 
-            if (ViewBag.loginStatus == 1)
+            if (ViewBag.loginStatus == 2)
             {
                 cmdQ = new SqlCommand("UPDATE Manager SET firstName = '@firstName', lastName = '@lastName'," +
                 "email = '@email', pass = '@pass'WHERE userID = @id", db);
@@ -46,10 +48,11 @@ namespace WebBuilding_50080.Controllers
             {
                 cmdQ = new SqlCommand("UPDATE Customer SET firstName = '@firstName', lastName = '@lastName'," +
                 "email = '@email', pass = '@pass', cardName = '@cardName', cardNum = @cardNum, cardDate = '@cardDate' WHERE cusID = @id", db);
-                cmdQ.Parameters.AddWithValue("@cardName", cardName);
+                cmdQ.Parameters.AddWithValue("@cardName", cardName ?? (object)DBNull.Value);
                 cmdQ.Parameters.AddWithValue("@cardNum", cardNum);
-                cmdQ.Parameters.AddWithValue("@cardDate", cardDate);
+                cmdQ.Parameters.AddWithValue("@cardDate", cardDateTime.Month + "/"+ cardDateTime.Day +"/" + cardDateTime.Year);
             }
+            Console.WriteLine(cardDateTime.Month + "/" + cardDateTime.Year);
             cmdQ.Parameters.AddWithValue("@id", user.userID);
             cmdQ.Parameters.AddWithValue("@firstName", firstName);
             cmdQ.Parameters.AddWithValue("@lastName", lastName);
