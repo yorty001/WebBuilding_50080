@@ -215,23 +215,6 @@
                     font-weight: 700;
                 }
     </style>
-    <script>
-        window.onload = function() {
-            var fullName = localStorage.getItem("fname")
-            if (fullName) {
-                document.getElementById("customerName").innerHTML = fullName;
-            } else {
-                document.getElementById("customerName").innerHTML = "customer";
-            }
-
-            var date = new Date();
-            var datetime = date.toLocaleString();
-            document.getElementById("date").innerHTML = datetime;
-
-            var number = Math.floor(100000 + Math.random() * 900000);
-            document.getElementById("invoiceNumber").innerHTML = number;
-        };
-    </script>
 </head>
 <body>
     <table class="body-wrap">
@@ -256,7 +239,7 @@
                                                         <table class="invoice">
                                                             <tbody>
                                                                 <tr>
-                                                                    <td><span id="customerName"></span><br>Invoice: <span id="invoiceNumber"></span><br>Date: <p id="date"></p></td>
+                                                                    <td>Model.CustomerName<br>Invoice #: Model.InvoiceNumber<br>Date: Model.OrderDate</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>
@@ -265,6 +248,19 @@
                                                                                 <tr>
                                                                                     <td>Service1</td>
                                                                                     <td class="alignright">Service1Price</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>Service2</td>
+                                                                                    <td class="alignright">Service2Price</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>Service3</td>
+                                                                                    <td class="alignright">Service3Price</td>
+                                                                                </tr>
+                                                                                <tr class="total">
+                                                                                    <td class="alignright" width="80%">Total</td>
+                                                                                    <td class="alignright">$Model.TotalPrice</td>
+                                                                                </tr>
                                                                             </tbody>
                                                                         </table>
                                                                     </td>
