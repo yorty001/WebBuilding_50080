@@ -26,6 +26,7 @@ using WebBuilding_50080.Models;
                 {
                     var product = new Product
                     {
+                        ProductId = reader["itemId"].ToString(),
                         Name = reader["itemName"].ToString(),
                         Description = reader["itemDescription"].ToString(),
                         Image = reader["itemImage"].ToString(),

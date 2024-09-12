@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Stripe;
+using System.Data.SqlClient;
+using System.Diagnostics;
 
 namespace server.Controllers
 {
@@ -7,8 +10,16 @@ namespace server.Controllers
     {
         public class Payment : Controller
         {
-            public IActionResult Index()
+            private readonly SqlConnection _db;
+
+            public Payment(SqlConnection db)
             {
+                _db = db;
+            }
+            public IActionResult Index([FromQuery] string name, [FromQuery] decimal price)
+            {
+                ViewBag.Name = name;
+                ViewBag.Price = price;
                 return View();
             }
 
