@@ -97,7 +97,6 @@ namespace WebBuilding_50080.Controllers
 
 
                 HttpContext.Session.SetString("User", JsonConvert.SerializeObject(user));
-                var userJson = HttpContext.Session.GetString("User");
        
                 return RedirectToAction("Index", "Home", new { ViewBag.loginStatus });
                 
