@@ -26,9 +26,10 @@
             {
                 <li style="margin-bottom: 20px;">
                     <p style="font-size: 1.2em; font-weight: bold;">@station</p>
-                    <button onclick="showMapAndOutlets('@station')" style="background-color: green; color: yellow; border: none; padding: 10px 15px; cursor: pointer;">
+                    <button onclick="showMapAndOutlets('@station')" style="background-color: green; color: yellow; border: none; padding: 10px 15px; cursor: pointer; border-radius: 10px;">
                         Show on Map & Outlets
                     </button>
+
                 </li>
             }
         </ul>
@@ -45,14 +46,15 @@
                 referrerpolicy="no-referrer-when-downgrade">
         </iframe>
 
-        <div id="foodOutlets" style="margin-top: 20px;">
-            <!-- Food outlets will be displayed here -->
+        <div id="foodOutlets" style="margin-top: 20px; background-color: green; color: yellow; padding: 15px; border-radius: 10px;">
+            
         </div>
+
     </div>
 </div>
 
 <script>
-    // Food outlets data in JavaScript
+    
     var foodOutlets = {
         "UTR West Terrace": ["McDonald's", "Subway", "Starbucks"],
         "UTR Mawson Lakes": ["KFC", "Hungry Jack's", "Boost Juice"],
@@ -66,10 +68,10 @@
         var mapFrame = document.getElementById("mapFrame");
         var outletsContainer = document.getElementById("foodOutlets");
 
-        // Show the map container
+        
         mapContainer.style.display = "block";
 
-        // Set the map source based on station
+        
         if (station === "UTR West Terrace") {
             mapFrame.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6542.492353130214!2d138.5853972750598!3d-34.92536247455496!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ab0cf3b40db664b%3A0x73c89e54dd1efe4f!2sOTR%20West%20Terrace!5e0!3m2!1sen!2sau!4v1725406530545!5m2!1sen!2sau";
         } else if (station === "UTR Mawson Lakes") {
@@ -82,7 +84,7 @@
             mapFrame.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6553.192954069916!2d138.63605407770996!3d-34.79093249999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ab0b40007106033%3A0xa41d195a28ad6eb9!2sOTR%20Parafield!5e0!3m2!1sen!2sau!4v1726017385776!5m2!1sen!2sau";
         }
 
-        // Display the food outlets based on station
+        
         var outlets = foodOutlets[station];
         outletsContainer.innerHTML = "<h3>Available Food Outlets:</h3><ul>" + outlets.map(function (outlet) {
             return "<li>" + outlet + "</li>";
