@@ -3,7 +3,6 @@
 }
 
 <h2>Payment Page</h2>
-<h1>@ViewBag.Name</h1>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,13 +26,25 @@
 </head>
 <body>
     <script>
-        function storeName() {
+        function storeNameAndSubmit(event) {
+            event.preventDefault(); 
+
             var fullName = document.getElementById("fname").value;
             localStorage.setItem("fname", fullName);
-        };
+
+            const url = new URL(window.location.href);
+            const Name = url.searchParams.get("name");
+            const Price = url.searchParams.get("price");
+
+            const form = document.querySelector('form');
+            if (Name && Price) {
+                form.action = `http://localhost:5287/Payment/OrderSummary?name=${encodeURIComponent(Name)}&price=${encodeURIComponent(Price)}`;
+            }
+            form.submit();
+        }
     </script>
     <div class="container">
-        <form asp-controller="Payment" asp-action="OrderSummary" method="post" onsubmit="storeName()">
+        <form action="http://localhost:5287/Payment/OrderSummary" method="post">
 
             <div class="row mb-3">
                 <div class="col-md-6">
@@ -81,7 +92,7 @@
                 </div>
             </div>
 
-            <input type="submit" value="Proceed with payment" class="btn btn-primary">
+            <a href="#" class="btn btn-primary" onclick="storeNameAndSubmit(event)">Proceed with payment</a>
         </form>
     </div>
 </body>
