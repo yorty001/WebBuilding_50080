@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebBuilding_50080.Models;
 using WebBuilding_50080.Services;
 
 namespace server.Controllers
@@ -57,11 +58,30 @@ namespace server.Controllers
 
                 return RedirectToAction("PaymentDetails");
             }
+            public IActionResult FuelPayment() {
+                return View();
+            
+            }
+
+                [HttpPost]
+                public IActionResult FuelPayment(string fuelType, string price, string total)
+                    {
+                    var model = new FuelPriceModel
+                    {
+                        FuelType = fuelType,
+                        CurrentPrice = double.Parse(price),
+                        totalPrice = double.Parse(total)
+                    };
+
+                    return View(model);
+                }
+
+            public IActionResult SuccessfulPage()
+            {
+                return View();
+            }
+        }
 
         }
 
     }
-
-    }
-
-
