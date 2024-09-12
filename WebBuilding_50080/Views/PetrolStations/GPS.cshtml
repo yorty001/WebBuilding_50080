@@ -1,0 +1,46 @@
+﻿    @*
+        For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+    *@
+    @{
+        var stations = new List<string>
+        {
+            "OTR West Terrace",
+            "OTR Mawson Lakes"
+        };
+    }
+
+    <div>
+        <h1>Nearest Petrol Stations</h1>
+        <ul>
+            @foreach (var station in stations)
+            {
+                <li>
+                    <p>@station</p>
+                    <button onclick="showMap('@station')">Show on Map</button>
+                </li>
+            }
+        </ul>
+
+        <iframe id="mapFrame"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6542.492353130214!2d138.5853972750598!3d-34.92536247455496!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ab0cf3b40db664b%3A0x73c89e54dd1efe4f!2sOTR%20West%20Terrace!5e0!3m2!1sen!2sau!4v1725406530545!5m2!1sen!2sau"
+                width="600"
+                height="450"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+    </div>
+
+    <script>
+        function showMap(station) {
+            var mapFrame = document.getElementById("mapFrame");
+            if (station === "OTR West Terrace") {
+                mapFrame.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6542.492353130214!2d138.5853972750598!3d-34.92536247455496!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ab0cf3b40db664b%3A0x73c89e54dd1efe4f!2sOTR%20West%20Terrace!5e0!3m2!1sen!2sau!4v1725406530545!5m2!1sen!2sau";
+            } else if (station === "OTR Mawson Lakes") {
+                mapFrame.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13104.105373666078!2d138.59660129820577!3d-34.80527908796071!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ab0b6f26da2a675%3A0x1a33bf31351030cc!2sOTR%20Mawson%20Lakes!5e0!3m2!1sen!2sau!4v1725607553450!5m2!1sen!2sau";
+            }
+        }
+    </script>
+    ﻿
+
