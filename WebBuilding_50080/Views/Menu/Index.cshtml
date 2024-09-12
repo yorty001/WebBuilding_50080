@@ -22,22 +22,11 @@
                     <p>
                         <a asp-controller="Payment" asp-action="Index" class="btn btn-primary">Buy</a>
 
-                        <button class="btn btn-success" onclick="addToCart(@product.Id)">Add to Cart</button>
-                    </p>
+                            <button class="btn btn-success" onclick="window.location.href='@Url.Action("AddToCart", "Cart", new { name = product.Name })'">Add to Cart</button>
+                        </p>
                 </div>
             </div>
         </div>
         }
     </div>
 </div>
-
-@section Scripts {
-    <script>
-        function addToCart(productId) {
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            cart.push(productId);
-            localStorage.setItem('cart', JSON.stringify(cart));
-            alert('Product added to cart!');
-        }
-    </script>
-}
