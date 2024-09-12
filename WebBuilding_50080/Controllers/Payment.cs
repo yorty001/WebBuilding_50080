@@ -20,7 +20,7 @@ namespace server.Controllers
             {
                 ViewBag.Name = name;
                 ViewBag.Price = price;
-                return View();
+                return View(name, price);
             }
 
             [HttpPost]
