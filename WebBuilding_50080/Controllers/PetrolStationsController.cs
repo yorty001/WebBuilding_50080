@@ -45,9 +45,9 @@ namespace WebBuilding_50080.Controllers
             return View(fuelPrices); 
         }
 
-        public IActionResult PurchsaeFuelPrice()
+        public IActionResult PurchaseFuel()
         {
-            return View(fuelPrices);
+            return View();
         }
 
         public IActionResult GPS()
