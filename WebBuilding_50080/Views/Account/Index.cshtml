@@ -7,14 +7,19 @@
 
     Customer customer = null;
     Manager manager = null;
+    Manager staff = null;
 
     if (ViewBag.loginStatus == 1)
     {
         manager = Model as Manager;
     }
-    else
+    else if (ViewBag.loginStatus == 2)
     {
         customer = Model as Customer;
+    }
+    else
+    {
+        staff = Model as Manager;
     }
 }
 
@@ -23,7 +28,12 @@
     
     <p><a href="@Url.Action("Index", "Menu")">Menu</a></p>
     <p><a href="@Url.Action("Index", "PetrolStations")">Petrol Stations</a></p>
+    @if (ViewBag.loginStatus == 2)
+    {
+        <p><a href="@Url.Action("CreateStaff", "Account", new {ViewBag.loginStatus})">Create Staff Account</a></p>
+    }
 </div>
+
     <div class="container">
         <form method="post" asp-action="Edit" asp-controller="Account">
             <div class="row">

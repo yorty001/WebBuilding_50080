@@ -52,7 +52,7 @@ namespace WebBuilding_50080.Controllers
                 "email = '@email', pass = '@pass', cardName = '@cardName', cardNum = @cardNum, cardDate = '@cardDate' WHERE cusID = @id", _db);
                 cmdQ.Parameters.AddWithValue("@cardName", cardName ?? (object)DBNull.Value);
                 cmdQ.Parameters.AddWithValue("@cardNum", cardNum);
-                cmdQ.Parameters.AddWithValue("@cardDate", cardDateTime.Month + "/"+ cardDateTime.Day +"/" + cardDateTime.Year);
+                cmdQ.Parameters.AddWithValue("@cardDate", cardDateTime.Month + "/" + cardDateTime.Day + "/" + cardDateTime.Year);
             }
             Console.WriteLine(cardDateTime.Month + "/" + cardDateTime.Year);
             cmdQ.Parameters.AddWithValue("@id", user.userID);
@@ -61,7 +61,7 @@ namespace WebBuilding_50080.Controllers
             cmdQ.Parameters.AddWithValue("@email", email);
             cmdQ.Parameters.AddWithValue("@pass", pass);
 
-            
+
             int rowsAffected = cmdQ.ExecuteNonQuery();
 
             _db.Close();
@@ -69,7 +69,29 @@ namespace WebBuilding_50080.Controllers
 
 
         }
+        public IActionResult CreateStaff()
+        {
+            return View();  
+        }
+        public IActionResult adminCreate(string firstName, string lastName, string email, string pass)
+        {
 
+
+            _db.Open();
+            SqlCommand cmdQ = new SqlCommand("INSERT INTO Staff (firstName, lastName, email, pass) VALUES (@firstName, @lastName, @email, @pass)", _db);
+
+            cmdQ.Parameters.AddWithValue("@firstName", firstName);
+            cmdQ.Parameters.AddWithValue("@lastName", lastName);
+            cmdQ.Parameters.AddWithValue("@email", email);
+            cmdQ.Parameters.AddWithValue("@pass", pass);
+
+            int rowsAffected = cmdQ.ExecuteNonQuery();
+            Console.WriteLine(rowsAffected);
+            _db.Close();
+            return View("Index");
+
+        }
     }
+}
 }
 

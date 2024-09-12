@@ -38,7 +38,9 @@ namespace WebBuilding_50080.Controllers
                 "AS cardNum, CAST(NULL AS DATE) AS cardDate,'Manager' AS userType FROM Manager " +
                 "WHERE email = @Email AND pass = @Password " +
                 "UNION ALL SELECT cusID, firstName, lastName, email, pass, cardName, cardNum, cardDate, 'Customer' AS userType FROM Customer " +
-                "WHERE email = @Email AND pass = @Password", _db);
+                "WHERE email = @Email AND pass = @Password " +
+                "UNION ALL SELECT staffID, firstName, lastName, email, pass,NULL AS cardName,CAST(NULL AS INT) AS cardNum, CAST(NULL AS DATE) AS cardDate," +
+                "'Staff' AS userType FROM Staff", _db);
 
             cmdQ.Parameters.AddWithValue("@Email", email);
             cmdQ.Parameters.AddWithValue("@Password", pass);
@@ -49,9 +51,9 @@ namespace WebBuilding_50080.Controllers
                 // Redirect to a success page or handle successful login
                 string userType = reader["userType"].ToString();
                 User user = null;
-                if (userType == "Manager")
+                if (userType == "Manager" || userType == "Staff")
                 {
-                    ViewBag.loginStatus = 2;
+                    
                     user = new Manager
                     {
                         userID = Convert.ToInt32(reader["userID"]),
@@ -62,7 +64,16 @@ namespace WebBuilding_50080.Controllers
 
 
                     };
+                    if (userType == "Manager")
+                    {
+                        ViewBag.loginStatus = 2;
+                    }
+                    else
+                    {
+                        ViewBag.loginStatus = 3;
+                    }
                 }
+
                 else if (userType == "Customer")
                 {
                     ViewBag.loginStatus = 1;
