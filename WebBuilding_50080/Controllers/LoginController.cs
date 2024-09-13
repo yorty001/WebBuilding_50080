@@ -26,7 +26,7 @@ namespace WebBuilding_50080.Controllers
         [HttpPost]
         public IActionResult Login(string email, string pass)
         {
-            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\costa\\OneDrive\\Documents\\01 - University\\WebBuilding_50080\\WebBuilding_50080\\App_Data\\UTRDB.mdf;Integrated Security=True;Connect Timeout=30";
+            string connectionString = "Data Source=DESKTOP-QUG351H\\SQLEXPRESS;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False";
 
             SqlConnection db = new SqlConnection(connectionString);
 
@@ -105,7 +105,7 @@ namespace WebBuilding_50080.Controllers
         [HttpPost]
         public IActionResult SignUp(string firstName, string lastName, string email, string pass)
         {
-            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\costa\\OneDrive\\Documents\\01 - University\\WebBuilding_50080\\WebBuilding_50080\\App_Data\\UTRDB.mdf;Integrated Security=True;Connect Timeout=30";
+            string connectionString = "Data Source=DESKTOP-QUG351H\\SQLEXPRESS;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False";
 
             SqlConnection db = new SqlConnection(connectionString);
 

@@ -5,17 +5,14 @@ using WebBuilding_50080.Models;
 
     public class MenuController : Controller
     {
-        string connectionString = "Data Source=FRANK\\SQLEXPRESS;Initial Catalog=UTRDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-
-        public IActionResult Index()
+        string connectionString = "Data Source=DESKTOP-QUG351H\\SQLEXPRESS;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False";
+    public IActionResult Index()
+    {
+        var productList = new List<Product>();
+        try
         {
-            var productList = new List<Product>();
-
-            try
-            {
-                SqlConnection db = new SqlConnection(connectionString);
-
-                db.Open();
+            SqlConnection db = new SqlConnection(connectionString);
+            db.Open();
                 SqlCommand cmdQ = new SqlCommand("SELECT * FROM ConvenienceStoreItems", db);
                 SqlDataReader reader = cmdQ.ExecuteReader();
 
