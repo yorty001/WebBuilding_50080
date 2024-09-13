@@ -8,17 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="App_Data\UTRDB.mdf" />
-    <None Remove="App_Data\UTRDB_log.ldf" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="App_Data\UTRDB.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="App_Data\UTRDB_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Compile Remove="App_Data\**" />
+    <Content Remove="App_Data\**" />
+    <EmbeddedResource Remove="App_Data\**" />
+    <None Remove="App_Data\**" />
   </ItemGroup>
 
   <ItemGroup>
