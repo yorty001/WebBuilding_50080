@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Stripe;
-using System.Data.SqlClient;
-using System.Diagnostics;
-
+using WebBuilding_50080.Models;
 namespace server.Controllers
 {
 
@@ -20,6 +17,19 @@ namespace server.Controllers
             {
                 ViewBag.Name = name;
                 ViewBag.Price = price;
+            public IActionResult Index()
+            {
+                return View();
+            }
+
+            public IActionResult PaymentDetails()
+            {
+                ViewBag.CardName = HttpContext.Session.GetString("CardName");
+                ViewBag.CardNumber = HttpContext.Session.GetString("CardNumber");
+                ViewBag.ExpMonth = HttpContext.Session.GetString("ExpMonth");
+                ViewBag.ExpYear = HttpContext.Session.GetString("ExpYear");
+                ViewBag.CVV = HttpContext.Session.GetString("CVV");
+
                 return View();
             }
 
