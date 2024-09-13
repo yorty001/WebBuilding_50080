@@ -1,0 +1,64 @@
+﻿@model WebBuilding_50080.Models.FuelPriceModel
+
+@{
+    ViewData["Title"] = "Payment";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 960px;
+            padding-top: 20px;
+        }
+
+        .icon-container i {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        .btn {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Total Price: @Model.totalPrice.ToString("F2")</h2>
+
+        <form action="/Payment/SuccessfulPage" method="post">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <h3>Payment Details</h3>
+                    <label for="fname" class="form-label">Accepted Cards</label>
+                    <label for="cname" class="form-label">Name on Card</label>
+                    <input type="text" id="cname" name="cardname" class="form-control" placeholder="John More Doe" required>
+                    <label for="ccnum" class="form-label">Credit card number</label>
+                    <input type="text" id="ccnum" name="cardnumber" class="form-control" placeholder="1111-2222-3333-4444" required>
+                    <label for="expmonth" class="form-label">Exp Month</label>
+                    <input type="text" id="expmonth" name="expmonth" class="form-control" placeholder="September" required>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="expyear" class="form-label">Exp Year</label>
+                            <input type="text" id="expyear" name="expyear" class="form-control" placeholder="2018" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="cvv" class="form-label">CVV</label>
+                            <input type="text" id="cvv" name="cvv" class="form-control" placeholder="352" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <input type="submit" value="Continue to checkout" class="btn btn-primary">
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
