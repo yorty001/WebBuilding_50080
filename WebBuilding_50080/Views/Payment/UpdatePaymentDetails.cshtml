@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Save Payment Details";
+}
+
+<h2>Save Payment Details</h2>
+
+<div class="container">
+    <form action="/Payment/PaymentDetails" method="post">
+        <div class="mb-3">
+            <label for="CardName" class="form-label">Name on Card</label>
+            <input type="text" id="CardName" name="CardName" class="form-control" placeholder="John More Doe"/>
+
+            <label for="CardNumber" class="form-label">Credit Card Number</label>
+            <input type="text" id="CardNumber" name="CardNumber" class="form-control" placeholder="1111-2222-3333-4444" />
+
+            <label for="ExpMonth" class="form-label">Exp Month</label>
+            <input type="text" id="ExpMonth" name="ExpMonth" class="form-control" placeholder="September" />
+
+            <label for="ExpYear" class="form-label">Exp Year</label>
+            <input type="text" id="ExpYear" name="ExpYear" class="form-control" placeholder="2024" />
+
+            <label for="CVV" class="form-label">CVV</label>
+            <input type="text" id="CVV" name="CVV" class="form-control" placeholder="352" />
+        </div>
+
+        <input type="submit" value="Save Payment Method" class="btn btn-success">
+    </form>
+</div>

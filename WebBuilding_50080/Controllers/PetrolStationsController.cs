@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System.Data;
-using System.Data.SqlClient;
+using System;
+using System.Collections.Generic;
 using WebBuilding_50080.Models;
 
 namespace WebBuilding_50080.Controllers
@@ -10,6 +9,9 @@ namespace WebBuilding_50080.Controllers
     {
         public readonly SqlConnection _db;
         public PetrolStationsController(SqlConnection db)
+        
+        
+        private static List<Models.FuelPriceModel> fuelPrices = new List<Models.FuelPriceModel>
         {
             _db = db;
         }
@@ -17,6 +19,13 @@ namespace WebBuilding_50080.Controllers
     
 
     [HttpGet]
+            new Models.FuelPriceModel { FuelType = "Diesel", CurrentPrice = 1.50 },
+            new Models.FuelPriceModel { FuelType = "Unleaded", CurrentPrice = 1.35 },
+            new Models.FuelPriceModel { FuelType = "Premium", CurrentPrice = 1.70 }
+        };
+
+        
+        [HttpGet]
         public IActionResult UpdateFuelPrice()
         {
 
@@ -27,7 +36,7 @@ namespace WebBuilding_50080.Controllers
 
         
         [HttpPost]
-        public IActionResult Update(Dictionary<string, float?> NewPrices)
+        public IActionResult UpdateFuelPrice(List<Models.FuelPriceModel> updatedFuelPrices)
         {
             
             _db.Open();
@@ -81,9 +90,16 @@ namespace WebBuilding_50080.Controllers
             return View();
         }
 
+        public IActionResult PrePayFuel()
+        {
+            return View(fuelPrices);
+        }
+
 
     }
-
-    
-
+    {
+        public string FuelType { get; set; } = string.Empty;
+        public double CurrentPrice { get; set; }
+        public double? UpdatedPrice { get; set; }
+    }
 }

@@ -75,9 +75,26 @@ namespace server.Controllers
             public IActionResult OrderSummary()
             {
                 return View();
+            
             }
 
+                [HttpPost]
+                public IActionResult FuelPayment(string fuelType, string price, string total)
+                    {
+                    var model = new FuelPriceModel
+                    {
+                        FuelType = fuelType,
+                        CurrentPrice = double.Parse(price),
+                        totalPrice = double.Parse(total)
+                    };
 
+                    return View(model);
+                }
+
+            public IActionResult SuccessfulPage()
+            {
+                return View();
+            }
         }
 
     }
