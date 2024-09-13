@@ -1,4 +1,3 @@
-using WebBuilding_50080.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +14,6 @@ builder.Services.AddSession(options =>
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
-builder.Services.AddScoped<PaymentService>();
 var app = builder.Build();
 
 
