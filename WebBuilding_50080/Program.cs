@@ -19,7 +19,6 @@ builder.Services.AddTransient<SqlConnection>(sp => new SqlConnection(
 ));
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
-builder.Services.AddScoped<PaymentService>();
 var app = builder.Build();
 
 
