@@ -1,4 +1,7 @@
-﻿@{
+﻿@model IEnumerable<Fuel>
+@using WebBuilding_50080.Models;
+
+@{
     ViewData["Title"] = "Petrol Stations Management Page :)";
 }
 
@@ -62,9 +65,11 @@
 
     </head>
     <body>
+        < method="post" action="Update">
         <div class="container">
             <div class="card mx-auto" style="max-width: 600px;">
                 <h1>Welcome to the UTR Price Management page</h1>
+                <form method="post" asp-action="Update" asp-controller="PetrolStations">
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
@@ -76,14 +81,21 @@
                         @foreach (var fuel in Model)
                     {
                         <tr>
-                            <td>@fuel.FuelType</td>
-                            <td>@fuel.CurrentPrice</td>
+                            <td>@fuel.fuelType</td>
+                            <td>@fuel.pricePL.ToString("f2")</td>
+                            <td>
+                                <input type="number" name="NewPrices[@fuel.fuelType]" value="@fuel.pricePL.ToString("F2")" step="0.01" min="0" placeholder="Enter New Price" />
+
+                            </td>
                         </tr>
                     }
                 </tbody>
                 </table>
-            <a href="/PetrolStations/UpdateFuelPrice" class="btn btn-update">Update Fuel Price</a>
-            </div>
+
+                <input type="submit" value="Update Prices" class="btn btn-outline-success" />
+            </form>
+
+        </div>
         </div>
     </body>
 </html>

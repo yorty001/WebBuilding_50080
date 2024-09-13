@@ -5,7 +5,11 @@ using WebBuilding_50080.Models;
 
     public class MenuController : Controller
     {
-        string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\costa\\OneDrive\\Documents\\01 - University\\WebBuilding_50080\\WebBuilding_50080\\App_Data\\UTRDB.mdf;Integrated Security=True;Connect Timeout=30";
+    private readonly SqlConnection _db;
+    public MenuController(SqlConnection db)
+    {
+        _db = db;
+    }
 
         public IActionResult Index()
         {
@@ -13,10 +17,9 @@ using WebBuilding_50080.Models;
 
             try
             {
-                SqlConnection db = new SqlConnection(connectionString);
 
-                db.Open();
-                SqlCommand cmdQ = new SqlCommand("SELECT * FROM ConvenienceStoreItems", db);
+                _db.Open();
+                SqlCommand cmdQ = new SqlCommand("SELECT * FROM ConvenienceStoreItems", _db);
                 SqlDataReader reader = cmdQ.ExecuteReader();
 
                 while (reader.Read())
@@ -31,7 +34,7 @@ using WebBuilding_50080.Models;
                     };
                     productList.Add(product);
                 }
-                db.Close();
+                _db.Close();
             }
              catch (Exception e)
                     {

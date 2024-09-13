@@ -1,4 +1,6 @@
 using WebBuilding_50080.Services;
+using System.Data.SqlClient;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,10 +14,11 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
-
+builder.Services.AddTransient<SqlConnection>(sp => new SqlConnection(
+    builder.Configuration.GetConnectionString("DefaultConnection")
+));
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
-builder.Services.AddScoped<PaymentService>();
 var app = builder.Build();
 
 
@@ -32,7 +35,6 @@ app.UseSession();
 
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints => endpoints.MapControllers());
 
 app.MapControllerRoute(
     name: "default",

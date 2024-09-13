@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebBuilding_50080.Services;
+using Stripe;
+using System.Data.SqlClient;
+using System.Diagnostics;
 
 namespace server.Controllers
 {
@@ -8,23 +10,21 @@ namespace server.Controllers
     {
         public class Payment : Controller
         {
-            private readonly PaymentService _paymentService;
+            private readonly SqlConnection _db;
 
-            public Payment(PaymentService paymentService)
+            public Payment(SqlConnection db)
             {
-                _paymentService = paymentService;
+                _db = db;
+            }
+            public IActionResult Index([FromQuery] string name, [FromQuery] decimal price)
+            {
+                ViewBag.Name = name;
+                ViewBag.Price = price;
+                return View(name, price);
             }
 
             [HttpPost]
-            [Route("create-checkout-session")]
-            public IActionResult CreateCheckoutSession([FromBody] List<Cartitem> cartItems)
-            {
-                string sessionUrl = _paymentService.CheckoutSession(cartItems);
-
-                Response.Headers.Add("location", sessionUrl);
-                return new StatusCodeResult(303);
-            }
-            public IActionResult Index()
+            public IActionResult OrderSummary()
             {
                 return View();
             }

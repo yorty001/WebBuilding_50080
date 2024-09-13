@@ -1,12 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Data.SqlClient;
 using WebBuilding_50080.Models;
-using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 namespace WebBuilding_50080.Controllers
 {
     public class LoginController : Controller
     {
+        private readonly SqlConnection _db;
+        public LoginController(SqlConnection db)
+        {
+            _db = db;
+        }
         [HttpGet]
         public IActionResult Index(int loginStatus = 0)
         {
@@ -23,19 +27,18 @@ namespace WebBuilding_50080.Controllers
             return View();
         }
 
+
         [HttpPost]
         public IActionResult Login(string email, string pass)
         {
-            string connectionString = "Data Source=FRANK\\SQLEXPRESS;Initial Catalog=UTRDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
-            SqlConnection db = new SqlConnection(connectionString);
 
-            db.Open();
+            _db.Open();
             SqlCommand cmdQ = new SqlCommand("SELECT userID, firstName, lastName, email, pass,NULL AS cardName,CAST(NULL AS INT) " +
                 "AS cardNum, CAST(NULL AS DATE) AS cardDate,'Manager' AS userType FROM Manager " +
                 "WHERE email = @Email AND pass = @Password " +
                 "UNION ALL SELECT cusID, firstName, lastName, email, pass, cardName, cardNum, cardDate, 'Customer' AS userType FROM Customer " +
-                "WHERE email = @Email AND pass = @Password", db);
+                "WHERE email = @Email AND pass = @Password", _db);
 
             cmdQ.Parameters.AddWithValue("@Email", email);
             cmdQ.Parameters.AddWithValue("@Password", pass);
@@ -105,12 +108,10 @@ namespace WebBuilding_50080.Controllers
         [HttpPost]
         public IActionResult SignUp(string firstName, string lastName, string email, string pass)
         {
-            string connectionString = "Data Source=FRANK\\SQLEXPRESS;Initial Catalog=UTRDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
-            SqlConnection db = new SqlConnection(connectionString);
 
-            db.Open();
-            SqlCommand cmdQ = new SqlCommand("INSERT INTO Customer (firstName, lastName, email, pass) VALUES (@firstName, @lastName, @email, @pass)", db);
+            _db.Open();
+            SqlCommand cmdQ = new SqlCommand("INSERT INTO Customer (firstName, lastName, email, pass) VALUES (@firstName, @lastName, @email, @pass)", _db);
 
             cmdQ.Parameters.AddWithValue("@firstName", firstName);
             cmdQ.Parameters.AddWithValue("@lastName", lastName);
@@ -119,6 +120,7 @@ namespace WebBuilding_50080.Controllers
 
             int rowsAffected = cmdQ.ExecuteNonQuery();
             Console.WriteLine(rowsAffected);
+            _db.Close();
             return View("Index");
         }
     }
