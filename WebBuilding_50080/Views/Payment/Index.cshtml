@@ -27,7 +27,7 @@
 <body>
     <script>
         function storeNameAndSubmit(event) {
-            event.preventDefault(); 
+            event.preventDefault();
 
             var fullName = document.getElementById("fname").value;
             localStorage.setItem("fname", fullName);
@@ -36,13 +36,14 @@
             const Name = url.searchParams.get("name");
             const Price = url.searchParams.get("price");
 
-            const form = document.querySelector("form");
+            const form = document.querySelector('form');
             if (Name && Price) {
-                form.action = "http://localhost:5287/Payment/OrderSummary?name=${encodeURIComponent(Name)}&price=${encodeURIComponent(Price)}";
+                form.action = `http://localhost:5287/Payment/OrderSummary?name=${encodeURIComponent(Name)}&price=${encodeURIComponent(Price)}`;
             }
             form.submit();
         }
     </script>
+
     <div class="container">
         <form action="http://localhost:5287/Payment/OrderSummary" method="post">
 
