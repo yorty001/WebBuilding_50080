@@ -1,0 +1,65 @@
+﻿
+    
+@{
+    ViewData["Title"] = "Edit Page";
+}
+
+<h1>Create Staff Account</h1>
+<div class="container">
+    <form method="post" asp-action="CreateStaff" asp-controller="Account">
+        <div class="row">
+            <p>Please enter their details:</p>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="form-control">
+                    <label for="firstName">First Name</label>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <input type="text" name="firstName" class="form-controll" id="firstName">
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <input type="text" name="lastName" class="form-controll" id="lastName">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="pass">Password</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <input type="email" name="email" class="form-controll" id="email">
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <input type="password" name="pass" class="form-controll" id="pass">
+                </div>
+            </div>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+</div>
