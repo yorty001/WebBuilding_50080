@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebBuilding_50080.Models;
+using System.Data.SqlClient;
+
+
 namespace server.Controllers
 {
 
@@ -17,8 +20,6 @@ namespace server.Controllers
             {
                 ViewBag.Name = name;
                 ViewBag.Price = price;
-            public IActionResult Index()
-            {
                 return View();
             }
 
@@ -32,7 +33,44 @@ namespace server.Controllers
 
                 return View();
             }
+            public IActionResult UpdatePaymentDetails()
+            {
+                return View();
+            }
 
+            [HttpPost]
+            public IActionResult PaymentDetails(string CardName, string CardNumber, string ExpMonth, string ExpYear, string CVV)
+            {
+
+                HttpContext.Session.SetString("CardName", CardName);
+                HttpContext.Session.SetString("CardNumber", CardNumber);
+                HttpContext.Session.SetString("ExpMonth", ExpMonth);
+                HttpContext.Session.SetString("ExpYear", ExpYear);
+                HttpContext.Session.SetString("CVV", CVV);
+
+                return RedirectToAction("PaymentDetails");
+            }
+            public IActionResult FuelPayment()
+            {
+                return View();
+
+            }
+            [HttpPost]
+            public IActionResult FuelPayment(string fuelType, string price, string total)
+            {
+                var model = new FuelPriceModel
+                {
+                    FuelType = fuelType,
+                    CurrentPrice = double.Parse(price),
+                    totalPrice = double.Parse(total)
+                };
+                return View(model);
+            }
+
+            public IActionResult SuccessfulPage()
+            {
+                return View();
+            }
             [HttpPost]
             public IActionResult OrderSummary()
             {
@@ -44,3 +82,5 @@ namespace server.Controllers
 
     }
 }
+
+
