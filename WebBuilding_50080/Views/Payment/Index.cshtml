@@ -25,61 +25,77 @@
     </style>
 </head>
 <body>
+    <script>
+        function storeNameAndSubmit(event) {
+            event.preventDefault();
+
+            var fullName = document.getElementById("fname").value;
+            localStorage.setItem("fname", fullName);
+
+            const url = new URL(window.location.href);
+            const Name = url.searchParams.get("name");
+            const Price = url.searchParams.get("price");
+
+            const form = document.querySelector('form');
+            if (Name && Price) {
+                form.action = `http://localhost:5287/Payment/OrderSummary?name=${encodeURIComponent(Name)}&price=${encodeURIComponent(Price)}`;
+            }
+            form.submit();
+        }
+    </script>
 
     <div class="container">
-        <form action="asp-CreateCheckoutSession" method="post">
+        <form action="http://localhost:5287/Payment/OrderSummary" method="post">
 
             <div class="row mb-3">
                 <div class="col-md-6">
                     <h3>Billing Address</h3>
                     <label for="fname" class="form-label"><i class="fas fa-user"></i> Full Name</label>
-                    <input type="text" id="fname" name="firstname" class="form-control" placeholder="John M. Doe">
+                    <input type="text" id="fname" name="firstname" class="form-control" placeholder="Steave Malcom" required>
                     <label for="email" class="form-label"><i class="fas fa-envelope"></i> Email</label>
-                    <input type="text" id="email" name="email" class="form-control" placeholder="john@example.com">
+                    <input type="text" id="email" name="email" class="form-control" placeholder="steave@example.com" required>
                     <label for="adr" class="form-label"><i class="fas fa-address-card"></i> Address</label>
-                    <input type="text" id="adr" name="address" class="form-control" placeholder="542 W. 15th Street">
+                    <input type="text" id="adr" name="address" class="form-control" placeholder="177 chase rd" required>
                     <label for="city" class="form-label"><i class="fas fa-city"></i> City</label>
-                    <input type="text" id="city" name="city" class="form-control" placeholder="New York">
+                    <input type="text" id="city" name="city" class="form-control" placeholder="Adelaide" required>
 
                     <div class="row">
                         <div class="col-md-6">
                             <label for="state" class="form-label">State</label>
-                            <input type="text" id="state" name="state" class="form-control" placeholder="NY">
+                            <input type="text" id="state" name="state" class="form-control" placeholder="SA" required>
                         </div>
                         <div class="col-md-6">
                             <label for="zip" class="form-label">Zip</label>
-                            <input type="text" id="zip" name="zip" class="form-control" placeholder="10001">
+                            <input type="text" id="zip" name="zip" class="form-control" placeholder="5000" required>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-md-6">
                     <h3>Payment</h3>
-                    <label for="fname" class="form-label">Accepted Cards</label>
                     <label for="cname" class="form-label">Name on Card</label>
-                    <input type="text" id="cname" name="cardname" class="form-control" placeholder="John More Doe">
+                    <input type="text" id="cname" name="cardname" class="form-control" placeholder="Steave M" required>
                     <label for="ccnum" class="form-label">Credit card number</label>
-                    <input type="text" id="ccnum" name="cardnumber" class="form-control" placeholder="1111-2222-3333-4444">
+                    <input type="text" id="ccnum" name="cardnumber" class="form-control" placeholder="1111-2222-3333-4444" required pattern="\d{16}" minlength="16" maxlength="16">
                     <label for="expmonth" class="form-label">Exp Month</label>
-                    <input type="text" id="expmonth" name="expmonth" class="form-control" placeholder="September">
+                    <input type="month" id="expmonth" name="expmonth" class="form-control" placeholder="September" required>
 
                     <div class="row">
                         <div class="col-md-6">
                             <label for="expyear" class="form-label">Exp Year</label>
-                            <input type="text" id="expyear" name="expyear" class="form-control" placeholder="2018">
+                            <input type="text" id="expyear" name="expyear" class="form-control" placeholder="2030" required pattern="\d{4}" minlength="4" maxlength="4">
                         </div>
                         <div class="col-md-6">
                             <label for="cvv" class="form-label">CVV</label>
-                            <input type="text" id="cvv" name="cvv" class="form-control" placeholder="352">
+                            <input type="text" id="cvv" name="cvv" class="form-control" placeholder="352" required pattern="\d{3}" minlength="3" maxlength="3">
                         </div>
                     </div>
                 </div>
             </div>
 
-            <input type="submit" value="Continue to checkout" class="btn btn-primary">
+            <a href="#" class="btn btn-primary" onclick="storeNameAndSubmit(event)">Proceed with payment</a>
         </form>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 
