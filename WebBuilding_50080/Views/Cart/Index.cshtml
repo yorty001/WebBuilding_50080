@@ -1,0 +1,18 @@
+﻿
+@model List<int>
+
+<h2>Your Cart</h2>
+
+@if (Model.Count == 0)
+{
+    <p>Your cart is empty.</p>
+}
+else
+{
+    <ul>
+        @foreach (var productName in Model)
+        {
+            <li>Product Name: @productName</li>
+        }
+    </ul>
+}
