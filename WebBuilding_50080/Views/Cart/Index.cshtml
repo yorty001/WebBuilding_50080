@@ -1,18 +1,19 @@
-﻿
-@model List<int>
+﻿@{
+    ViewData["Title"] = "Your Cart";
+}
 
 <h2>Your Cart</h2>
 
-@if (Model.Count == 0)
-{
-    <p>Your cart is empty.</p>
-}
-else
-{
-    <ul>
-        @foreach (var productName in Model)
+<ul>
+    @if (ViewBag.CartItems != null)
+    {
+        foreach (var item in ViewBag.CartItems)
         {
-            <li>Product Name: @productName</li>
+            <li>Product Name: @item</li>
         }
-    </ul>
-}
+    }
+    else
+    {
+        <li>Your cart is empty.</li>
+    }
+</ul>

@@ -1,4 +1,3 @@
-using WebBuilding_50080.Services;
 using System.Data.SqlClient;
 using Microsoft.AspNetCore.Builder;
 
@@ -19,7 +18,6 @@ builder.Services.AddTransient<SqlConnection>(sp => new SqlConnection(
 ));
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
-builder.Services.AddScoped<PaymentService>();
 var app = builder.Build();
 
 

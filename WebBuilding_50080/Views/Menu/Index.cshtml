@@ -1,6 +1,11 @@
 ﻿@model IEnumerable<WebBuilding_50080.Models.Product>
 @{
     ViewData["Title"] = "Menu";
+
+    if (ViewBag.UpdatedCart == null)
+    {
+        ViewBag.UpdatedCart = "";
+    }
 }
 
 <h2>Menu Page</h2>
@@ -22,7 +27,11 @@
                     <p>
                         <a asp-controller="Payment" asp-action="Index" class="btn btn-primary">Buy</a>
 
-                            <button class="btn btn-success" onclick="window.location.href='@Url.Action("AddToCart", "Cart", new { name = product.Name })'">Add to Cart</button>
+                            <button class="btn btn-success"
+                                    onclick="window.location.href='@Url.Action("Index", "Cart", new { productName = @product.Name, currentCart = ViewBag.UpdatedCart })'">
+                                Add to Cart
+                            </button>
+
                         </p>
                 </div>
             </div>

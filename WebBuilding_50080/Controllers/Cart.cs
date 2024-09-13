@@ -1,22 +1,30 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using WebBuilding_50080.Models;
 
 namespace WebBuilding_50080.Controllers
 {
-    public class Cart : Controller
+    public class CartController : Controller
     {
-        private static List<int> CartItems = new List<int>();
-
-        public IActionResult AddToCart(int name)
-
+        public IActionResult Index(string productName, string currentCart)
         {
-            CartItems.Add(name);
-            return RedirectToAction("Index");
-        }
-        public IActionResult Index()
-        {
-            return View(CartItems);
+            var cart = new List<string>();
+
+            if (!string.IsNullOrEmpty(currentCart))
+            {
+                cart = new List<string>(currentCart.Split(','));
+            }
+
+            if (!string.IsNullOrEmpty(productName))
+            {
+                cart.Add(productName);
+            }
+
+            var updatedCart = string.Join(",", cart);
+
+            ViewBag.CartItems = cart;
+            ViewBag.UpdatedCart = updatedCart;  
+
+            return View();
         }
     }
 }
