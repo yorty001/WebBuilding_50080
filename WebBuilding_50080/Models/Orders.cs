@@ -8,6 +8,7 @@ namespace WebBuilding_50080.Models
         public Double totalPrice { get; set; }
 
         public string items { get; set; }
+        public string status { get; set; }  
     }
 }
     
