@@ -28,9 +28,10 @@
                         <a asp-controller="Payment" asp-action="Index" class="btn btn-primary">Buy</a>
 
                             <button class="btn btn-success"
-                                    onclick="window.location.href='@Url.Action("Index", "Cart", new { productName = @product.Name, currentCart = ViewBag.UpdatedCart })'">
+                                    onclick="window.location.href='@Url.Action("Index", "Cart", new { productName = @product.Name, productPrice = @product.Price, currentCart = ViewBag.UpdatedCart ?? string.Empty })'">
                                 Add to Cart
                             </button>
+
 
                         </p>
                 </div>
