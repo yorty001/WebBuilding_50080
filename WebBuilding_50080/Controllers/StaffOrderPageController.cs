@@ -1,15 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebBuilding_50080.Models;
+using System.Collections.Generic;
 
 namespace WebBuilding_50080.Controllers
 {
-    public class OrderManagementController : Controller
+    public class StaffOrderPageController : Controller
     {
         public IActionResult Index()
         {
-            return View(CartController.Orders);
+            var orders = CartController.Orders;
+            return View(orders);
         }
 
+        [HttpPost]
         public IActionResult MarkAsReady(int orderId)
         {
             var order = CartController.Orders.Find(o => o.OrderId == orderId);
@@ -18,7 +21,7 @@ namespace WebBuilding_50080.Controllers
                 order.IsReady = true;
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index, StaffOrderPage");
         }
     }
 }

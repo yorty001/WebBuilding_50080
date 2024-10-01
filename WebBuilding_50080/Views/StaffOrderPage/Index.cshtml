@@ -27,7 +27,7 @@
                 <td>
                     @if (!order.IsReady)
                     {
-                        <form method="post" action="@Url.Action("MarkAsReady", "OrderManagement", new { orderId = order.OrderId})">
+                        <form method="post" action="@Url.Action("MarkAsReady", "StaffOrderPage", new { orderId = order.OrderId})">
                             <button type="submit" class="btn btn-success">Order Ready</button>
                         </form>
                     }
