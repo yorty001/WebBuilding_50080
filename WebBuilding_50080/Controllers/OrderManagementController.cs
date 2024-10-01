@@ -12,7 +12,13 @@ namespace WebBuilding_50080.Controllers
 
         public IActionResult MarkAsReady(int orderId)
         {
-            var order 
+            var order = CartController.Orders.Find(o => o.OrderId == orderId);
+            if (order != null)
+            {
+                order.IsReady = true;
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }
