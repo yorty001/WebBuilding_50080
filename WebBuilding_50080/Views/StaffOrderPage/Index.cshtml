@@ -1,0 +1,38 @@
+﻿<h2>Orders</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Products</th>
+            <th>Total Price</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.OrderId</td>
+                <td>
+                    <ul>
+                        @foreach (var product in order.Products)
+                        {
+                            <li>@product.Name - Quantity: @product.Quantity - Price: @product.Price</li>
+                        }
+                    </ul>
+                </td>
+                <td>@order.TotalPrice</td>
+                <td>@(order.IsReady ? "Ready" : "Processing")</td>
+                <td>
+                    @if (!order.IsReady)
+                    {
+                        <form method="post" action="@Url.Action("MarkAsReady", "OrderManagement", new { orderId = order.OrderId })">
+                            <button type="submit" class="btn btn-success">Order Ready</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
