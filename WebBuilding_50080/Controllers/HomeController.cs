@@ -46,5 +46,10 @@ namespace WebBuilding_50080.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public IActionResult feedback()
+        {
+            return View();
+        }
     }
 }
