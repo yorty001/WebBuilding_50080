@@ -21,7 +21,7 @@ namespace WebBuilding_50080.Controllers
                 order.IsReady = true;
             }
 
-            return RedirectToAction("Index, StaffOrderPage");
+            return RedirectToAction("Index", "StaffOrderPage");
         }
     }
 }
