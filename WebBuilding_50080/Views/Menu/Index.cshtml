@@ -25,7 +25,10 @@
                     <p class="card-text">Cost: @product.Price</p>
                     <img src="@product.Image" class="card-img-top" style="max-height: 200px; width:200px;" alt="Item Name">
                     <p>
-                        <a asp-controller="Payment" asp-action="Index" class="btn btn-primary">Buy</a>
+                            <button class="btn btn-success"
+                                    onclick="window.location.href='@Url.Action("Index", "Cart", new { productName = @product.Name, productPrice = @product.Price, currentCart = ViewBag.UpdatedCart ?? string.Empty })'">
+                                Buy
+                            </button>
 
                             <button class="btn btn-success"
                                     onclick="window.location.href='@Url.Action("Index", "Cart", new { productName = @product.Name, productPrice = @product.Price, currentCart = ViewBag.UpdatedCart ?? string.Empty })'">
