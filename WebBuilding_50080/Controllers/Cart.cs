@@ -8,7 +8,7 @@ namespace WebBuilding_50080.Controllers
     public class CartController : Controller
     {
         private static List<Product> cartProducts = new List<Product>();
-        private static List<Order> Orders = new List<Order>();
+        public static List<Order> Orders = new List<Order>();
 
         public IActionResult Index(string productName, decimal productPrice)
         {
