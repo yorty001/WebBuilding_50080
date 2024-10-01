@@ -25,9 +25,27 @@
     </style>
 </head>
 <body>
-    
+    <script>
+        function storeNameAndSubmit(event) {
+            event.preventDefault();
+
+            var fullName = document.getElementById("fname").value;
+            localStorage.setItem("fname", fullName);
+
+            const url = new URL(window.location.href);
+            const Name = url.searchParams.get("name");
+            const Price = url.searchParams.get("price");
+
+            const form = document.querySelector('form');
+            if (Name && Price) {
+                form.action = `http://localhost:5287/Payment/OrderSummary?name=${encodeURIComponent(Name)}&price=${encodeURIComponent(Price)}`;
+            }
+            form.submit();
+        }
+    </script>
+
     <div class="container">
-        <form asp-controller="Payment" asp-action="OrderSummary" method="post">
+        <form action="http://localhost:5287/Payment/OrderSummary" method="post">
 
             <div class="row mb-3">
                 <div class="col-md-6">
@@ -58,27 +76,26 @@
                     <label for="cname" class="form-label">Name on Card</label>
                     <input type="text" id="cname" name="cardname" class="form-control" placeholder="Steave M" required>
                     <label for="ccnum" class="form-label">Credit card number</label>
-                    <input type="text" id="ccnum" name="cardnumber" class="form-control" placeholder="1111-2222-3333-4444" required>
+                    <input type="text" id="ccnum" name="cardnumber" class="form-control" placeholder="1111-2222-3333-4444" required pattern="\d{16}" minlength="16" maxlength="16">
                     <label for="expmonth" class="form-label">Exp Month</label>
-                    <input type="text" id="expmonth" name="expmonth" class="form-control" placeholder="September" required>
+                    <input type="month" id="expmonth" name="expmonth" class="form-control" placeholder="September" required>
 
                     <div class="row">
                         <div class="col-md-6">
                             <label for="expyear" class="form-label">Exp Year</label>
-                            <input type="text" id="expyear" name="expyear" class="form-control" placeholder="2030" required>
+                            <input type="text" id="expyear" name="expyear" class="form-control" placeholder="2030" required pattern="\d{4}" minlength="4" maxlength="4">
                         </div>
                         <div class="col-md-6">
                             <label for="cvv" class="form-label">CVV</label>
-                            <input type="text" id="cvv" name="cvv" class="form-control" placeholder="352" required>
+                            <input type="text" id="cvv" name="cvv" class="form-control" placeholder="352" required pattern="\d{3}" minlength="3" maxlength="3">
                         </div>
                     </div>
                 </div>
             </div>
 
-            <input type="submit" value="Proceed with payment" class="btn btn-primary">
+            <a href="#" class="btn btn-primary" onclick="storeNameAndSubmit(event)">Proceed with payment</a>
         </form>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 
