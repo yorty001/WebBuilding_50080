@@ -1,0 +1,18 @@
+﻿<h2>Order Status</h2>
+<p>Order ID: @Model.OrderId</p>
+<p>Total Price: @Model.TotalPrice</p>
+
+<h3>Products:</h3>
+<ul>
+    @foreach (var product in Model.Products)
+    {
+        <li>@product.Name - Price: @product.Price</li>
+    }
+</ul>
+
+<script>
+    var isOrderReady = '@Model.IsReady';
+    if (isOrderReady === "True") {
+        alert("Your order is ready!")
+    }
+</script>
