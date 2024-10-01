@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebBuilding_50080.Models;
 using System.Data.SqlClient;
+using Newtonsoft.Json;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 
 
 namespace server.Controllers
@@ -72,8 +74,36 @@ namespace server.Controllers
                 return View();
             }
             [HttpPost]
-            public IActionResult OrderSummary()
+            public IActionResult OrderSummary(double price)
             {
+                int points = (int)Math.Floor(price);
+
+                var userJson = HttpContext.Session.GetString("User");
+                if (userJson != null)
+                {
+                    var user = JsonConvert.DeserializeObject<User>(userJson);
+
+                    _db.Open();
+                    SqlCommand cmdQ = new SqlCommand("UPDATE Customer SET points = @Points WHERE cusID = @CusID", _db);
+                    cmdQ.Parameters.AddWithValue("@Points", points);
+                    cmdQ.Parameters.AddWithValue("@CusID", user.userID);
+                    try
+                    {
+                        // Execute the command
+                        cmdQ.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        // Handle the error (optional)
+                        // Log the exception or show an error message
+                        Console.WriteLine(ex.Message);
+                    }
+                    finally
+                    {
+                        // Close the database connection
+                        _db.Close();
+                    }
+                }
                 return View();
             
             }
