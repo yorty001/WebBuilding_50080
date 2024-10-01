@@ -15,6 +15,10 @@
     </ul>
 
     <p>Total Price: $@Model.TotalPrice</p>
+
+    <form method="post" action="@Url.Action("PlaceOder", "Cart")">
+        <button type="submit" class="btn btn-primary">Place Order</button>
+    </form>
 }
 else
 {
