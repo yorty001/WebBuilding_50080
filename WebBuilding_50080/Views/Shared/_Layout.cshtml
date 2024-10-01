@@ -1,4 +1,18 @@
-﻿<!DOCTYPE html>
+﻿@model WebBuilding_50080.Models.User
+@using Newtonsoft.Json
+@using Microsoft.AspNetCore.Http
+
+@* Accessing the user from the session *@
+@{
+
+    var userJson = Context.Session.GetString("User");
+    User user = null;
+    if (userJson != null)
+    {
+        user = JsonConvert.DeserializeObject<User>(userJson);
+    }
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -33,6 +47,12 @@
                         <a class="nav-link text-light" asp-area="" asp-controller="Payment" asp-action="PaymentDetails">Payment Details</a>                
                         <a class="nav-link text-light" asp-area="" asp-controller="PetrolStations" asp-action="PrePayFuel">Prepay Fuel</a>
                     </ul>
+                    @if (ViewBag.loginStatus != null)
+                    {
+                        <span class="navbar-text text-light ms-auto">
+                            Loyalty points:  @user.points
+                        </span>
+                    }
                 </div>
             </div>
         </nav>
