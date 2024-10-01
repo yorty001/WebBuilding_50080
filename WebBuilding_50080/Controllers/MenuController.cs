@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using WebBuilding_50080.Models;
@@ -41,7 +42,18 @@ using WebBuilding_50080.Models;
                     {
                 Debug.WriteLine("Error fetching products: " + e.Message);
                 }
-            return View(productList);
+        var userJson = HttpContext.Session.GetString("User");
+        User user = null;
+        if (userJson != null)
+        {
+            user = JsonConvert.DeserializeObject<User>(userJson);
+        }
+        var viewModel = new ProductsViewModel
+        {
+            Products = productList,
+            User = user
+        };
+        return View(viewModel);
         }
     }
 

@@ -9,5 +9,10 @@
             public decimal Price { get; set; }
 
         }
+    public class ProductsViewModel
+    {
+        public List<Product> Products { get; set; }
+        public User User { get; set; }
     }
+}
 
