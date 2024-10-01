@@ -47,7 +47,7 @@ namespace WebBuilding_50080.Controllers
             var order = new Order
             {
                 OrderId = Orders.Count + 1,
-                Products new List<Product>(cartProducts),
+                Products = new List<Product>(cartProducts),
                 TotalPrice = CalculateTotalPrice(cartProducts),
                 IsReady = false
             };
