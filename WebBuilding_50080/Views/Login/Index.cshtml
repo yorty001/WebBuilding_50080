@@ -19,6 +19,13 @@
     @if (ViewBag.loginStatus != null)
     {
         <h2>Hello, @user.firstName @user.lastName</h2>
+        @if (user.points != null) {
+            <h3>You have @user.points points</h3>
+        }
+        else
+        {
+            <h5>You have 0 points</h5>
+        }
     }
 
     <p><a href="@Url.Action("Index", "Menu")">Menu</a></p>

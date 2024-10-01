@@ -35,11 +35,11 @@ namespace WebBuilding_50080.Controllers
 
             _db.Open();
             SqlCommand cmdQ = new SqlCommand("SELECT userID, firstName, lastName, email, pass,NULL AS cardName,CAST(NULL AS INT) " +
-                "AS cardNum, CAST(NULL AS DATE) AS cardDate,'Manager' AS userType FROM Manager " +
+                "AS cardNum, CAST(NULL AS DATE) AS cardDate, NULL AS points, 'Manager' AS userType FROM Manager " +
                 "WHERE email = @Email AND pass = @Password " +
-                "UNION ALL SELECT cusID, firstName, lastName, email, pass, cardName, cardNum, cardDate, 'Customer' AS userType FROM Customer " +
+                "UNION ALL SELECT cusID, firstName, lastName, email, pass, cardName, cardNum, cardDate, points, 'Customer' AS userType FROM Customer " +
                 "WHERE email = @Email AND pass = @Password " +
-                "UNION ALL SELECT staffID, firstName, lastName, email, pass,NULL AS cardName,CAST(NULL AS INT) AS cardNum, CAST(NULL AS DATE) AS cardDate," +
+                "UNION ALL SELECT staffID, firstName, lastName, email, pass,NULL AS cardName,CAST(NULL AS INT) AS cardNum, CAST(NULL AS DATE) AS cardDate, NULL AS points," +
                 "'Staff' AS userType FROM Staff", _db);
 
             cmdQ.Parameters.AddWithValue("@Email", email);
@@ -84,6 +84,7 @@ namespace WebBuilding_50080.Controllers
                         lastName = reader["lastName"].ToString(),
                         email = reader["email"].ToString(),
                         pass = reader["pass"].ToString(),
+                        points = reader["points"] == DBNull.Value ? default : Convert.ToInt32(reader["points"]),
 
 
                         cardDate = reader["cardDate"] == DBNull.Value ? default : DateOnly.FromDateTime(Convert.ToDateTime(reader["cardDate"])),
