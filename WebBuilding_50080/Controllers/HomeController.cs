@@ -80,9 +80,13 @@ namespace WebBuilding_50080.Controllers
                 _db.Close();
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("feedbackSuccess");
         }
 
+        public IActionResult feedbackSuccess()
+        {
+            return View();
+        }
     }
 }
 
