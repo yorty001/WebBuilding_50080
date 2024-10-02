@@ -110,7 +110,13 @@ namespace WebBuilding_50080.Controllers
 
         }
 
+        public IActionResult LogOut()
+        {
+            HttpContext.Session.Remove("User");
 
+
+            return RedirectToAction("Index", "Home");
+        }
         public IActionResult SignUp()
         {
             return View();

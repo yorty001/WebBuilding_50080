@@ -77,7 +77,11 @@ else
 {
     <div class=" = text-center">
         <p><a href="@Url.Action("Index", "Account")">Account Settings</a></p>
+        <form asp-controller="Login" asp-action="LogOut" method="post" style="display:inline;">
+            <button type="submit" class="btn btn-primary pt-4">Log Out</button>
+        </form>
         <button type="submit" class="btn btn-danger pt-4">Delete Account</button>
+
     </div>
 }
 
