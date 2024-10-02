@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Collections.Generic;
 using WebBuilding_50080.Models;
 
@@ -17,7 +16,7 @@ namespace WebBuilding_50080.Controllers
                 var product = new Product
                 {
                     Name = productName,
-                    Price = productPrice 
+                    Price = productPrice
                 };
 
                 cartProducts.Add(product);
@@ -55,12 +54,46 @@ namespace WebBuilding_50080.Controllers
             Orders.Add(order);
             cartProducts.Clear();
 
+            return RedirectToAction("Payment", new { orderId = order.OrderId });
+        }
+
+        public IActionResult Payment(int orderId)
+        {
+            var order = Orders.Find(o => o.OrderId == orderId);
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            return View(order);
+        }
+
+        [HttpPost]
+        public IActionResult ConfirmPayment(int orderId, string NameOnCard, string CardNumber, string ExpiryDate, string CVV)
+        {
+            var order = Orders.Find(o => o.OrderId == orderId);
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            bool isPaymentValid = ValidatePayment(CardNumber, ExpiryDate, CVV);
+            if (!isPaymentValid)
+            {
+                ViewBag.ErrorMessage = "Payment failed. Please check your details.";
+                return View("Payment", order);
+            }
+
             return RedirectToAction("OrderConfirmation", new { orderId = order.OrderId });
         }
 
         public IActionResult OrderConfirmation(int orderId)
         {
             var order = Orders.Find(o => o.OrderId == orderId);
+            if (order == null)
+            {
+                return NotFound();
+            }
 
             return View(order);
         }
@@ -74,7 +107,18 @@ namespace WebBuilding_50080.Controllers
             }
             return totalPrice;
         }
+
+        private bool ValidatePayment(string cardNumber, string expiryDate, string cvv)
+        {
+            return !string.IsNullOrEmpty(cardNumber) && !string.IsNullOrEmpty(expiryDate) && !string.IsNullOrEmpty(cvv);
+        }
+
+        [HttpPost]
+        public IActionResult ProcessPayment(int orderId)
+        {
+
+            return RedirectToAction("OrderConfirmation", new { orderId = orderId });
+        }
+
     }
 }
-
-
