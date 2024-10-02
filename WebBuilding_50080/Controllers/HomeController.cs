@@ -3,6 +3,7 @@ using System.Diagnostics;
 using WebBuilding_50080.Models;
 using Newtonsoft.Json;
 using System.Data.SqlClient;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace WebBuilding_50080.Controllers
 {
@@ -49,7 +50,39 @@ namespace WebBuilding_50080.Controllers
 
         public IActionResult feedback()
         {
+      
+            int? cusID = HttpContext.Session.GetInt32("cusID");
+            if (cusID == null)
+            {
+              
+                return RedirectToAction("Index", "Login");
+            }
+
+          
+            ViewBag.cusID = cusID;
             return View();
         }
+
+        [HttpPost]
+        public IActionResult SubmitFeedback(int cusID, string purpose, string text, int rating)
+        {
+            string insertStatement = "INSERT INTO Feedback (cusID, type, details, rating) VALUES (@cusID, @type, @details, @rating)";
+
+            using (SqlCommand cmd = new SqlCommand(insertStatement, _db))
+            {
+                cmd.Parameters.AddWithValue("@cusID", cusID);
+                cmd.Parameters.AddWithValue("@type", purpose);
+                cmd.Parameters.AddWithValue("@details", text);
+                cmd.Parameters.AddWithValue("@rating", rating);
+
+                _db.Open();
+                cmd.ExecuteNonQuery();
+                _db.Close();
+            }
+
+            return RedirectToAction("Index");
+        }
+
     }
 }
+
