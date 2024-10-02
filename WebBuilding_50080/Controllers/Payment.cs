@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebBuilding_50080.Models;
 using System.Data.SqlClient;
+using Newtonsoft.Json;
 
 
 namespace server.Controllers
@@ -20,6 +21,18 @@ namespace server.Controllers
             {
                 ViewBag.Name = name;
                 ViewBag.Price = price;
+                return View();
+            }
+            public IActionResult OrderSummary()
+            {
+                var cartJson = HttpContext.Session.GetString("cartProduct");
+                if (cartJson != null)
+                {
+                    var cart = JsonConvert.DeserializeObject<CartViewModel>(cartJson);
+
+                    // Pass the model to the OrderSummary view
+                    return View(cart);
+                }
                 return View();
             }
 
@@ -71,16 +84,11 @@ namespace server.Controllers
             {
                 return View();
             }
-            [HttpPost]
-            public IActionResult OrderSummary()
-            {
-                return View();
-            
-            }
+
 
         }
-
     }
 }
+
 
 

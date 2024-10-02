@@ -2,6 +2,7 @@
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Collections.Generic;
 using WebBuilding_50080.Models;
+using Newtonsoft.Json;
 
 namespace WebBuilding_50080.Controllers
 {
@@ -27,9 +28,32 @@ namespace WebBuilding_50080.Controllers
             {
                 Products = cartProducts
             };
+            HttpContext.Session.SetString("cartProduct", JsonConvert.SerializeObject(cartViewModel));
 
-            return View(cartViewModel);
+            var cartJson = HttpContext.Session.GetString("cartProduct");
+            var cart = JsonConvert.DeserializeObject<CartViewModel>(cartJson);
+
+
+            return View(cart);
         }
+
+        [HttpPost]
+        public IActionResult OrderSummary(CartViewModel model)
+
+        {
+            if (ModelState.IsValid)
+            {
+
+                // Pass the model to the OrderSummary view
+                return View(model);
+            }
+
+            // If model is null or invalid, handle it (e.g., redirect back or show an error)
+            return RedirectToAction("Index");
+        }
+
+
+
 
         public IActionResult Remove(string productName)
         {
