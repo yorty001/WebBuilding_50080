@@ -8,13 +8,13 @@
 
     <p><a href="@Url.Action("Index", "Menu")">Menu</a></p>
     <p><a href="@Url.Action("Index", "PetrolStations")">Petrol Stations</a></p>
-    <p><a href="@Url.Action("Index", "Payment",new {ViewBag.isLoggedIn})">Payment</a></p>
+    <p><a href="@Url.Action("Index", "Payment")">Payment</a></p>
     @if (ViewBag.loginStatus == 2)
     {
-        <p><a href="@Url.Action("UpdateFuelPrice", "PetrolStations", new {ViewBag.isLoggedIn})">Update Fuel Price</a></p>
+        <p><a href="@Url.Action("UpdateFuelPrice", "PetrolStations")">Update Fuel Price</a></p>
 
     }
-    <p><a href="@Url.Action("Index", "Login", new {ViewBag.loginStatus})">Login</a></p>
+    <p><a href="@Url.Action("Index", "Login")">Login</a></p>
 </div>
 <h1>Sign Up</h1>
 <div class="container">

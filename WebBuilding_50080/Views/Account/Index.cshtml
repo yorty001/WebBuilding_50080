@@ -9,11 +9,11 @@
     Manager manager = null;
     Manager staff = null;
 
-    if (ViewBag.loginStatus == 1)
+    if (Model.loginStatus == 2)
     {
         manager = Model as Manager;
     }
-    else if (ViewBag.loginStatus == 2)
+    else if (Model.loginStatus == 1)
     {
         customer = Model as Customer;
     }
@@ -28,9 +28,9 @@
     
     <p><a href="@Url.Action("Index", "Menu")">Menu</a></p>
     <p><a href="@Url.Action("Index", "PetrolStations")">Petrol Stations</a></p>
-    @if (ViewBag.loginStatus == 2)
+    @if (Model.loginStatus == 2)
     {
-        <p><a href="@Url.Action("CreateStaff", "Account", new {ViewBag.loginStatus})">Create Staff Account</a></p>
+        <p><a href="@Url.Action("CreateStaff", "Account")">Create Staff Account</a></p>
     }
 </div>
 

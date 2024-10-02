@@ -12,12 +12,9 @@ namespace WebBuilding_50080.Controllers
             _db = db;
         }
         [HttpGet]
-        public IActionResult Index(int loginStatus = 0)
+        public IActionResult Index()
         {
-            if (loginStatus != 0)
-            {
-                ViewBag.loginStatus = loginStatus;
-            }
+
             var userJson = HttpContext.Session.GetString("User");
             if (userJson != null)
             {
@@ -31,7 +28,6 @@ namespace WebBuilding_50080.Controllers
         [HttpPost]
         public IActionResult Login(string email, string pass)
         {
-
 
             _db.Open();
             SqlCommand cmdQ = new SqlCommand("SELECT userID, firstName, lastName, email, pass,NULL AS cardName,CAST(NULL AS INT) " +
@@ -53,7 +49,7 @@ namespace WebBuilding_50080.Controllers
                 User user = null;
                 if (userType == "Manager" || userType == "Staff")
                 {
-                    
+
                     user = new Manager
                     {
                         userID = Convert.ToInt32(reader["userID"]),
@@ -61,22 +57,22 @@ namespace WebBuilding_50080.Controllers
                         lastName = reader["lastName"].ToString(),
                         email = reader["email"].ToString(),
                         pass = reader["pass"].ToString(),
-
-
                     };
-                    if (userType == "Manager")
-                    {
-                        ViewBag.loginStatus = 2;
-                    }
+                    if (userType == "Manager") {
+                        user.loginStatus = 2;
+                            }
                     else
                     {
-                        ViewBag.loginStatus = 3;
+                        user.loginStatus = 3;
                     }
-                }
+
+                   }
+                
 
                 else if (userType == "Customer")
                 {
-                    ViewBag.loginStatus = 1;
+
+                    HttpContext.Session.SetInt32("LoginStatus", 1);
                     user = new Customer
                     {
                         userID = Convert.ToInt32(reader["userID"]),
@@ -89,8 +85,11 @@ namespace WebBuilding_50080.Controllers
 
                         cardDate = reader["cardDate"] == DBNull.Value ? default : DateOnly.FromDateTime(Convert.ToDateTime(reader["cardDate"])),
                         cardName = reader["cardName"] == DBNull.Value ? null : reader["cardName"].ToString(),
-                        cardNum = reader["cardNum"] == DBNull.Value ? default : Convert.ToInt32(reader["cardNum"])
-                     };
+                        cardNum = reader["cardNum"] == DBNull.Value ? default : Convert.ToInt32(reader["cardNum"]),
+
+
+                        loginStatus = 1
+                    };
 
 
                 
@@ -99,7 +98,7 @@ namespace WebBuilding_50080.Controllers
 
                 HttpContext.Session.SetString("User", JsonConvert.SerializeObject(user));
        
-                return RedirectToAction("Index", "Home", new { ViewBag.loginStatus });
+                return RedirectToAction("Index", "Home");
                 
             }
             else

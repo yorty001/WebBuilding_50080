@@ -18,12 +18,9 @@ namespace WebBuilding_50080.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index(int loginStatus = 0)
+        public IActionResult Index()
         {
-            if (loginStatus != 0)
-            {
-                ViewBag.loginStatus = loginStatus;
-            }
+
 
             var userJson = HttpContext.Session.GetString("User");
             if (userJson != null)

@@ -16,7 +16,7 @@
 <div class="text-center">
     <h1 class="display-4">Welcome to UTR</h1>
 
-    @if (ViewBag.loginStatus != null)
+    @if (user != null)
     {
         <h2>Hello, @user.firstName @user.lastName</h2>
         @if (user.points != null) {
@@ -31,7 +31,7 @@
     <p><a href="@Url.Action("Index", "Menu")">Menu</a></p>
 
 </div>
-@if (ViewBag.loginStatus is null) {
+@if (user == null) {
 <h1>Login</h1>
 <div class="container">
     <form method="post" asp-action="Login" asp-controller="Login">
@@ -76,7 +76,7 @@
 else
 {
     <div class=" = text-center">
-        <p><a href="@Url.Action("Index", "Account", new {ViewBag.loginStatus})">Account Settings</a></p>
+        <p><a href="@Url.Action("Index", "Account")">Account Settings</a></p>
         <button type="submit" class="btn btn-danger pt-4">Delete Account</button>
     </div>
 }

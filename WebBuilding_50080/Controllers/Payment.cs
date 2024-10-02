@@ -77,6 +77,9 @@ namespace server.Controllers
             public IActionResult OrderSummary(double price)
             {
                 int points = (int)Math.Floor(price);
+                Console.WriteLine(price);
+
+                Console.WriteLine(points);
 
                 var userJson = HttpContext.Session.GetString("User");
                 if (userJson != null)
@@ -84,25 +87,17 @@ namespace server.Controllers
                     var user = JsonConvert.DeserializeObject<User>(userJson);
 
                     _db.Open();
-                    SqlCommand cmdQ = new SqlCommand("UPDATE Customer SET points = @Points WHERE cusID = @CusID", _db);
+                    SqlCommand cmdQ = new SqlCommand("UPDATE Customer SET points = points + @Points WHERE cusID = @CusID", _db);
                     cmdQ.Parameters.AddWithValue("@Points", points);
                     cmdQ.Parameters.AddWithValue("@CusID", user.userID);
-                    try
-                    {
+
                         // Execute the command
-                        cmdQ.ExecuteNonQuery();
-                    }
-                    catch (Exception ex)
-                    {
-                        // Handle the error (optional)
-                        // Log the exception or show an error message
-                        Console.WriteLine(ex.Message);
-                    }
-                    finally
-                    {
+                    cmdQ.ExecuteNonQuery();
+
+                    
                         // Close the database connection
-                        _db.Close();
-                    }
+                    _db.Close();
+                    
                 }
                 return View();
             

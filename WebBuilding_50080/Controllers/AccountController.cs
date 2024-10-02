@@ -12,12 +12,9 @@ namespace WebBuilding_50080.Controllers
         {
             _db = db;
         }
-        public IActionResult Index(int loginStatus = 0)
+        public IActionResult Index()
         {
-            if (loginStatus != 0)
-            {
-                ViewBag.loginStatus = loginStatus;
-            }
+
             var userJson = HttpContext.Session.GetString("User");
             if (userJson != null)
             {
@@ -41,7 +38,7 @@ namespace WebBuilding_50080.Controllers
 
             SqlCommand cmdQ;
 
-            if (ViewBag.loginStatus == 2)
+            if (user.loginStatus == 2)
             {
                 cmdQ = new SqlCommand("UPDATE Manager SET firstName = '@firstName', lastName = '@lastName'," +
                 "email = '@email', pass = '@pass'WHERE userID = @id", _db);
@@ -65,7 +62,7 @@ namespace WebBuilding_50080.Controllers
             int rowsAffected = cmdQ.ExecuteNonQuery();
 
             _db.Close();
-            return RedirectToAction("Index", "Home", new { ViewBag.loginStatus });
+            return RedirectToAction("Index", "Home");
 
 
         }
