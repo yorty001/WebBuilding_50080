@@ -2,7 +2,6 @@
 using WebBuilding_50080.Models;
 using System.Data.SqlClient;
 using Newtonsoft.Json;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 
 
 namespace server.Controllers
@@ -22,6 +21,18 @@ namespace server.Controllers
             {
                 ViewBag.Name = name;
                 ViewBag.Price = price;
+                return View();
+            }
+            public IActionResult OrderSummary()
+            {
+                var cartJson = HttpContext.Session.GetString("cartProduct");
+                if (cartJson != null)
+                {
+                    var cart = JsonConvert.DeserializeObject<CartViewModel>(cartJson);
+
+                    // Pass the model to the OrderSummary view
+                    return View(cart);
+                }
                 return View();
             }
 
@@ -73,39 +84,11 @@ namespace server.Controllers
             {
                 return View();
             }
-            [HttpPost]
-            public IActionResult OrderSummary(double price)
-            {
-                int points = (int)Math.Floor(price);
-                Console.WriteLine(price);
 
-                Console.WriteLine(points);
-
-                var userJson = HttpContext.Session.GetString("User");
-                if (userJson != null)
-                {
-                    var user = JsonConvert.DeserializeObject<User>(userJson);
-
-                    _db.Open();
-                    SqlCommand cmdQ = new SqlCommand("UPDATE Customer SET points = points + @Points WHERE cusID = @CusID", _db);
-                    cmdQ.Parameters.AddWithValue("@Points", points);
-                    cmdQ.Parameters.AddWithValue("@CusID", user.userID);
-
-                        // Execute the command
-                    cmdQ.ExecuteNonQuery();
-
-                    
-                        // Close the database connection
-                    _db.Close();
-                    
-                }
-                return View();
-            
-            }
 
         }
-
     }
 }
+
 
 

@@ -64,6 +64,18 @@ namespace WebBuilding_50080.Controllers
             return View(orderList);
         }
 
+    
+
+            [HttpPost]
+            public IActionResult SubmitOrders(Dictionary<int, string> orderStatus)
+            {
+                // Retrieve the order list from session
+                var orderJson = HttpContext.Session.GetString("Orders");
+                if (orderJson == null)
+                {
+                    return RedirectToAction("Index");
+                }
+
 
 
         }
