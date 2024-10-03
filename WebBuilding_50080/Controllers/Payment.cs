@@ -33,7 +33,7 @@ namespace server.Controllers
 
                 int points = (int)Math.Floor(totalPrice);
                 _db.Open();
-                SqlCommand cmdQ = new SqlCommand("UPDATE Customer SET points = points + @points WHERE cusID = @cusID", _db);
+                SqlCommand cmdQ = new SqlCommand("UPDATE Customer SET points = COALESCE(points, 0) + @points WHERE cusID = @cusID", _db);
 
                 cmdQ.Parameters.AddWithValue("@points", points);
                 cmdQ.Parameters.AddWithValue("@cusID", user.userID);
