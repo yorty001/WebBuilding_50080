@@ -1,17 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebBuilding_50080.Models;
 using System.Collections.Generic;
-using Twilio;
-using Twilio.Rest.Api.V2010.Account;
-using Twilio.Types;
 
 namespace WebBuilding_50080.Controllers
 {
     public class StaffOrderPageController : Controller
     {
-        private const string accountSid = "TwilioAccSID";
-        private const string authToken = "AccountToken";
-        private const string twilioPhoneNumber = "Twilio ph No";
         public IActionResult Index()
         {
             var orders = CartController.Orders;
@@ -25,26 +19,9 @@ namespace WebBuilding_50080.Controllers
             if (order != null)
             {
                 order.IsReady = true;
-
-                SendSmsNotification(order);
             }
 
             return RedirectToAction("Index", "StaffOrderPage");
-        }
-
-        private void SendSmsNotification(Order order)
-        {
-            TwilioClient.Init(accountSid, authToken);
-
-            var customerPhoneNumber = new PhoneNumber("+MyPhoneNumber");
-
-            var message = $"Hey! Your UTR order with ID {order.OrderId} is now ready for pickup! Total Price: ${order.TotalPrice}";
-
-            var messageResponse = MessageResource.Create(
-                body: message,
-                from: new PhoneNumber(twilioPhoneNumber),
-                to: customerPhoneNumber
-                );
         }
     }
 }
