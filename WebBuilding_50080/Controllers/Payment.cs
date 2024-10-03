@@ -3,6 +3,7 @@ using WebBuilding_50080.Models;
 using System.Data.SqlClient;
 using Newtonsoft.Json;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+using Microsoft.CodeAnalysis.FlowAnalysis.DataFlow.PointsToAnalysis;
 
 
 namespace server.Controllers
@@ -24,20 +25,24 @@ namespace server.Controllers
                 ViewBag.Price = price;
                 return View();
             }
-            public IActionResult OrderSummary()
+            public IActionResult OrderSummary(decimal totalPrice)
             {
                 var userJson = HttpContext.Session.GetString("User");
        
                     var user = JsonConvert.DeserializeObject<User>(userJson);
-                
 
+                int points = (int)Math.Floor(totalPrice);
                 _db.Open();
-                SqlCommand cmdQ = new SqlCommand("UPDATE Customer SET point = points + @points WHERE cusID = @cusID", _db);
+                SqlCommand cmdQ = new SqlCommand("UPDATE Customer SET points = points + @points WHERE cusID = @cusID", _db);
 
-                cmdQ.Parameters.AddWithValue("@points", user.points);
+                cmdQ.Parameters.AddWithValue("@points", points);
                 cmdQ.Parameters.AddWithValue("@cusID", user.userID);
 
                 SqlDataReader reader = cmdQ.ExecuteReader();
+
+                user.points += points;
+
+                HttpContext.Session.SetString("User", JsonConvert.SerializeObject(user));
                 var cartJson = HttpContext.Session.GetString("cartProduct");
                 if (cartJson != null)
                 {
