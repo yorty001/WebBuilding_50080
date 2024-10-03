@@ -60,8 +60,9 @@
         </div>
    </div>
   
-   
-    <button type="submit" class="btn btn-primary">Login</button>
+   <div class="pt-2">
+        <button type="submit" class="btn btn-primary ">Login</button>
+    </div>
     @if (ViewData["LoginError"] != null)
         {
             <div class="text-danger mt-2">@ViewData["LoginError"]</div>
@@ -69,7 +70,7 @@
         }
     </form>
     </div>
-    <div class="justify-content-center col-12">
+    <div class="justify-content-center col-12 pt-4">
         <a href="@Url.Action("SignUp", "Login")" class="btn btn-primary form-control">SignUp</a>
     </div>
 }

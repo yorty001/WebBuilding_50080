@@ -127,17 +127,34 @@ namespace WebBuilding_50080.Controllers
 
 
             _db.Open();
-            SqlCommand cmdQ = new SqlCommand("INSERT INTO Customer (firstName, lastName, email, pass) VALUES (@firstName, @lastName, @email, @pass)", _db);
 
-            cmdQ.Parameters.AddWithValue("@firstName", firstName);
-            cmdQ.Parameters.AddWithValue("@lastName", lastName);
-            cmdQ.Parameters.AddWithValue("@email", email);
-            cmdQ.Parameters.AddWithValue("@pass", pass);
+            // Check if the email already exists
+            SqlCommand checkEmailCmd = new SqlCommand("SELECT COUNT(*) FROM Customer WHERE email = @Email", _db);
+            checkEmailCmd.Parameters.AddWithValue("@Email", email);
 
-            int rowsAffected = cmdQ.ExecuteNonQuery();
-            Console.WriteLine(rowsAffected);
-            _db.Close();
-            return View("Index");
+            int emailExists = (int)checkEmailCmd.ExecuteScalar(); // Returns the number of rows with that email
+
+            if (emailExists > 0)
+            {
+                // Email already exists, show an error message
+                ViewData["SignUpError"] = "Email already exists. Please use a different email.";
+                _db.Close();
+                return View("SignUp"); // Return to the signup page
+            }
+            else
+            {
+                SqlCommand cmdQ = new SqlCommand("INSERT INTO Customer (firstName, lastName, email, pass) VALUES (@firstName, @lastName, @email, @pass)", _db);
+
+                cmdQ.Parameters.AddWithValue("@firstName", firstName);
+                cmdQ.Parameters.AddWithValue("@lastName", lastName);
+                cmdQ.Parameters.AddWithValue("@email", email);
+                cmdQ.Parameters.AddWithValue("@pass", pass);
+
+                int rowsAffected = cmdQ.ExecuteNonQuery();
+                Console.WriteLine(rowsAffected);
+                _db.Close();
+                return View("Index");
+            }
         }
     }
 }

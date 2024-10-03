@@ -24,7 +24,7 @@
     </div>
     <div class="row">
             <div class="col-6">
-                <div class="form-control">
+                <div class="form-group">
                     <label for="firstName">First Name</label>
                 </div>
             </div>
@@ -70,8 +70,13 @@
             </div>
         </div>
    </div>
-  
-   
+        @if (ViewData["SignUpError"] != null)
+        {
+            <div class="alert alert-danger">
+                @ViewData["SignUpError"]
+            </div>
+        }
+   <div class="pt-2"></div>
     <button type="submit" class="btn btn-primary">Create</button>
     </form>
     </div>
