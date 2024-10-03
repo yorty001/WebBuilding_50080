@@ -23,7 +23,15 @@
                 <td>
                     <form method="post" asp-action="ChangeAvailability" asp-controller="Menu">
                         <input type="hidden" name="ProductId" value="@product.Id" />
-                        <button type="submit" class="btn-primary">Submit</button>
+
+                        @if (product.IsAvailable)
+                        {
+                            <button type="submit" class="btn btn-danger">Make Unavailable</button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-success">Make Available</button>
+                        }
                     </form>
                 </td>
             </tr>
