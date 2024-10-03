@@ -98,9 +98,26 @@ namespace server.Controllers
                 return View(model);
             }
 
-            public IActionResult SuccessfulPage()
+            public IActionResult SuccessfulPage(decimal totalPrice)
             {
-                return View();
+                var userJson = HttpContext.Session.GetString("User");
+
+                var user = JsonConvert.DeserializeObject<User>(userJson);
+
+                int points = (int)Math.Floor(totalPrice);
+
+                _db.Open();
+                SqlCommand cmdQ = new SqlCommand("UPDATE Customer SET points = COALESCE(points, 0) + @points WHERE cusID = @cusID", _db);
+
+                cmdQ.Parameters.AddWithValue("@points", points);
+                cmdQ.Parameters.AddWithValue("@cusID", user.userID);
+
+                SqlDataReader reader = cmdQ.ExecuteReader();
+
+                user.points += points;
+
+                HttpContext.Session.SetString("User", JsonConvert.SerializeObject(user));
+                return View(user);
             }
 
 
