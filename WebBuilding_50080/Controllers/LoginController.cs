@@ -14,7 +14,7 @@ namespace WebBuilding_50080.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-
+            //if the user is logged in, pass it to the View
             var userJson = HttpContext.Session.GetString("User");
             if (userJson != null)
             {
@@ -30,6 +30,7 @@ namespace WebBuilding_50080.Controllers
         {
 
             _db.Open();
+            //login SQL command
             SqlCommand cmdQ = new SqlCommand("SELECT userID, firstName, lastName, email, pass,NULL AS cardName,CAST(NULL AS INT) " +
                 "AS cardNum, CAST(NULL AS DATE) AS cardDate, NULL AS points, 'Manager' AS userType FROM Manager " +
                 "WHERE email = @Email AND pass = @Password " +
@@ -42,11 +43,13 @@ namespace WebBuilding_50080.Controllers
             cmdQ.Parameters.AddWithValue("@Password", pass);
 
             SqlDataReader reader = cmdQ.ExecuteReader();
+
+            // Redirect to a success page or handle successful login
             if (reader.Read())
             {
-                // Redirect to a success page or handle successful login
                 string userType = reader["userType"].ToString();
                 User user = null;
+                //Either login as Manager, Staff, or Customer
                 if (userType == "Manager" || userType == "Staff")
                 {
 
@@ -113,8 +116,6 @@ namespace WebBuilding_50080.Controllers
         public IActionResult LogOut()
         {
             HttpContext.Session.Remove("User");
-
-
             return RedirectToAction("Index", "Home");
         }
         public IActionResult SignUp()
@@ -143,6 +144,7 @@ namespace WebBuilding_50080.Controllers
             }
             else
             {
+                //Create new Customer into the database
                 SqlCommand cmdQ = new SqlCommand("INSERT INTO Customer (firstName, lastName, email, pass) VALUES (@firstName, @lastName, @email, @pass)", _db);
 
                 cmdQ.Parameters.AddWithValue("@firstName", firstName);
