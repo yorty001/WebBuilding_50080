@@ -26,7 +26,7 @@ namespace WebBuilding_50080.Controllers
         [HttpPost]
         public IActionResult Login(string email, string pass)
         {
-            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\costa\\OneDrive\\Documents\\01 - University\\WebBuilding_50080\\WebBuilding_50080\\App_Data\\UTRDB.mdf;Integrated Security=True;Connect Timeout=30";
+            string connectionString = "Data Source=LAPTOP-DCARNM2N\\SQLEXPRESS;Initial Catalog=UTRDB;Integrated Security=True;Connect Timeout=30;Encrypt=True;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
             SqlConnection db = new SqlConnection(connectionString);
 

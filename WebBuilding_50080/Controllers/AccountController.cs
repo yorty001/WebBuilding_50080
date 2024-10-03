@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Elfie.Diagnostics;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using Newtonsoft.Json;
 using System.Data.SqlClient;
 using WebBuilding_50080.Models;
@@ -66,6 +68,24 @@ namespace WebBuilding_50080.Controllers
             return RedirectToAction("Index", "Home", new { ViewBag.loginStatus });
 
 
+        }
+        public IActionResult Delete()
+        {
+            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\costa\\OneDrive\\Documents\\01 - University\\WebBuilding_50080\\WebBuilding_50080\\App_Data\\UTRDB.mdf;Integrated Security=True;Connect Timeout=30";
+
+            SqlConnection db = new SqlConnection(connectionString);
+
+            db.Open();
+            var userJson = HttpContext.Session.GetString("User");
+
+            var user = JsonConvert.DeserializeObject<User>(userJson);
+            var cmdQ = new SqlCommand("Delete Manager SET firstName = '@firstName', lastName = '@lastName'," +
+          "email = '@email', pass = '@pass'WHERE userID = @id", db);
+
+            cmdQ.Parameters.AddWithValue("@userID", user.userID);
+         
+            int rowsAffected = cmdQ.ExecuteNonQuery();
+            return View();
         }
 
     }
