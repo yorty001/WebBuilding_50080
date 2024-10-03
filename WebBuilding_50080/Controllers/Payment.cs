@@ -2,6 +2,7 @@
 using WebBuilding_50080.Models;
 using System.Data.SqlClient;
 using Newtonsoft.Json;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 
 
 namespace server.Controllers
@@ -25,6 +26,18 @@ namespace server.Controllers
             }
             public IActionResult OrderSummary()
             {
+                var userJson = HttpContext.Session.GetString("User");
+       
+                    var user = JsonConvert.DeserializeObject<User>(userJson);
+                
+
+                _db.Open();
+                SqlCommand cmdQ = new SqlCommand("UPDATE Customer SET point = points + @points WHERE cusID = @cusID", _db);
+
+                cmdQ.Parameters.AddWithValue("@points", user.points);
+                cmdQ.Parameters.AddWithValue("@cusID", user.userID);
+
+                SqlDataReader reader = cmdQ.ExecuteReader();
                 var cartJson = HttpContext.Session.GetString("cartProduct");
                 if (cartJson != null)
                 {

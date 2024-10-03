@@ -36,7 +36,7 @@ namespace WebBuilding_50080.Controllers
                 "UNION ALL SELECT cusID, firstName, lastName, email, pass, cardName, cardNum, cardDate, points, 'Customer' AS userType FROM Customer " +
                 "WHERE email = @Email AND pass = @Password " +
                 "UNION ALL SELECT staffID, firstName, lastName, email, pass,NULL AS cardName,CAST(NULL AS INT) AS cardNum, CAST(NULL AS DATE) AS cardDate, NULL AS points," +
-                "'Staff' AS userType FROM Staff", _db);
+                "'Staff' AS userType FROM Staff WHERE email = @Email AND pass = @Password", _db);
 
             cmdQ.Parameters.AddWithValue("@Email", email);
             cmdQ.Parameters.AddWithValue("@Password", pass);
