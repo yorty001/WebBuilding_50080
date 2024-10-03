@@ -8,13 +8,13 @@
             "UTR Parafield"
         };
 
-    var foodOutlets = new Dictionary<string, List<string>>()
+    var foodOutlets = new Dictionary<string, List<dynamic>>()
     {
-        { "UTR West Terrace", new List<string> { "McDonald's", "Subway", "Starbucks" } },
-        { "UTR Mawson Lakes", new List<string> { "KFC", "Hungry Jack's", "Boost Juice" } },
-        { "UTR Para Hills West", new List<string> { "Domino's Pizza", "Oporto", "Zambrero" } },
-        { "UTR Dry Creek", new List<string> { "Red Rooster", "Krispy Kreme", "Coffee Club" } },
-        { "UTR Parafield", new List<string> { "Pizza Hut", "Guzman y Gomez", "Chatime" } }
+        { "UTR West Terrace", new List<dynamic> { new { name = "McDonald's", link = "https://mcdonalds.com.au" }, new { name = "Subway", link = "https://subway.com" }, new { name = "Starbucks", link = "https://starbucks.com.au" } } },
+        { "UTR Mawson Lakes", new List<dynamic> { new { name = "KFC", link = "https://www.kfc.com.au/find-store#:~:text=KFC%20Restaurants%20are%20starting%20to%20open" }, new { name = "Hungry Jack's", link = "https://hungryjacks.com.au" }, new { name = "Boost Juice", link = "https://boostjuice.com.au" } } },
+        { "UTR Para Hills West", new List<dynamic> { new { name = "Domino's Pizza", link = "https://dominos.com.au" }, new { name = "Oporto", link = "https://oporto.com.au" }, new { name = "Zambrero", link = "https://zambrero.com.au" } } },
+        { "UTR Dry Creek", new List<dynamic> { new { name = "Red Rooster", link = "https://redrooster.com.au" }, new { name = "Krispy Kreme", link = "https://krispykreme.com.au" }, new { name = "Coffee Club", link = "https://coffeeclub.com.au" } } },
+        { "UTR Parafield", new List<dynamic> { new { name = "Pizza Hut", link = "https://pizzahut.com.au" }, new { name = "Guzman y Gomez", link = "https://guzmanygomez.com.au" }, new { name = "Chatime", link = "https://chatime.com.au" } } }
     };
 }
 
@@ -24,12 +24,45 @@
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        color: white; /* Set text color to white */
+        color: white;
     }
 
     h1, p, li {
-        color: white; /* Set headings, paragraphs, and list items text color to white */
+        color: white;
     }
+
+    .station-name {
+        font-size: 1.4em;
+        font-weight: bold;
+        background-color: rgba(0, 0, 0, 0.5); 
+        padding: 10px;
+        border-radius: 5px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); 
+        margin-bottom: 10px;
+    }
+
+    
+    button {
+        background-color: green;
+        color: yellow;
+        border: none;
+        padding: 10px 15px;
+        cursor: pointer;
+        border-radius: 10px;
+    }
+
+        button:hover {
+            background-color: darkgreen; 
+        }
+
+    a {
+        color: yellow;
+        text-decoration: none;
+    }
+
+        a:hover {
+            text-decoration: underline;
+        }
 </style>
 
 
@@ -44,14 +77,12 @@
                     <button onclick="showMapAndOutlets('@station')" style="background-color: green; color: yellow; border: none; padding: 10px 15px; cursor: pointer; border-radius: 10px;">
                         Show on Map & Outlets
                     </button>
-
                 </li>
             }
         </ul>
     </div>
 
     <div style="width: 50%; display: none;" id="mapContainer">
-
         <iframe id="mapFrame"
                 width="100%"
                 height="450"
@@ -63,18 +94,36 @@
 
         <div id="foodOutlets" style="margin-top: 20px; background-color: green; color: yellow; padding: 15px; border-radius: 10px;">
         </div>
-
     </div>
 </div>
 
 <script>
-
     var foodOutlets = {
-        "UTR West Terrace": ["McDonald's", "Subway", "Starbucks"],
-        "UTR Mawson Lakes": ["KFC", "Hungry Jack's", "Boost Juice"],
-        "UTR Para Hills West": ["Domino's Pizza", "Oporto", "Zambrero"],
-        "UTR Dry Creek": ["Red Rooster", "Krispy Kreme", "Coffee Club"],
-        "UTR Parafield": ["Pizza Hut", "Guzman y Gomez", "Chatime"]
+        "UTR West Terrace": [
+            { name: "McDonald's", link: "https://mcdonalds.com.au" },
+            { name: "Subway", link: "https://subway.com" },
+            { name: "Starbucks", link: "https://starbucks.com.au" }
+        ],
+        "UTR Mawson Lakes": [
+            { name: "KFC", link: "https://www.kfc.com.au/find-store#:~:text=KFC%20Restaurants%20are%20starting%20to%20open" },
+            { name: "Hungry Jack's", link: "https://hungryjacks.com.au" },
+            { name: "Boost Juice", link: "https://boostjuice.com.au" }
+        ],
+        "UTR Para Hills West": [
+            { name: "Domino's Pizza", link: "https://dominos.com.au" },
+            { name: "Oporto", link: "https://oporto.com.au" },
+            { name: "Zambrero", link: "https://zambrero.com.au" }
+        ],
+        "UTR Dry Creek": [
+            { name: "Red Rooster", link: "https://redrooster.com.au" },
+            { name: "Krispy Kreme", link: "https://krispykreme.com.au" },
+            { name: "Coffee Club", link: "https://coffeeclub.com.au" }
+        ],
+        "UTR Parafield": [
+            { name: "Pizza Hut", link: "https://pizzahut.com.au" },
+            { name: "Guzman y Gomez", link: "https://guzmanygomez.com.au" },
+            { name: "Chatime", link: "https://chatime.com.au" }
+        ]
     };
 
     function showMapAndOutlets(station) {
@@ -82,9 +131,7 @@
         var mapFrame = document.getElementById("mapFrame");
         var outletsContainer = document.getElementById("foodOutlets");
 
-
         mapContainer.style.display = "block";
-
 
         if (station === "UTR West Terrace") {
             mapFrame.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6542.492353130214!2d138.5853972750598!3d-34.92536247455496!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ab0cf3b40db664b%3A0x73c89e54dd1efe4f!2sOTR%20West%20Terrace!5e0!3m2!1sen!2sau!4v1725406530545!5m2!1sen!2sau";
@@ -98,10 +145,10 @@
             mapFrame.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6553.192954069916!2d138.63605407770996!3d-34.79093249999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ab0b40007106033%3A0xa41d195a28ad6eb9!2sOTR%20Parafield!5e0!3m2!1sen!2sau!4v1726017385776!5m2!1sen!2sau";
         }
 
-
         var outlets = foodOutlets[station];
-        outletsContainer.innerHTML = "<h3>Available Food Outlets:</h3><ul>" + outlets.map(function (outlet) {
-            return "<li>" + outlet + "</li>";
-        }).join('') + "</ul>";
+        outletsContainer.innerHTML = "<h3>Available Food Outlets:</h3><ul>" +
+            outlets.map(function (outlet) {
+                return "<li><a href='" + outlet.link + "' target='_blank'>" + outlet.name + "</a></li>";
+            }).join('') + "</ul>";
     }
 </script>
