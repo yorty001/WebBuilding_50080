@@ -8,6 +8,10 @@
             public string lastName { get; set; }
             public string email { get; set; }
             public string pass {  get; set; }
+            public int points { get; set; }
+
+            public int loginStatus { get; set; }
+
 
 
 
@@ -23,6 +27,7 @@
     public class Manager : User
     {
     }
+   
 
 }
 

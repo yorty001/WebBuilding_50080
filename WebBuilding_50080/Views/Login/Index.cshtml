@@ -5,26 +5,25 @@
     var user = Model;
 }
 
-
-
-
-
-
-
-
-
 <div class="text-center">
     <h1 class="display-4">Welcome to UTR</h1>
 
-    @if (ViewBag.loginStatus != null)
+    @if (user != null)
     {
         <h2>Hello, @user.firstName @user.lastName</h2>
+        @if (user.points != null) {
+            <h3>You have @user.points points</h3>
+        }
+        else
+        {
+            <h5>You have 0 points</h5>
+        }
     }
 
     <p><a href="@Url.Action("Index", "Menu")">Menu</a></p>
 
 </div>
-@if (ViewBag.loginStatus is null) {
+@if (user == null) {
 <h1>Login</h1>
 <div class="container">
     <form method="post" asp-action="Login" asp-controller="Login">
@@ -53,8 +52,9 @@
         </div>
    </div>
   
-   
-    <button type="submit" class="btn btn-primary">Login</button>
+   <div class="pt-2">
+        <button type="submit" class="btn btn-primary ">Login</button>
+    </div>
     @if (ViewData["LoginError"] != null)
         {
             <div class="text-danger mt-2">@ViewData["LoginError"]</div>
@@ -62,15 +62,19 @@
         }
     </form>
     </div>
-    <div class="justify-content-center col-12">
+    <div class="justify-content-center col-12 pt-4">
         <a href="@Url.Action("SignUp", "Login")" class="btn btn-primary form-control">SignUp</a>
     </div>
 }
 else
 {
     <div class=" = text-center">
-        <p><a href="@Url.Action("Index", "Account", new {ViewBag.loginStatus})">Account Settings</a></p>
+        <p><a href="@Url.Action("Index", "Account")">Account Settings</a></p>
+        <form asp-controller="Login" asp-action="LogOut" method="post" style="display:inline;">
+            <button type="submit" class="btn btn-primary pt-4">Log Out</button>
+        </form>
         <button type="submit" class="btn btn-danger pt-4">Delete Account</button>
+
     </div>
 }
 
