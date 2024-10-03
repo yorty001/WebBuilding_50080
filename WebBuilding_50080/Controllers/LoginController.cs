@@ -86,9 +86,9 @@ namespace WebBuilding_50080.Controllers
                         points = reader["points"] == DBNull.Value ? default : Convert.ToInt32(reader["points"]),
 
 
-                        cardDate = reader["cardDate"] == DBNull.Value ? default : DateOnly.FromDateTime(Convert.ToDateTime(reader["cardDate"])),
+                        cardDate = reader["cardDate"] == DBNull.Value ? null : DateOnly.FromDateTime(Convert.ToDateTime(reader["cardDate"])),
                         cardName = reader["cardName"] == DBNull.Value ? null : reader["cardName"].ToString(),
-                        cardNum = reader["cardNum"] == DBNull.Value ? default : Convert.ToInt32(reader["cardNum"]),
+                        cardNum = reader["cardNum"] == DBNull.Value ? null : Convert.ToInt32(reader["cardNum"]),
 
 
                         loginStatus = 1

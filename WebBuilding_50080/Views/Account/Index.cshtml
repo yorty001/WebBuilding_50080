@@ -9,19 +9,19 @@
     Manager manager = null;
     Manager staff = null;
     var user = Model;
-    //
-    // if (user.loginStatus == 2)
-    // {
-    //     manager = Model as Manager;
-    // }
-    // else if (Model.loginStatus == 1)
-    // {
-    //     customer = Model as Customer;
-    // }
-    // else
-    // {
-    //     staff = Model as Manager;
-    // }
+    
+     if (user.loginStatus == 2)
+     {
+         manager = Model as Manager;
+     }
+     else if (Model.loginStatus == 1)
+     {
+         customer = Model as Customer;
+     }
+     else
+     {
+         staff = Model as Manager;
+    }
 }
 
 <div class="text-center">
@@ -88,7 +88,7 @@
                     </div>
                 </div>
             </div>
-            @if (ViewBag.loginStatus == 1) {
+            @if (user.loginStatus == 1) {
             <div class="row">
                 <div class="col-6">
                     <div class="form-group">

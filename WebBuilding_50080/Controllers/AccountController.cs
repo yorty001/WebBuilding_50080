@@ -40,28 +40,61 @@ namespace WebBuilding_50080.Controllers
 
             if (user.loginStatus == 2)
             {
-                cmdQ = new SqlCommand("UPDATE Manager SET firstName = '@firstName', lastName = '@lastName'," +
-                "email = '@email', pass = '@pass'WHERE userID = @id", _db);
+
+                cmdQ = new SqlCommand("UPDATE Manager SET firstName = @firstName, lastName = @lastName," +
+                "email = @email, pass = @pass WHERE userID = @id", _db);
+                
+
+            }
+            else if (user.loginStatus == 3)
+            {
+                cmdQ = new SqlCommand("UPDATE Staff SET firstName = @firstName, lastName = @lastName," +
+                "email = @email, pass = @pass WHERE staffID = @id", _db);
             }
             else
             {
-                cmdQ = new SqlCommand("UPDATE Customer SET firstName = '@firstName', lastName = '@lastName'," +
-                "email = '@email', pass = '@pass', cardName = '@cardName', cardNum = @cardNum, cardDate = '@cardDate' WHERE cusID = @id", _db);
+                cmdQ = new SqlCommand("UPDATE Customer SET firstName = @firstName, lastName = @lastName," +
+                "email = @email, pass = @pass, cardName = @cardName, cardNum = @cardNum, cardDate = @cardDate WHERE cusID = @id", _db);
                 cmdQ.Parameters.AddWithValue("@cardName", cardName ?? (object)DBNull.Value);
                 cmdQ.Parameters.AddWithValue("@cardNum", cardNum);
                 cmdQ.Parameters.AddWithValue("@cardDate", cardDateTime.Month + "/" + cardDateTime.Day + "/" + cardDateTime.Year);
+                var user1 = user as Customer;
+                user = new Customer
+                {
+                    userID = user.userID,
+                    firstName = user.firstName,
+                    lastName = user.lastName,
+                    email = user.email,
+                    pass = user.pass,
+                    points = user.points,
+
+
+                    cardDate = user1.cardDate,
+                    cardName = user1.cardName,
+                    cardNum = user1.cardNum,
+
+
+                    loginStatus = 1
+                }; 
+         
+              
+
             }
-            Console.WriteLine(cardDateTime.Month + "/" + cardDateTime.Year);
             cmdQ.Parameters.AddWithValue("@id", user.userID);
             cmdQ.Parameters.AddWithValue("@firstName", firstName);
             cmdQ.Parameters.AddWithValue("@lastName", lastName);
             cmdQ.Parameters.AddWithValue("@email", email);
             cmdQ.Parameters.AddWithValue("@pass", pass);
+            user.firstName = firstName;
+            user.lastName = lastName;
+            user.email = email;
+            user.pass = pass;
 
 
             int rowsAffected = cmdQ.ExecuteNonQuery();
 
             _db.Close();
+            HttpContext.Session.SetString("User", JsonConvert.SerializeObject(user));
             return RedirectToAction("Index", "Home");
 
 
