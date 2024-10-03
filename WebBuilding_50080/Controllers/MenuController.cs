@@ -56,5 +56,10 @@ using System.Collections.Generic;
         };
         return View(viewModel);
         }
+
+    public IActionResult FoodAvailibility()
+    {
+        return View();
+    }
     }
 

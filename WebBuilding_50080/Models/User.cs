@@ -9,7 +9,6 @@
             public string email { get; set; }
             public string pass {  get; set; }
             public int points { get; set; }
-
             public int loginStatus { get; set; }
 
 
