@@ -92,7 +92,7 @@ namespace WebBuilding_50080.Controllers
                     };
 
 
-                
+                    HttpContext.Session.SetInt32("cusID", user.userID);  
                 }
 
 
