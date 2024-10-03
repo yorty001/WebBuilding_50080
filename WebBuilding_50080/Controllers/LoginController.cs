@@ -2,6 +2,8 @@
 using System.Data.SqlClient;
 using WebBuilding_50080.Models;
 using Newtonsoft.Json;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+using Microsoft.CodeAnalysis.Elfie.Diagnostics;
 namespace WebBuilding_50080.Controllers
 {
     public class LoginController : Controller
@@ -117,6 +119,24 @@ namespace WebBuilding_50080.Controllers
         public IActionResult LogOut()
         {
             HttpContext.Session.Remove("User");
+            return RedirectToAction("Index", "Home");
+        }
+
+
+        public IActionResult Delete()
+        {
+            var userJson = HttpContext.Session.GetString("User");
+            
+            var user = JsonConvert.DeserializeObject<User>(userJson);
+            _db.Open();
+
+            // Check if the email already exists
+            SqlCommand cmdQ = new SqlCommand("DELETE FROM Manager WHERE userID = @userID", _db);
+            cmdQ.Parameters.AddWithValue("@userID", user.userID);
+            int rowsAffected = cmdQ.ExecuteNonQuery();
+            HttpContext.Session.Remove("User");
+
+            _db.Close();
             return RedirectToAction("Index", "Home");
         }
         public IActionResult SignUp()

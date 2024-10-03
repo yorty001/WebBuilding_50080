@@ -37,11 +37,10 @@
                 <td>@product.Price.ToString("C")</td>
                 <td>@(product.IsAvailable ? "Available" : "Not Available")</td>
                 <td>
-                    <form method="post" action="/ChangeAvailability">
+                    <form method="post" asp-action="ChangeAvailability" asp-controller="Menu">
                         <input type="hidden" name="ProductName" value="@product.Name" />
-                        <button type="submit" class="btn btn-primary">
-                            @(product.IsAvailable ? "Mark as Unavailable" : "Mark as Available")
-                        </button>
+                        <button type="submit" class="btn-primary" >Submit</button>
+
                     </form>
                 </td>
             </tr>
