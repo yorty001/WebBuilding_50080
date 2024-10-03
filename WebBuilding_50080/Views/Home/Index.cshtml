@@ -46,7 +46,7 @@
             <p class="lead">Convenience at your fingertips</p>
             <div class="btn-container">
                 <a href="@Url.Action("Index", "Menu")" class="btn btn-primary btn-lg btn-custom"> <i class="fas fa-utensils"></i> Menu</a>
-                <a href="@Url.Action("Index", "PetrolStations")" class="btn btn-success btn-lg btn-custom"> <i class="fas fa-gas-pump"></i> Update Fuel Price</a>
+                
             @if (user == null)
             {
                 <a href="@Url.Action("Index", "Login")" class="btn btn-secondary btn-lg btn-custom"> <i class="fas fa-user fa-lg"></i> Login</a>
@@ -59,20 +59,21 @@
                 @if (user.loginStatus == 1)
                 {
                     <a href="@Url.Action("Index", "Payment")" class="btn btn-warning btn-lg btn-custom"> <i class="fas fa-credit-card"></i> Payment</a>
-                    <a href="@Url.Action("FoodAvailibility", "Menu")" class="btn btn-warning btn-lg btn-custom"> <i class="fas fa-credit-card"></i> Update Food</a>
+                    <a href="@Url.Action("FoodAvailibility", "Menu")" class="btn btn-warning btn-lg btn-custom"> <i class="fas fa-utensils"></i> Update Food</a>
 
                 }
                 @if (user.loginStatus == 2)
                 {
                     <a href="@Url.Action("Index", "Order")" class="btn btn-warning btn-lg btn-custom"> <i class="fas fa-credit-card"></i> Orders</a>
-                    <a href="@Url.Action("FoodAvailibility", "Menu")" class="btn btn-warning btn-lg btn-custom"> <i class="fas fa-credit-card"></i> Update Food</a>
+                    <a href="@Url.Action("FoodAvailibility", "Menu")" class="btn btn-warning btn-lg btn-custom"> <i class="fas fa-utensils"></i> Update Food</a>
+                    <a href="@Url.Action("Index", "PetrolStations")" class="btn btn-success btn-lg btn-custom"> <i class="fas fa-gas-pump"></i> Update Fuel Price</a>
 
                 }
 
                 @if (user.loginStatus == 3)
                 {
                     <a href="@Url.Action("Index", "Order")" class="btn btn-warning btn-lg btn-custom"> <i class="fas fa-credit-card"></i> Orders</a>
-                    <a href="@Url.Action("FoodAvailibility", "Menu")" class="btn btn-warning btn-lg btn-custom"> <i class="fas fa-credit-card"></i> Update Food</a>
+                    <a href="@Url.Action("FoodAvailibility", "Menu")" class="btn btn-warning btn-lg btn-custom"> <i class="fas fa-utensils"></i> Update Food</a>
 
                 }
             }
@@ -90,3 +91,5 @@
 
        </body >
 </html>
+
+
