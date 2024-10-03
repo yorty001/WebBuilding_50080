@@ -9,9 +9,9 @@ namespace WebBuilding_50080.Controllers
 {
     public class StaffOrderPageController : Controller
     {
-        private const string accountSid = "AC3b978dd513c6f6c36d9e6f5707109476";
-        private const string authToken = "536aeca0445546d3959a687b00172af1";
-        private const string twilioPhoneNumber = "+13342928698";
+        private const string accountSid = "TwilioAccSID";
+        private const string authToken = "AccountToken";
+        private const string twilioPhoneNumber = "Twilio ph No";
         public IActionResult Index()
         {
             var orders = CartController.Orders;
@@ -36,7 +36,7 @@ namespace WebBuilding_50080.Controllers
         {
             TwilioClient.Init(accountSid, authToken);
 
-            var customerPhoneNumber = new PhoneNumber("+61493634676");
+            var customerPhoneNumber = new PhoneNumber("+MyPhoneNumber");
 
             var message = $"Hey! Your UTR order with ID {order.OrderId} is now ready for pickup! Total Price: ${order.TotalPrice}";
 
