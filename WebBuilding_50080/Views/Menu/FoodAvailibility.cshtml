@@ -1,18 +1,4 @@
-﻿@{
-    ViewData["Title"] = "FoodAvailibility";
-
-    var products = new List<dynamic> {
-        new { Name = "Prime Hydration Blue Raspberry", Description = "PRIME was developed to fill the void where great taste meets function. With bold, thirst-quenching flavours to help you refresh, replenish, and refuel, PRIME is the perfect boost for any endeavour.", ImageUrl = "https://assets.woolworths.com.au/images/1005/275804.jpg?impolicy=wowsmkqiema&w=600&h=600", Price = 4.00, IsAvailable = true },
-        new { Name = "Pura Full Cream Milk 2l", Description = "PURA Full Cream milk is Australian Owned, made & loved", ImageUrl = "https://assets.woolworths.com.au/images/1005/62636.jpg?impolicy=wowsmkqiema&w=600&h=600", Price = 5.50, IsAvailable = true },
-        new { Name = "Red Rock Deli Potato Chips Sea Salt Natural 165g", Description = "Wholesome Potato Chips Carefully Crafted with Subtle Flavours. Red Rock Deli Sea Salt Potato Chips keeps things simple yet sensational with the careful coating of classic sea salt.", ImageUrl = "https://assets.woolworths.com.au/images/1005/781396.jpg?impolicy=wowsmkqiema&w=600&h=600", Price = 6.00, IsAvailable = true },
-        new { Name = "Lindt Lindor Assorted Chocolate Box 333g", Description = "Wherever and whenever you take a LINDOR moment, it just seems to make life feel so much more sublime.", ImageUrl = "https://assets.woolworths.com.au/images/1005/114683.jpg?impolicy=wowsmkqiema&w=600&h=600", Price = 26.00, IsAvailable = true },
-        new { Name = "Cadbury Dairy Milk Vanilla Sticks 4 Pack", Description = "Vanilla with a unique choc swirl, coated in a generous layer of Cadbury Dairy Milk milk chocolate. Its deliciously smooth and creamy.", ImageUrl = "https://assets.woolworths.com.au/images/1005/122672.jpg?impolicy=wowsmkqiema&w=600&h=600", Price = 10.50, IsAvailable = true },
-        new { Name = "Pump Spring Water Bottle 750ml", Description = "Pump Water will help you stay hydrated throughout the day. This purified water comes with an easy to use sipper cap making it perfect for drinking on the go.", ImageUrl = "https://assets.woolworths.com.au/images/1005/153622.jpg?impolicy=wowsmkqiema&w=600&h=600", Price = 3.00, IsAvailable = true },
-        new { Name = "Colgate Travel Toothpaste Total Original 40g", Description = "Colgate Total Original Antibacterial Fluoride Toothpaste reduces bacteria on teeth, tongue, cheeks and gums.", ImageUrl = "https://assets.woolworths.com.au/images/1005/819772.jpg?impolicy=wowsmkqiema&w=600&h=600", Price = 2.50, IsAvailable = true },
-        new { Name = "Sour Patch Kids Lollies 190g", Description = "Whats Sour then Sweet but always delicious? You already know: SOUR PATCH KIDS lollies!", ImageUrl = "https://assets.woolworths.com.au/images/1005/234699.jpg?impolicy=wowsmkqiema&w=600&h=600", Price = 5.00, IsAvailable = true }
-    };
-}
-
+﻿@model WebBuilding_50080.Models.ProductsViewModel
 
 <table class="table table-striped">
     <thead>
@@ -26,21 +12,18 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var product in products)
+        @foreach (var product in Model.Products)
         {
             <tr>
-                <td>
-                    <img src="@product.ImageUrl" alt="@product.Name" width="100" height="100" />
-                </td>
+                <td><img src="@product.Image" alt="@product.Name" width="100" height="100" /></td>
                 <td>@product.Name</td>
                 <td>@product.Description</td>
                 <td>@product.Price.ToString("C")</td>
                 <td>@(product.IsAvailable ? "Available" : "Not Available")</td>
                 <td>
                     <form method="post" asp-action="ChangeAvailability" asp-controller="Menu">
-                        <input type="hidden" name="ProductName" value="@product.Name" />
-                        <button type="submit" class="btn-primary" >Submit</button>
-
+                        <input type="hidden" name="ProductId" value="@product.Id" />
+                        <button type="submit" class="btn-primary">Submit</button>
                     </form>
                 </td>
             </tr>
