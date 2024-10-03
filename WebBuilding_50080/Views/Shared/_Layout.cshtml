@@ -48,9 +48,12 @@
                     </ul>
                     @if (user != null)
                     {
-                        @if (user.points >= 300)
+                        @if (user.points >= 100)
                         {
-                            <i class="fa-solid fa-crown fa-2x" style="color: gold; margin-left: 5px;"></i> @* Display the crown icon *@
+                            <div style="text-align: center;">
+                                <i class="fa-solid fa-crown fa-2x" style="color: gold; margin-left: 5px;"></i> @* Display the crown icon *@
+                                <div style="font-size: 0.8em; color: #fff;">Premium Member</div>
+                            </div>
                         }
                         else
                         {
