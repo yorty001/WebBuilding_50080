@@ -8,19 +8,20 @@
     Customer customer = null;
     Manager manager = null;
     Manager staff = null;
-
-    if (Model.loginStatus == 2)
-    {
-        manager = Model as Manager;
-    }
-    else if (Model.loginStatus == 1)
-    {
-        customer = Model as Customer;
-    }
-    else
-    {
-        staff = Model as Manager;
-    }
+    var user = Model;
+    //
+    // if (user.loginStatus == 2)
+    // {
+    //     manager = Model as Manager;
+    // }
+    // else if (Model.loginStatus == 1)
+    // {
+    //     customer = Model as Customer;
+    // }
+    // else
+    // {
+    //     staff = Model as Manager;
+    // }
 }
 
 <div class="text-center">
@@ -28,7 +29,7 @@
     
     <p><a href="@Url.Action("Index", "Menu")">Menu</a></p>
     <p><a href="@Url.Action("Index", "PetrolStations")">Petrol Stations</a></p>
-    @if (Model.loginStatus == 2)
+    @if (user.loginStatus == 2)
     {
         <p><a href="@Url.Action("CreateStaff", "Account")">Create Staff Account</a></p>
     }

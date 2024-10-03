@@ -70,7 +70,7 @@ namespace WebBuilding_50080.Controllers
         {
             return View();  
         }
-        public IActionResult adminCreate(string firstName, string lastName, string email, string pass)
+        public IActionResult AdminCreate(string firstName, string lastName, string email, string pass)
         {
 
 
@@ -85,7 +85,7 @@ namespace WebBuilding_50080.Controllers
             int rowsAffected = cmdQ.ExecuteNonQuery();
             Console.WriteLine(rowsAffected);
             _db.Close();
-            return View("Index");
+            return RedirectToAction("Index");
 
         }
     }
