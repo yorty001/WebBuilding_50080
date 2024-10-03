@@ -21,7 +21,9 @@ namespace WebBuilding_50080.Controllers
 
         public IActionResult Index()
         {
-
+            Console.WriteLine("llsjmc csdnsknfkdn" +
+                "slngdlskdnldkngdlkngldknldnlskngldkls");
+            _logger.LogInformation("Your message here");
 
             var userJson = HttpContext.Session.GetString("User");
             if (userJson != null)
