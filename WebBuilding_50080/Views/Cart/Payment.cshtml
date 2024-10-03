@@ -2,7 +2,7 @@
 
 <h2>Payment Page</h2>
 
-<form method="post" action="@Url.Action("ProcessPayment", "Cart", new { orderId = Model.OrderId })">
+<form method="post" asp-action="ProcessPayment" asp-controller="Cart">
     <div class="row mb-3">
         <div class="col-md-6">
             <h3>Billing Address</h3>
@@ -44,5 +44,8 @@
             </div>
         </div>
     </div>
+    <input type="hidden"  name="totalPrice"  value="@Model.TotalPrice"/>
+    <input type="hidden" name="orderID" value="@Model.OrderId" />
+    
     <input type="submit" value="Proceed with payment" class="btn btn-primary">
 </form>

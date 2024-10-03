@@ -117,6 +117,7 @@ namespace server.Controllers
                 user.points += points;
 
                 HttpContext.Session.SetString("User", JsonConvert.SerializeObject(user));
+                _db.Close();
                 return View(user);
             }
 

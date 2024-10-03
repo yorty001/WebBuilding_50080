@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using WebBuilding_50080.Models;
 using Newtonsoft.Json;
+using System.Data.SqlClient;
 
 namespace WebBuilding_50080.Controllers
 {
@@ -9,6 +10,12 @@ namespace WebBuilding_50080.Controllers
     {
         private static List<Product> cartProducts = new List<Product>();
         public static List<Order> Orders = new List<Order>();
+        private readonly SqlConnection _db;
+
+        public CartController(SqlConnection db)
+        {
+            _db = db;
+        }
 
         public IActionResult Index(string productName, decimal productPrice)
         {
@@ -113,6 +120,7 @@ namespace WebBuilding_50080.Controllers
 
         public IActionResult OrderConfirmation(int orderId)
         {
+           
             var order = Orders.Find(o => o.OrderId == orderId);
             if (order == null)
             {
@@ -138,10 +146,27 @@ namespace WebBuilding_50080.Controllers
         }
 
         [HttpPost]
-        public IActionResult ProcessPayment(int orderId)
+        public IActionResult ProcessPayment(int orderID, decimal totalPrice)
         {
+            var userJson = HttpContext.Session.GetString("User");
 
-            return RedirectToAction("OrderConfirmation", new { orderId = orderId });
+            var user = JsonConvert.DeserializeObject<User>(userJson);
+
+            int points = (int)Math.Floor(totalPrice);
+
+            _db.Open();
+            SqlCommand cmdQ = new SqlCommand("UPDATE Customer SET points = COALESCE(points, 0) + @points WHERE cusID = @cusID", _db);
+
+            cmdQ.Parameters.AddWithValue("@points", points);
+            cmdQ.Parameters.AddWithValue("@cusID", user.userID);
+
+            SqlDataReader reader = cmdQ.ExecuteReader();
+
+            user.points += points;
+
+            HttpContext.Session.SetString("User", JsonConvert.SerializeObject(user));
+            _db.Close();
+            return RedirectToAction("OrderConfirmation", new { orderId = orderID });
         }
 
     }
