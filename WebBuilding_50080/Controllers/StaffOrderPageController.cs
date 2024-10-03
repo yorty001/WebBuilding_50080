@@ -9,9 +9,9 @@ namespace WebBuilding_50080.Controllers
 {
     public class StaffOrderPageController : Controller
     {
-        private const string accountSid = "TwilioAccSID";
-        private const string authToken = "AccountToken";
-        private const string twilioPhoneNumber = "Twilio ph No";
+        private readonly string accountSid = Environment.GetEnvironmentVariable("TwilioAccSID");
+        private readonly string authToken = Environment.GetEnvironmentVariable("AccountToken");
+        private readonly string twilioPhoneNumber = Environment.GetEnvironmentVariable("Twilio ph No");
         public IActionResult Index()
         {
             var orders = CartController.Orders;
