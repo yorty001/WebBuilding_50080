@@ -105,7 +105,7 @@ namespace server.Controllers
                 var user = JsonConvert.DeserializeObject<User>(userJson);
 
                 int points = (int)Math.Floor(totalPrice);
-
+                
                 _db.Open();
                 SqlCommand cmdQ = new SqlCommand("UPDATE Customer SET points = COALESCE(points, 0) + @points WHERE cusID = @cusID", _db);
 
