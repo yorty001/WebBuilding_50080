@@ -60,6 +60,42 @@ namespace WebBuilding_50080.Controllers
             return View();
         }
 
+        public IActionResult feedbackreview()
+        {
+            var feedbackList = new List<Feedback>();
+
+            try
+            {
+                _db.Open();
+                string query = "SELECT * FROM Feedback";
+                SqlCommand cmd = new SqlCommand(query, _db);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    var feedback = new Feedback
+                    {
+                        Id = Convert.ToInt32(reader["feedbackID"]),
+                        CusID = Convert.ToInt32(reader["cusID"]),
+                        Type = reader["type"].ToString(),
+                        Details = reader["details"].ToString(),
+                        Rating = Convert.ToInt32(reader["rating"])
+                    };
+
+                    feedbackList.Add(feedback);
+                }
+                _db.Close();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error fetching feedbacks: " + ex.Message);
+                _db.Close();
+            }
+
+            return View(feedbackList); // Pass the feedback list to the view
+        }
+
+
         [HttpPost]
         public IActionResult SubmitFeedback(int cusID, string purpose, string text, int rating)
         {

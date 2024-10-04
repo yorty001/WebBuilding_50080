@@ -1,0 +1,36 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model List<WebBuilding_50080.Models.Feedback>
+
+@{
+    ViewData["Title"] = "feedbackReview";
+    var user = Model;
+}
+
+<h2>Customer Feedback Dashboard</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Feedback ID</th>
+            <th>Customer ID</th>
+            <th>Feedback Type</th>
+            <th>Details</th>
+            <th>Rating</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var feedback in Model)
+        {
+            <tr>
+                <td>@feedback.Id</td>
+                <td>@feedback.CusID</td>
+                <td>@feedback.Type</td>
+                <td>@feedback.Details</td>
+                <td>@feedback.Rating</td>
+            </tr>
+        }
+    </tbody>
+</table>
