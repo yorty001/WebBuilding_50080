@@ -160,7 +160,7 @@ namespace WebBuilding_50080.Controllers
             cmdQ.Parameters.AddWithValue("@points", points);
             cmdQ.Parameters.AddWithValue("@cusID", user.userID);
 
-            SqlDataReader reader = cmdQ.ExecuteReader();
+            int rows = cmdQ.ExecuteNonQuery();
 
             user.points += points;
 

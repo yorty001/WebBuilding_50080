@@ -79,7 +79,11 @@ else
 
             <button type="submit" class="btn btn-secondary m-2">Log Out</button>
         </form>
-        <button type="submit" class="btn btn-danger m-2">Delete Account</button>
+
+
+        <form asp-controller="Login" asp-action="Delete" method="post" style="display:inline;">
+            <button type="submit" class="btn btn-danger m-2">Delete Account</button>
+        </form>
 
     </div>
 }
