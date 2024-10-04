@@ -1,0 +1,23 @@
+UTR README
+
+Create and populate the Database:
+Open Visual Studio and navigate to the SQL Server Object Explorer.
+Right-click on the Databases node and select New Query.
+Copy and paste the Database and Table Creation Script from the Table Creation.txt file:
+
+
+Copy the Connection String:
+Right-click on the database in SQL Server Object Explorer and select Properties.
+In the properties window, find the Connection String section, and copy the entire connection string.
+
+Update appsettings.json:
+Open the appsettings.json file in the soloution explorer project.
+Locate the section that specifies "DefaultConnection" and replace it with the connection string you just copied.
+
+"ConnectionStrings": {
+    "DefaultConnection": "YourCopiedConnectionStringHere"
+}
+
+
+Additional Notes
+User Permissions: Please note that users must be logged in to access the feedback and menu features of the application.
