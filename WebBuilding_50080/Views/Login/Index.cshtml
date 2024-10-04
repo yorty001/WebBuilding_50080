@@ -10,17 +10,19 @@
 
     @if (user != null)
     {
-        <h2>Hello, @user.firstName @user.lastName</h2>
-        @if (user.points != null) {
-            <h3>You have @user.points points</h3>
-        }
-        else
-        {
-            <h5>You have 0 points</h5>
-        }
+        <div class="text-center my-4">
+
+            <h2 style="font-weight: bold;">Hello, @user.firstName.ToUpper()[0]@user.firstName.Substring(1) @user.lastName.ToUpper()[0]@user.lastName.Substring(1)</h2>
+            @if (user.points != null)
+            {
+                <br />
+                <h4 style="font-weight: bold;">Loyalty points: @user.points</h4>
+                <h6 style="font-weight: bold;">*100 points to become a preferred customer</h6>
+            }
+        </div>
     }
 
-    <p><a href="@Url.Action("Index", "Menu")">Menu</a></p>
+ 
 
 </div>
 @if (user == null) {
@@ -69,11 +71,15 @@
 else
 {
     <div class=" = text-center">
-        <p><a href="@Url.Action("Index", "Account")">Account Settings</a></p>
+
+        <p><a class="btn btn-primary m-2" href="@Url.Action("Index", "Account")">Account Settings</a></p>
+    
+
         <form asp-controller="Login" asp-action="LogOut" method="post" style="display:inline;">
-            <button type="submit" class="btn btn-primary pt-4">Log Out</button>
+
+            <button type="submit" class="btn btn-secondary m-2">Log Out</button>
         </form>
-        <button type="submit" class="btn btn-danger pt-4">Delete Account</button>
+        <button type="submit" class="btn btn-danger m-2">Delete Account</button>
 
     </div>
 }

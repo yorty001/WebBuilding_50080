@@ -19,9 +19,9 @@
 
     public class Customer : User
     {
-        public string cardName { get; set; }
-        public int cardNum { get; set; }
-        public DateOnly cardDate { get; set; }
+        public string? cardName { get; set; }
+        public int? cardNum { get; set; }
+        public DateOnly? cardDate { get; set; }
     }
 
     public class Manager : User

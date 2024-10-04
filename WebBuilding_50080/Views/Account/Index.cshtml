@@ -8,27 +8,26 @@
     Customer customer = null;
     Manager manager = null;
     Manager staff = null;
-
-    if (Model.loginStatus == 2)
-    {
-        manager = Model as Manager;
-    }
-    else if (Model.loginStatus == 1)
-    {
-        customer = Model as Customer;
-    }
-    else
-    {
-        staff = Model as Manager;
+    var user = Model;
+    
+     if (user.loginStatus == 2)
+     {
+         manager = Model as Manager;
+     }
+     else if (Model.loginStatus == 1)
+     {
+         customer = Model as Customer;
+     }
+     else
+     {
+         staff = Model as Manager;
     }
 }
 
 <div class="text-center">
     <h1 class="display-4">Edit Account</h1>
-    
-    <p><a href="@Url.Action("Index", "Menu")">Menu</a></p>
-    <p><a href="@Url.Action("Index", "PetrolStations")">Petrol Stations</a></p>
-    @if (Model.loginStatus == 2)
+    <br />
+    @if (user.loginStatus == 2)
     {
         <p><a href="@Url.Action("CreateStaff", "Account")">Create Staff Account</a></p>
     }
@@ -41,7 +40,7 @@
             </div>
             <div class="row">
                 <div class="col-6">
-                    <div class="form-control">
+                    <div class="form-group">
                         <label for="firstName">First Name</label>
                     </div>
                 </div>
@@ -87,7 +86,8 @@
                     </div>
                 </div>
             </div>
-            @if (ViewBag.loginStatus == 1) {
+            @if (user.loginStatus == 1) {
+              <!--
             <div class="row">
                 <div class="col-6">
                     <div class="form-group">
@@ -103,20 +103,20 @@
             <div class="row">
                 <div class="col-6">
                         <div class="form-group">
-                            <input type="text" name="cardName" class="form-controll" id="cardName" value="@customer?.cardName """ />
+                            <input type="text" name="cardName" class="form-controll" id="cardName" value="customer?.cardName """ />
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
-                        <input type="number" name="cardNum" class="form-controll" id="cardNum" value="@customer?.cardNum.ToString() ?? "0"">
+                        <input type="number" name="cardNum" class="form-controll" id="cardNum" value="customer?.cardNum.ToString() ?? "0"">
                     </div>
                 </div>
             </div>
             <div class="row justify-content-center">
                 <label for="cardDate" class="form-control">Card Expiry</label>
-                <input type="date" name="cardDate" class="form-control" id="cardDate"
-                       value="@(customer?.cardDate.ToString("yyyy-MM-dd") ?? "")" />
-            </div>
+                 <input type="date" name="cardDate" class="form-control" id="cardDate"
+                       value=(customer?.cardDate.ToDateTime(TimeOnly.MinValue).ToString("yyyy-MM-dd") ?? "")" />
+            </div>-->
             }
 
 
