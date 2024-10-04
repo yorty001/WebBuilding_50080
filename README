@@ -18,6 +18,7 @@ Locate the section that specifies "DefaultConnection" and replace it with the co
     "DefaultConnection": "YourCopiedConnectionStringHere"
 }
 
+When pre-paying for the fuel, a QR will appear. When scanned it is just a .gif of "Rick Roll". The QR it just to demonstrate that a QR appears.  
 
 Additional Notes
 User Permissions: Please note that users must be logged in to access the feedback and menu features of the application.
