@@ -1,12 +1,12 @@
 ﻿@{
     var stations = new List<string>
-        {
-            "UTR West Terrace",
-            "UTR Mawson Lakes",
-            "UTR Para Hills West",
-            "UTR Dry Creek",
-            "UTR Parafield"
-        };
+    {
+        "UTR West Terrace",
+        "UTR Mawson Lakes",
+        "UTR Para Hills West",
+        "UTR Dry Creek",
+        "UTR Parafield"
+    };
 
     var foodOutlets = new Dictionary<string, List<string>>()
     {
@@ -17,7 +17,7 @@
         { "UTR Parafield", new List<string> { "Pizza Hut", "Guzman y Gomez", "Chatime" } }
     };
 
-    var busy = new Dictionary<string, List<string>>()
+    var busyStatus = new Dictionary<string, List<string>>()
     {
         { "UTR West Terrace", new List<string> { "People in store: 20" } },
         { "UTR Mawson Lakes", new List<string> { "People in store: 15" } },
@@ -33,14 +33,13 @@
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        color: white; /* Set text color to white */
+        color: white;
     }
 
     h1, p, li {
-        color: white; /* Set headings, paragraphs, and list items text color to white */
+        color: white;
     }
 </style>
-
 
 <div style="display: flex; justify-content: space-between; align-items: flex-start;">
     <div style="width: 45%; padding-right: 20px;">
@@ -50,17 +49,15 @@
             {
                 <li style="margin-bottom: 20px;">
                     <p style="font-size: 1.2em; font-weight: bold;">@station</p>
-                    <button onclick="showMapAndBusy('@station')" style="background-color: green; color: yellow; border: none; padding: 10px 15px; cursor: pointer; border-radius: 10px;">
+                    <button onclick="showMapAndOutlets('@station')" style="background-color: green; color: yellow; border: none; padding: 10px 15px; cursor: pointer; border-radius: 10px;">
                         Show on Map & Outlets
                     </button>
-
                 </li>
             }
         </ul>
     </div>
 
     <div style="width: 50%; display: none;" id="mapContainer">
-
         <iframe id="mapFrame"
                 width="100%"
                 height="450"
@@ -70,14 +67,15 @@
                 referrerpolicy="no-referrer-when-downgrade">
         </iframe>
 
-        <div id="busy" style="margin-top: 20px; background-color: green; color: yellow; padding: 15px; border-radius: 10px;">
+        <div id="foodOutlets" style="margin-top: 20px; background-color: green; color: yellow; padding: 15px; border-radius: 10px;">
         </div>
 
+        <div id="busyInfo" style="margin-top: 20px; background-color: green; color: yellow; padding: 15px; border-radius: 10px;">
+        </div>
     </div>
 </div>
 
 <script>
-
     var foodOutlets = {
         "UTR West Terrace": ["McDonald's", "Subway", "Starbucks"],
         "UTR Mawson Lakes": ["KFC", "Hungry Jack's", "Boost Juice"],
@@ -86,29 +84,23 @@
         "UTR Parafield": ["Pizza Hut", "Guzman y Gomez", "Chatime"]
     };
 
-    var busy = {
-        "UTR West Terrace": ["People in store: 20", "3", "2"],
-        "UTR Mawson Lakes": ["People in store: 15", "3", "2"],
-        "UTR Para Hills West": ["People in store: 13", "3", "2"],
-        "UTR Dry Creek": ["People in store: 4", "3", "2"],
-        "UTR Parafield": ["People in store: 6", "3", "2"]
+    var stationBusy = {
+        "UTR West Terrace": ["People in store: 20"],
+        "UTR Mawson Lakes": ["People in store: 15"],
+        "UTR Para Hills West": ["People in store: 13"],
+        "UTR Dry Creek": ["People in store: 4"],
+        "UTR Parafield": ["People in store: 6"]
     };
 
     function showMapAndOutlets(station) {
         var mapContainer = document.getElementById("mapContainer");
         var mapFrame = document.getElementById("mapFrame");
         var outletsContainer = document.getElementById("foodOutlets");
-
-    function showMapAndBusy(station) {
-        var mapContainer = document.getElementById("mapContainer");
-        var mapFrame = document.getElementById("mapFrame");
-        var outletsBusy = document.getElementById("busy");
-
-
+        var busyContainer = document.getElementById("busyInfo");
 
         mapContainer.style.display = "block";
 
-
+        // Update the map source based on the selected station
         if (station === "UTR West Terrace") {
             mapFrame.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6542.492353130214!2d138.5853972750598!3d-34.92536247455496!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ab0cf3b40db664b%3A0x73c89e54dd1efe4f!2sOTR%20West%20Terrace!5e0!3m2!1sen!2sau!4v1725406530545!5m2!1sen!2sau";
         } else if (station === "UTR Mawson Lakes") {
@@ -121,15 +113,16 @@
             mapFrame.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6553.192954069916!2d138.63605407770996!3d-34.79093249999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ab0b40007106033%3A0xa41d195a28ad6eb9!2sOTR%20Parafield!5e0!3m2!1sen!2sau!4v1726017385776!5m2!1sen!2sau";
         }
 
-
+        // Update food outlets
         var outlets = foodOutlets[station];
         outletsContainer.innerHTML = "<h3>Available Food Outlets:</h3><ul>" + outlets.map(function (outlet) {
             return "<li>" + outlet + "</li>";
         }).join('') + "</ul>";
 
-        var busy = busy[station];
-        outletsBusy.innerHTML = "<h3>People inside the store</h3><ul>" + busy.map(function (outlet) {
-            return "<li>" + outlet + "</li>";
+        // Update busy info
+        var busy = stationBusy[station];
+        busyContainer.innerHTML = "<h3>People inside the store:</h3><ul>" + busy.map(function (info) {
+            return "<li>" + info + "</li>";
         }).join('') + "</ul>";
     }
 </script>
