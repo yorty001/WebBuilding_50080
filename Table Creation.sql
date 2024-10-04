@@ -1,6 +1,6 @@
-CREATE DATABASE TheWorkings;
+CREATE DATABASE UTRDB;
 GO
-USE TheWorkings
+USE UTRDB
 GO
 CREATE TABLE ConvenienceStoreItems(
 	ItemId int IDENTITY NOT NULL,
