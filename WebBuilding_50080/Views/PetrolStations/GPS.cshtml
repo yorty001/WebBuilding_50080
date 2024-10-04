@@ -120,5 +120,10 @@
         outletsContainer.innerHTML = "<h3>Available Food Outlets:</h3><ul>" + outlets.map(function (outlet) {
             return "<li>" + outlet + "</li>";
         }).join('') + "</ul>";
+
+        var busy = busy[station];
+        outletsContainer.innerHTML = "<h3>People inside the store</h3><ul>" + outlets.map(function (outlet) {
+            return "<li>" + outlet + "</li>";
+        }).join('') + "</ul>";
     }
 </script>
