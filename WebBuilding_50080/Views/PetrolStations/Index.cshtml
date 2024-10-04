@@ -1,5 +1,56 @@
-﻿@{
-    ViewData["Title"] = "Petrol Stations";
-}
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petrol Payment Notification</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .notification {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
 
-<h2>Petrol Stations</h2>
+<div class="container mt-4">
+    <h2 class="text-center">Petrol Payment</h2>
+    <form id="paymentForm">
+        <div class="form-group">
+            <label for="amount">Amount (in dollars):</label>
+            <input type="number" id="amount" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Pay for Petrol</button>
+    </form>
+
+    <div class="notification alert alert-success" id="notification">
+        Thank you! Your payment has been processed successfully.
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#paymentForm').on('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Simulate payment processing
+            const amount = $('#amount').val();
+            if (amount > 0) {
+                // Show notification
+                $('#notification').fadeIn();
+                // Optionally, clear the input field
+                $('#amount').val('');
+            } else {
+                alert("Please enter a valid amount.");
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
