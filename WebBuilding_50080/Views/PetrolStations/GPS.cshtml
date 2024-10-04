@@ -16,6 +16,15 @@
         { "UTR Dry Creek", new List<string> { "Red Rooster", "Krispy Kreme", "Coffee Club" } },
         { "UTR Parafield", new List<string> { "Pizza Hut", "Guzman y Gomez", "Chatime" } }
     };
+
+    var busy = new Dictionary<string, List<string>>()
+    {
+        { "UTR West Terrace", new List<string> { "People in store: 20" } },
+        { "UTR Mawson Lakes", new List<string> { "People in store: 15" } },
+        { "UTR Para Hills West", new List<string> { "People in store: 13" } },
+        { "UTR Dry Creek", new List<string> { "People in store: 4" } },
+        { "UTR Parafield", new List<string> { "People in store: 6" } }
+    };
 }
 
 <style>
@@ -75,6 +84,14 @@
         "UTR Para Hills West": ["Domino's Pizza", "Oporto", "Zambrero"],
         "UTR Dry Creek": ["Red Rooster", "Krispy Kreme", "Coffee Club"],
         "UTR Parafield": ["Pizza Hut", "Guzman y Gomez", "Chatime"]
+    };
+
+    var busy = {
+        "UTR West Terrace": ["People in store: 20"],
+        "UTR Mawson Lakes": ["People in store: 15"],
+        "UTR Para Hills West": ["People in store: 13"],
+        "UTR Dry Creek": ["People in store: 4"],
+        "UTR Parafield": ["People in store: 6"]
     };
 
     function showMapAndOutlets(station) {
