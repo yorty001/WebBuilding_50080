@@ -7,9 +7,12 @@ CREATE TABLE ConvenienceStoreItems(
 	ItemName nvarchar(max) NOT NULL,
 	ItemDescription nvarchar(max) NOT NULL,
 	ItemImage nvarchar(max) NOT NULL,
-	ItemCost decimal(10, 2) NULL
+	ItemCost decimal(10, 2) NULL, 
+	
 	CONSTRAINT item_pk PRIMARY KEY (ItemId)
 )
+ALTER TABLE ConvenienceStoreItems
+ADD IsAvailable BIT NOT NULL DEFAULT 1;
 
 
 CREATE TABLE Customer(
