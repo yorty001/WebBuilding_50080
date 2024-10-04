@@ -1,0 +1,81 @@
+﻿
+
+@{
+    ViewData["Title"]= "Sign Up";
+}
+<div class="text-center">
+    <h1 class="display-4">Welcome to UTR</h1>
+
+   
+    <p><a href="@Url.Action("Index", "Payment")">Payment Details</a></p>
+    @if (ViewBag.loginStatus == 2)
+    {
+        <p><a href="@Url.Action("UpdateFuelPrice", "PetrolStations")">Update Fuel Price</a></p>
+
+    }
+    <p><a href="@Url.Action("Index", "Login")">Login</a></p>
+</div>
+<h1>Sign Up</h1>
+<div class="container">
+    <form method="post" asp-action="SignUp" asp-controller="Login">
+    <div class="row">
+        <p>Please enter your details:</p>
+    </div>
+    <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                </div>
+            </div>
+    </div>
+    <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <input type="text" name="firstName" class="form-controll" id="firstName">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <input type="text" name="lastName" class="form-controll" id="lastName">
+                    </div>
+                </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+                <label for="email">Email</label>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label for="pass">Password</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+                <input type="email" name="email" class="form-controll" id="email">
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <input type="password" name="pass"  class="form-controll" id="pass">
+            </div>
+        </div>
+   </div>
+        @if (ViewData["SignUpError"] != null)
+        {
+            <div class="alert alert-danger">
+                @ViewData["SignUpError"]
+            </div>
+        }
+   <div class="pt-2"></div>
+    <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+    </div>

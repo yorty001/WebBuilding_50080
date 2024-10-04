@@ -1,0 +1,126 @@
+﻿@model WebBuilding_50080.Models.User
+
+    
+@{
+    ViewData["Title"] = "Edit Page";
+
+
+    Customer customer = null;
+    Manager manager = null;
+    Manager staff = null;
+    var user = Model;
+    
+     if (user.loginStatus == 2)
+     {
+         manager = Model as Manager;
+     }
+     else if (Model.loginStatus == 1)
+     {
+         customer = Model as Customer;
+     }
+     else
+     {
+         staff = Model as Manager;
+    }
+}
+
+<div class="text-center">
+    <h1 class="display-4">Edit Account</h1>
+    <br />
+    @if (user.loginStatus == 2)
+    {
+        <p><a href="@Url.Action("CreateStaff", "Account")">Create Staff Account</a></p>
+    }
+</div>
+
+    <div class="container">
+        <form method="post" asp-action="Edit" asp-controller="Account">
+            <div class="row">
+                <p>Your Current Details:</p>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                    <input type="text" name="firstName" class="form-controll" id="firstName" value="@Model.firstName">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                    <input type="text" name="lastName" class="form-controll" id="lastName" value="@Model.lastName">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="pass">Password</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                    <input type="email" name="email" class="form-controll" id="email" value="@Model.email">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <input type="password" name="pass" class="form-controll" id="pass" value="@Model.pass">
+                    </div>
+                </div>
+            </div>
+            @if (user.loginStatus == 1) {
+              <!--
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="cardName">Name on Card</label>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="cardNumber">Card Number</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                        <div class="form-group">
+                            <input type="text" name="cardName" class="form-controll" id="cardName" value="customer?.cardName """ />
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                        <input type="number" name="cardNum" class="form-controll" id="cardNum" value="customer?.cardNum.ToString() ?? "0"">
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <label for="cardDate" class="form-control">Card Expiry</label>
+                 <input type="date" name="cardDate" class="form-control" id="cardDate"
+                       value=(customer?.cardDate.ToDateTime(TimeOnly.MinValue).ToString("yyyy-MM-dd") ?? "")" />
+            </div>-->
+            }
+
+
+            <button type="submit" class="btn btn-success mt-2">Submit</button>
+        </form>
+
+    </div>
