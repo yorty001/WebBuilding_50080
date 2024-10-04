@@ -50,7 +50,7 @@
             {
                 <li style="margin-bottom: 20px;">
                     <p style="font-size: 1.2em; font-weight: bold;">@station</p>
-                    <button onclick="showMapAndOutlets('@station')" style="background-color: green; color: yellow; border: none; padding: 10px 15px; cursor: pointer; border-radius: 10px;">
+                    <button onclick="showMapAndBusy('@station')" style="background-color: green; color: yellow; border: none; padding: 10px 15px; cursor: pointer; border-radius: 10px;">
                         Show on Map & Outlets
                     </button>
 
@@ -98,6 +98,10 @@
         var mapContainer = document.getElementById("mapContainer");
         var mapFrame = document.getElementById("mapFrame");
         var outletsContainer = document.getElementById("foodOutlets");
+
+    function showMapAndBusy(station) {
+        var mapContainer = document.getElementById("mapContainer");
+        var mapFrame = document.getElementById("mapFrame");
         var outletsBusy = document.getElementById("busy");
 
 
