@@ -105,20 +105,25 @@ namespace server.Controllers
                 var user = JsonConvert.DeserializeObject<User>(userJson);
 
                 int points = (int)Math.Floor(totalPrice);
-                
-                _db.Open();
-                SqlCommand cmdQ = new SqlCommand("UPDATE Customer SET points = COALESCE(points, 0) + @points WHERE cusID = @cusID", _db);
+                if (user != null)
+                {
+                    _db.Open();
+                    SqlCommand cmdQ = new SqlCommand("UPDATE Customer SET points = COALESCE(points, 0) + @points WHERE cusID = @cusID", _db);
 
-                cmdQ.Parameters.AddWithValue("@points", points);
-                cmdQ.Parameters.AddWithValue("@cusID", user.userID);
+                    cmdQ.Parameters.AddWithValue("@points", points);
+                    cmdQ.Parameters.AddWithValue("@cusID", user.userID);
 
-                SqlDataReader reader = cmdQ.ExecuteReader();
+                    SqlDataReader reader = cmdQ.ExecuteReader();
 
-                user.points += points;
+                    user.points += points;
 
-                HttpContext.Session.SetString("User", JsonConvert.SerializeObject(user));
-                _db.Close();
-                return View(user);
+                    HttpContext.Session.SetString("User", JsonConvert.SerializeObject(user));
+                    _db.Close();
+                    return View(user);
+                } else
+                {
+                    return View();
+                }
             }
 
 
