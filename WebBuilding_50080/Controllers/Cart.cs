@@ -149,24 +149,29 @@ namespace WebBuilding_50080.Controllers
         public IActionResult ProcessPayment(int orderID, decimal totalPrice)
         {
             var userJson = HttpContext.Session.GetString("User");
+            if (userJson != null)
+            {
+                var user = JsonConvert.DeserializeObject<User>(userJson);
 
-            var user = JsonConvert.DeserializeObject<User>(userJson);
+                int points = (int)Math.Floor(totalPrice);
 
-            int points = (int)Math.Floor(totalPrice);
+                _db.Open();
+                SqlCommand cmdQ = new SqlCommand("UPDATE Customer SET points = COALESCE(points, 0) + @points WHERE cusID = @cusID", _db);
 
-            _db.Open();
-            SqlCommand cmdQ = new SqlCommand("UPDATE Customer SET points = COALESCE(points, 0) + @points WHERE cusID = @cusID", _db);
+                cmdQ.Parameters.AddWithValue("@points", points);
+                cmdQ.Parameters.AddWithValue("@cusID", user.userID);
 
-            cmdQ.Parameters.AddWithValue("@points", points);
-            cmdQ.Parameters.AddWithValue("@cusID", user.userID);
+                int rows = cmdQ.ExecuteNonQuery();
 
-            int rows = cmdQ.ExecuteNonQuery();
+                user.points += points;
 
-            user.points += points;
-
-            HttpContext.Session.SetString("User", JsonConvert.SerializeObject(user));
-            _db.Close();
-            return RedirectToAction("OrderConfirmation", new { orderId = orderID });
+                HttpContext.Session.SetString("User", JsonConvert.SerializeObject(user));
+                _db.Close();
+                return RedirectToAction("OrderConfirmation", new { orderId = orderID });
+            } else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
     }

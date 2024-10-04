@@ -44,8 +44,19 @@
             </div>
         </div>
     </div>
-    <input type="hidden"  name="totalPrice"  value="@Model.TotalPrice"/>
+    <input type="hidden" name="totalPrice" value="@Model.TotalPrice" />
     <input type="hidden" name="orderID" value="@Model.OrderId" />
-    
+
     <input type="submit" value="Proceed with payment" class="btn btn-primary">
+    <a href="#" class="btn btn-danger" id="cancelButton">Cancel</a>
 </form>
+
+<script>
+    document.getElementById('cancelButton').addEventListener('click', function(event) {
+        event.preventDefault(); 
+        if (confirm("Are you sure you want to cancel the payment process?")) {
+            alert("Payment process has been successfully canceled.");
+            window.location.href = "/Home/Index"; 
+        }
+    });
+</script>

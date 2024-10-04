@@ -1,4 +1,17 @@
-﻿<!DOCTYPE html>
+﻿@using Newtonsoft.Json
+@using Microsoft.AspNetCore.Http
+
+@* Accessing the user from the session *@
+@{
+
+    var userJson = Context.Session.GetString("User");
+    User user = null;
+    if (userJson != null)
+    {
+        user = JsonConvert.DeserializeObject<User>(userJson);
+    }
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,21 +20,47 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WebBuilding_50080.styles.css" asp-append-version="true" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">UTR</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/images/LOGOstation.jpg" alt="UTR Logo" width="80" height="70" />
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
+                        <a class="nav-link text-light" asp-area="" asp-controller="Payment" asp-action="PaymentDetails">Payment Details</a>                
+                        <a class="nav-link text-light" asp-area="" asp-controller="PetrolStations" asp-action="PrePayFuel">Prepay Fuel</a>
+                        <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="feedback">Feedback</a>
+                        <a class="nav-link text-light" asp-area="" asp-controller="CustomerSupport" asp-action="Index">Customer Support</a>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" href="/cart"><i class="fa-solid fa-cart-shopping"></i> Cart</a>
                         </li>
+                    </ul>
+                    @if (user != null)
+                    {
+                        @if (user.points >= 100)
+                        {
+                            <div style="text-align: center;">
+                                <i class="fa-solid fa-crown fa-2x" style="color: gold; margin-left: 5px;"></i> @* Display the crown icon *@
+                                <div style="font-size: 0.8em; color: #fff;">Premium Member</div>
+                            </div>
+                        }
+                        else
+                        {
+                            <span class="navbar-text text-light ms-auto">
+                                Loyalty points:  @user.points
+                            </span>
+                        }
+                        
+                    }
                     </ul>
                 </div>
             </div>

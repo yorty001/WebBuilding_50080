@@ -1,12 +1,98 @@
-﻿@{
+﻿@using System.Data.SqlClient;
+@model WebBuilding_50080.Models.User
+
+
+
+@{
     ViewData["Title"] = "Home Page";
+    var user = Model;
+
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to UTR</h1>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewData["Title"]</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+        <style>
+            .hero-section {
+                background-image: url('/images/stationIMG.JPEG');
+                background-size: cover;
+                background-position: center;
+                padding: 100px 0;
+                color: white;
+                text-align: center;
+            }
+            .hero-section h1 {
+                font-size: 4rem;
+            }
+            .btn-container {
+                margin-top: 20px;
+            }
+            .btn-custom {
+                margin: 10px;
+                font-size: 18px;
+                padding: 15px 30px;
+                width: 250px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="hero-section" >
+            <h1 class="display-4" > Welcome to UTR</h1 >
+            <p class="lead">Convenience at your fingertips</p>
+            <div class="btn-container">
+                <a href="@Url.Action("Index", "Menu")" class="btn btn-primary btn-lg btn-custom"> <i class="fas fa-utensils"></i> Menu</a>
+            @if (user == null)
+            {
+                <a href="@Url.Action("Index", "Login")" class="btn btn-secondary btn-lg btn-custom"> <i class="fas fa-user fa-lg"></i> Login</a>
+            } else 
+            {
+                <a href="@Url.Action("Index", "Login")" class="btn btn-secondary btn-lg btn-custom"> <i class="fas fa-user fa-lg"></i> Account</a>
+            }
+            @if (user != null)
+            {
+                @if (user.loginStatus == 1)
+                {
+                    <a href="@Url.Action("Index", "Payment")" class="btn btn-warning btn-lg btn-custom"> <i class="fas fa-credit-card"></i> Payment</a>
+                    <a href="@Url.Action("GPS", "PetrolStations")" class="btn btn-success btn-lg btn-custom">
+                        <i class="fas fa-map-marker-alt"></i> Find Outlets
+                    </a>
 
-    <p><a href="@Url.Action("Index", "Menu")">Menu</a></p>
-    <p><a href="@Url.Action("Index", "PetrolStations")">Petrol Stations</a></p>
-    <p><a href="@Url.Action("Index", "Payment")">Payment</a></p>
-    <p><a href="@Url.Action("UpdateFuelPrice", "PetrolStations")">Update Fuel Price</a></p>
-</div>
+
+                }
+                @if (user.loginStatus == 2)
+                {
+                    <a href="@Url.Action("Index", "StaffOrderPage")" class="btn btn-warning btn-lg btn-custom"> <i class="fas fa-credit-card"></i> Orders</a>
+                    <a href="@Url.Action("FoodAvailibility", "Menu")" class="btn btn-warning btn-lg btn-custom"> <i class="fas fa-check-square"></i> Update Food</a>
+                    <a href="@Url.Action("Index", "PetrolStations")" class="btn btn-success btn-lg btn-custom"> <i class="fas fa-gas-pump"></i> Update Fuel Price</a>
+                    <a href="@Url.Action("feedbackReview", "Home")" class="btn btn-primary btn-lg btn-custom"> <i class="fas fa-comment"></i> Feedback</a>
+
+
+                }
+
+                @if (user.loginStatus == 3)
+                {
+                    <a href="@Url.Action("Index", "StaffOrderPage")" class="btn btn-warning btn-lg btn-custom"> <i class="fas fa-credit-card"></i> Orders</a>
+                    <a href="@Url.Action("FoodAvailibility", "Menu")" class="btn btn-warning btn-lg btn-custom"> <i class="fas fa-utensils"></i> Update Food</a>
+                    <a href="@Url.Action("feedbackReview", "Home")" class="btn btn-primary">Go to Feedback Dashboard</a>
+
+
+                }
+
+            }
+        </div>         
+        </div>
+     
+
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+       </body >
+</html>
+
+
