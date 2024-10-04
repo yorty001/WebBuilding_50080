@@ -98,6 +98,8 @@
         var mapContainer = document.getElementById("mapContainer");
         var mapFrame = document.getElementById("mapFrame");
         var outletsContainer = document.getElementById("foodOutlets");
+        var outletsBusy = document.getElementById("busy");
+
 
 
         mapContainer.style.display = "block";
@@ -122,7 +124,7 @@
         }).join('') + "</ul>";
 
         var busy = busy[station];
-        outletsContainer.innerHTML = "<h3>People inside the store</h3><ul>" + outlets.map(function (outlet) {
+        outletsBusy.innerHTML = "<h3>People inside the store</h3><ul>" + outlets.map(function (outlet) {
             return "<li>" + outlet + "</li>";
         }).join('') + "</ul>";
     }
