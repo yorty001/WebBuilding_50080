@@ -58,14 +58,24 @@
                 @if (user.loginStatus == 1)
                 {
                     <a href="@Url.Action("Index", "Payment")" class="btn btn-warning btn-lg btn-custom"> <i class="fas fa-credit-card"></i> Payment</a>
+                    <a href="@Url.Action("GPS", "PetrolStations")" class="btn btn-success btn-lg btn-custom">
+                        <i class="fas fa-map-marker-alt"></i> Find Outlets
+                    </a>
+
+
                 }
-                else if (user.loginStatus == 3)
+                @if (user.loginStatus == 2)
                 {
-                    <a href="@Url.Action("Index", "Order")" class="btn btn-warning btn-lg btn-custom"> <i class="fas fa-credit-card"></i> Orders</a>
-                }
-                else
-                {
+                    <a href="@Url.Action("Index", "StaffOrderPage")" class="btn btn-warning btn-lg btn-custom"> <i class="fas fa-credit-card"></i> Orders</a>
+                    <a href="@Url.Action("FoodAvailibility", "Menu")" class="btn btn-warning btn-lg btn-custom"> <i class="fas fa-utensils"></i> Update Food</a>
                     <a href="@Url.Action("Index", "PetrolStations")" class="btn btn-success btn-lg btn-custom"> <i class="fas fa-gas-pump"></i> Update Fuel Price</a>
+
+                }
+
+                @if (user.loginStatus == 3)
+                {
+                    <a href="@Url.Action("Index", "StaffOrderPage")" class="btn btn-warning btn-lg btn-custom"> <i class="fas fa-credit-card"></i> Orders</a>
+                    <a href="@Url.Action("FoodAvailibility", "Menu")" class="btn btn-warning btn-lg btn-custom"> <i class="fas fa-utensils"></i> Update Food</a>
 
                 }
 
@@ -80,3 +90,5 @@
 
        </body >
 </html>
+
+

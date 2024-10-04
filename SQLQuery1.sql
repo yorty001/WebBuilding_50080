@@ -1,0 +1,1 @@
+﻿INSERT INTO Manager (firstName, lastName, email, pass) Values ('Pranav','Lama','pranav040505@mymail.com', '123')
