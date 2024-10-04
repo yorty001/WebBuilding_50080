@@ -58,24 +58,27 @@ namespace WebBuilding_50080.Controllers
                 cmdQ.Parameters.AddWithValue("@cardName", cardName ?? (object)DBNull.Value);
                 cmdQ.Parameters.AddWithValue("@cardNum", cardNum);
                 cmdQ.Parameters.AddWithValue("@cardDate", cardDateTime.Month + "/" + cardDateTime.Day + "/" + cardDateTime.Year);
-                var user1 = user as Customer;
-                user = new Customer
+                Customer user1 = user as Customer;
+                if (user1 != null)
                 {
-                    userID = user.userID,
-                    firstName = user.firstName,
-                    lastName = user.lastName,
-                    email = user.email,
-                    pass = user.pass,
-                    points = user.points,
+                    user = new Customer
+                    {
+                        userID = user.userID,
+                        firstName = user.firstName,
+                        lastName = user.lastName,
+                        email = user.email,
+                        pass = user.pass,
+                        points = user.points,
 
 
-                    cardDate = user1.cardDate,
-                    cardName = user1.cardName,
-                    cardNum = user1.cardNum,
+                        cardDate = user1.cardDate ?? default(DateOnly),
+                        cardName = user1.cardName ?? "Unknown",
+                        cardNum = user1.cardNum ?? default(int),
 
 
-                    loginStatus = 1
-                }; 
+                        loginStatus = 1
+                    };
+                }
          
               
 
