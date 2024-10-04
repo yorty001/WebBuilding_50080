@@ -3,7 +3,7 @@ UTR README
 Create and populate the Database:
 Open Visual Studio and navigate to the SQL Server Object Explorer.
 Right-click on the Databases node and select New Query.
-Copy and paste the Database and Table Creation Script from the Table Creation.txt file:
+Copy and paste the Database and Table Creation Script from the Table Creation.sql file:
 
 
 Copy the Connection String:
