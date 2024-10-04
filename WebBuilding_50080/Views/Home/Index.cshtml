@@ -46,29 +46,49 @@
             <p class="lead">Convenience at your fingertips</p>
             <div class="btn-container">
                 <a href="@Url.Action("Index", "Menu")" class="btn btn-primary btn-lg btn-custom"> <i class="fas fa-utensils"></i> Menu</a>
-                <a href="@Url.Action("Index", "PetrolStations")" class="btn btn-success btn-lg btn-custom"> <i class="fas fa-gas-pump"></i> Update Fuel Price</a>
-                <a href="@Url.Action("Index", "Login", new {ViewBag.loginStatus})" class="btn btn-warning btn-lg btn-custom"> <i class="fas fa-credit-card"></i> Login</a>
-
-            @if (ViewBag.loginStatus == 1)
+            @if (user == null)
             {
-                <a href="@Url.Action("Index", "Payment")" class="btn btn-warning btn-lg btn-custom"> <i class="fas fa-credit-card"></i> Payment</a>
+                <a href="@Url.Action("Index", "Login")" class="btn btn-secondary btn-lg btn-custom"> <i class="fas fa-user fa-lg"></i> Login</a>
+            } else 
+            {
+                <a href="@Url.Action("Index", "Login")" class="btn btn-secondary btn-lg btn-custom"> <i class="fas fa-user fa-lg"></i> Account</a>
             }
-            @if (ViewBag.loginStatus == 3)
+            @if (user != null)
             {
-                <a href="@Url.Action("Index", "Order", new {ViewBag.loginStatus})" class="btn btn-warning btn-lg btn-custom"> <i class="fas fa-credit-card"></i> Orders</a>
+                @if (user.loginStatus == 1)
+                {
+                    <a href="@Url.Action("Index", "Payment")" class="btn btn-warning btn-lg btn-custom"> <i class="fas fa-credit-card"></i> Payment</a>
+                    <a href="@Url.Action("GPS", "PetrolStations")" class="btn btn-success btn-lg btn-custom">
+                        <i class="fas fa-map-marker-alt"></i> Find Outlets
+                    </a>
+
+
+                }
+                @if (user.loginStatus == 2)
+                {
+                    <a href="@Url.Action("Index", "StaffOrderPage")" class="btn btn-warning btn-lg btn-custom"> <i class="fas fa-credit-card"></i> Orders</a>
+                    <a href="@Url.Action("FoodAvailibility", "Menu")" class="btn btn-warning btn-lg btn-custom"> <i class="fas fa-utensils"></i> Update Food</a>
+                    <a href="@Url.Action("Index", "PetrolStations")" class="btn btn-success btn-lg btn-custom"> <i class="fas fa-gas-pump"></i> Update Fuel Price</a>
+
+                }
+
+                @if (user.loginStatus == 3)
+                {
+                    <a href="@Url.Action("Index", "StaffOrderPage")" class="btn btn-warning btn-lg btn-custom"> <i class="fas fa-credit-card"></i> Orders</a>
+                    <a href="@Url.Action("FoodAvailibility", "Menu")" class="btn btn-warning btn-lg btn-custom"> <i class="fas fa-utensils"></i> Update Food</a>
+
+                }
 
             }
         </div>         
         </div>
-        <div class="container">
+     
 
-            @if (ViewBag.loginStatus == 1) {
 
-            <h2>Welcome, @Model.firstName</h2>
-                    }
-        </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
        </body >
 </html>
+
+

@@ -8,7 +8,7 @@ namespace WebBuilding_50080.Controllers
 {
     public class OrderController : Controller
     {
-        
+
         public IActionResult Index()
         {
             var orderList = new List<Orders>();
@@ -53,7 +53,7 @@ namespace WebBuilding_50080.Controllers
                 status = "Pending"
             };
             orderList.Add(order1);
-            orderList.Add(order2);  
+            orderList.Add(order2);
             orderList.Add(order3);
             orderList.Add(order4);
             orderList.Add(order5);
@@ -66,5 +66,19 @@ namespace WebBuilding_50080.Controllers
 
 
 
+        [HttpPost]
+        public IActionResult SubmitOrders(Dictionary<int, string> orderStatus)
+        {
+            // Retrieve the order list from session
+            var orderJson = HttpContext.Session.GetString("Orders");
+            if (orderJson == null)
+            {
+                return RedirectToAction("Index");
+            }
+            return View();
+
+
+
         }
+    }
 }

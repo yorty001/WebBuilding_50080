@@ -1,4 +1,6 @@
-﻿@{
+﻿@model WebBuilding_50080.Models.User
+
+@{
     ViewData["Title"] = "Payment";
 }
 
@@ -27,6 +29,7 @@
 <body>
     <script>
         function storeNameAndSubmit(event) {
+
             event.preventDefault();
 
             var fullName = document.getElementById("fname").value;
@@ -35,6 +38,7 @@
             const url = new URL(window.location.href);
             const Name = url.searchParams.get("name");
             const Price = url.searchParams.get("price");
+      
 
             const form = document.querySelector('form');
             if (Name && Price) {
@@ -81,10 +85,6 @@
                     <input type="month" id="expmonth" name="expmonth" class="form-control" placeholder="September" required>
 
                     <div class="row">
-                        <div class="col-md-6">
-                            <label for="expyear" class="form-label">Exp Year</label>
-                            <input type="text" id="expyear" name="expyear" class="form-control" placeholder="2030" required pattern="\d{4}" minlength="4" maxlength="4">
-                        </div>
                         <div class="col-md-6">
                             <label for="cvv" class="form-label">CVV</label>
                             <input type="text" id="cvv" name="cvv" class="form-control" placeholder="352" required pattern="\d{3}" minlength="3" maxlength="3">

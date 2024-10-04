@@ -1,6 +1,5 @@
 ﻿@model WebBuilding_50080.Models.CartViewModel
 
-
 <h2>Your Cart</h2>
 
 @if (Model.Products.Any())
@@ -16,6 +15,10 @@
     </ul>
 
     <p>Total Price: $@Model.TotalPrice</p>
+
+    <form method="post" action="@Url.Action("PlaceOrder", "Cart")">
+        <a asp-controller="Cart" asp-action="PlaceOrder" class="btn btn-success">Place Order</a>
+    </form>
 }
 else
 {
