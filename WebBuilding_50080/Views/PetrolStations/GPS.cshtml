@@ -87,11 +87,11 @@
     };
 
     var busy = {
-        "UTR West Terrace": ["People in store: 20"],
-        "UTR Mawson Lakes": ["People in store: 15"],
-        "UTR Para Hills West": ["People in store: 13"],
-        "UTR Dry Creek": ["People in store: 4"],
-        "UTR Parafield": ["People in store: 6"]
+        "UTR West Terrace": ["People in store: 20", "3", "2"],
+        "UTR Mawson Lakes": ["People in store: 15", "3", "2"],
+        "UTR Para Hills West": ["People in store: 13", "3", "2"],
+        "UTR Dry Creek": ["People in store: 4", "3", "2"],
+        "UTR Parafield": ["People in store: 6", "3", "2"]
     };
 
     function showMapAndOutlets(station) {
@@ -128,7 +128,7 @@
         }).join('') + "</ul>";
 
         var busy = busy[station];
-        outletsBusy.innerHTML = "<h3>People inside the store</h3><ul>" + outlets.map(function (outlet) {
+            outletsBusy.innerHTML = "<h3>People inside the store</h3><ul>" + busy.map(function (outlet) {
             return "<li>" + outlet + "</li>";
         }).join('') + "</ul>";
     }
