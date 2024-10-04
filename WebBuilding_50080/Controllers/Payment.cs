@@ -51,7 +51,7 @@ namespace server.Controllers
                     // Pass the model to the OrderSummary view
                     return View(cart);
                 }
-                return View();
+                return RedirectToAction("Index", "Home");
             }
 
             public IActionResult PaymentDetails()
