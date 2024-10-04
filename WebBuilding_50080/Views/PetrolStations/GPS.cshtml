@@ -70,7 +70,7 @@
                 referrerpolicy="no-referrer-when-downgrade">
         </iframe>
 
-        <div id="foodOutlets" style="margin-top: 20px; background-color: green; color: yellow; padding: 15px; border-radius: 10px;">
+        <div id="busy" style="margin-top: 20px; background-color: green; color: yellow; padding: 15px; border-radius: 10px;">
         </div>
 
     </div>
@@ -128,7 +128,7 @@
         }).join('') + "</ul>";
 
         var busy = busy[station];
-            outletsBusy.innerHTML = "<h3>People inside the store</h3><ul>" + busy.map(function (outlet) {
+        outletsBusy.innerHTML = "<h3>People inside the store</h3><ul>" + busy.map(function (outlet) {
             return "<li>" + outlet + "</li>";
         }).join('') + "</ul>";
     }
